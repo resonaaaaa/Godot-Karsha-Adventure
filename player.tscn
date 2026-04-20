@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://bmp86xonl3go0"]
+
+[ext_resource type="Script" uid="uid://c2hef8ynhrj5p" path="res://player.gd" id="1_hqtel"]
+[ext_resource type="Texture2D" uid="uid://dvjn08042krfa" path="res://play_right_0.png" id="1_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://nmbe72lxdo3f" path="res://play_right_1.png" id="3_hqtel"]
+[ext_resource type="Texture2D" uid="uid://b2ugtfuj22j7w" path="res://play_right_2.png" id="4_sweqy"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b26j0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_i3pqv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hqtel")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_sweqy")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_i3pqv")
+}],
+"loop": true,
+"name": &"stay",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i3pqv"]
+radius = 23.0
+height = 52.0
+
+[node name="Player" type="Area2D" unique_id=1504867361]
+position = Vector2(171, 96)
+script = ExtResource("1_hqtel")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2112443975]
+sprite_frames = SubResource("SpriteFrames_b26j0")
+animation = &"right"
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=415418641]
+shape = SubResource("CapsuleShape2D_i3pqv")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
