@@ -3,6 +3,7 @@ extends CharacterBody2D
 var speed = 250
 var jump_velocity = -400
 var gravity = 800
+signal game_over
 
 # 水平速度和垂直速度全部交给 velocity
 func _physics_process(delta: float) -> void:
@@ -28,6 +29,9 @@ func _physics_process(delta: float) -> void:
 
 	# 根据velocity移动并处理碰撞
 	move_and_slide()
+
+	if position.y > 1000:
+		game_over.emit()
 
 	# 动画和翻转
 	if direction != 0:

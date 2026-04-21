@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://d0eaog41dcwjc"]
+
+[ext_resource type="Script" uid="uid://bswooqui6c3md" path="res://hud.gd" id="1_64ctp"]
+[ext_resource type="FontFile" uid="uid://scmbdd7yljqj" path="res://asset/fonts/Xolonium-Regular.ttf" id="2_8sq4i"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_640wx"]
+font = ExtResource("2_8sq4i")
+font_size = 48
+
+[node name="HUD" type="CanvasLayer" unique_id=1959219276]
+script = ExtResource("1_64ctp")
+
+[node name="StartButton" type="Button" parent="." unique_id=1673303586]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -92.5
+offset_top = -287.0
+offset_right = 92.5
+offset_bottom = -208.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_8sq4i")
+theme_override_font_sizes/font_size = 48
+text = "START"
+icon_alignment = 1
+expand_icon = true
+
+[node name="Message" type="Label" parent="." unique_id=89593443]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -185.7175
+offset_top = -64.875
+offset_right = 185.7175
+offset_bottom = 64.875
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_640wx")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="MessageTimer" type="Timer" parent="." unique_id=1988960483]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

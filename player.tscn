@@ -48,3 +48,7 @@ sprite_frames = SubResource("SpriteFrames_hqtel")
 animation = &"right"
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1421780966]
+limit_left = 0
+limit_right = 3200
