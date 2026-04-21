@@ -1,35 +1,38 @@
-extends Area2D
+extends CharacterBody2D
+
 var speed = 250
-var screen_size = Vector2.ZERO
-var pos = Vector2(60,80)
+var jump_velocity = -400
+var gravity = 800
 
-func _ready() -> void:
-	screen_size = get_viewport_rect().size
-	start()
-
-
-func _process(delta: float) -> void:
-	var target_anim = "stay"
-	var velocity = Vector2.ZERO
+# 水平速度和垂直速度全部交给 velocity
+func _physics_process(delta: float) -> void:
+	var target_animation = "stay"
+	# direction：-1左，1右，0静止
+	var direction = 0
 
 	if Input.is_action_pressed("move_left"):
-		target_anim = "right"
-		velocity.x -= 1
-		
+		direction -= 1
 	if Input.is_action_pressed("move_right"):
-		target_anim = "right"
-		velocity.x += 1
+		direction += 1
 
-	if velocity.x != 0:
-		velocity = velocity.normalized() * speed
-		position += velocity * delta
-		position = position.clamp(Vector2.ZERO, screen_size)
+	velocity.x = direction * speed
+
+	# 重力
+	if not is_on_floor():
+		velocity.y += gravity * delta
+	else:
+		velocity.y = 0
+		# 跳跃
+		if Input.is_action_just_pressed("jump"):
+			velocity.y = jump_velocity
+
+	# 根据velocity移动并处理碰撞
+	move_and_slide()
+
+	# 动画和翻转
+	if direction != 0:
+		target_animation = "right"
 		$AnimatedSprite2D.flip_v = false
-		$AnimatedSprite2D.flip_h = velocity.x < 0
-
-	if $AnimatedSprite2D.animation != target_anim:
-		$AnimatedSprite2D.play(target_anim)
-	
-func start():
-	position = pos
-		
+		$AnimatedSprite2D.flip_h = direction < 0
+	if $AnimatedSprite2D.animation != target_animation:
+		$AnimatedSprite2D.play(target_animation)

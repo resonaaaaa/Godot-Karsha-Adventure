@@ -1,21 +1,25 @@
 [gd_scene format=3 uid="uid://bmp86xonl3go0"]
 
 [ext_resource type="Script" uid="uid://c2hef8ynhrj5p" path="res://player.gd" id="1_hqtel"]
-[ext_resource type="Texture2D" uid="uid://dvjn08042krfa" path="res://play_right_0.png" id="1_i3pqv"]
-[ext_resource type="Texture2D" uid="uid://nmbe72lxdo3f" path="res://play_right_1.png" id="3_hqtel"]
-[ext_resource type="Texture2D" uid="uid://b2ugtfuj22j7w" path="res://play_right_2.png" id="4_sweqy"]
+[ext_resource type="Texture2D" uid="uid://dvjn08042krfa" path="res://asset/animation/player/play_right_0.png" id="2_hqtel"]
+[ext_resource type="Texture2D" uid="uid://nmbe72lxdo3f" path="res://asset/animation/player/play_right_1.png" id="3_sweqy"]
+[ext_resource type="Texture2D" uid="uid://b2ugtfuj22j7w" path="res://asset/animation/player/play_right_2.png" id="4_2hs0m"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_b26j0"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hqtel"]
+radius = 23.0
+height = 54.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hqtel"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_i3pqv")
+"texture": ExtResource("2_hqtel")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_hqtel")
+"texture": ExtResource("3_sweqy")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_sweqy")
+"texture": ExtResource("4_2hs0m")
 }],
 "loop": true,
 "name": &"right",
@@ -23,29 +27,24 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_i3pqv")
+"texture": ExtResource("2_hqtel")
 }],
 "loop": true,
 "name": &"stay",
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i3pqv"]
-radius = 23.0
-height = 52.0
-
-[node name="Player" type="Area2D" unique_id=1504867361]
-position = Vector2(171, 96)
+[node name="Player" type="CharacterBody2D" unique_id=730714528]
 script = ExtResource("1_hqtel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=507906603]
+z_index = 1
+shape = SubResource("CapsuleShape2D_hqtel")
+metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2112443975]
-sprite_frames = SubResource("SpriteFrames_b26j0")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1684169231]
+sprite_frames = SubResource("SpriteFrames_hqtel")
 animation = &"right"
-metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=415418641]
-shape = SubResource("CapsuleShape2D_i3pqv")
 metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
