@@ -1,5 +1,7 @@
 extends CanvasLayer
 signal new_game
+@export var key_texture_empty: Texture
+@export var key_texture_full: Texture
 
 func _ready() -> void:
 	pass # Replace with function body.
@@ -23,6 +25,7 @@ func show_new_game():
 	$Message.text = "Adventure"
 	$Message.show()
 	$StartButton.show()
+	$KeyUI.texture = key_texture_empty
 	
 func show_message(text):
 	$Message.text = text
@@ -34,4 +37,7 @@ func _on_start_button_pressed() -> void:
 	$StartButton.hide()
 	$Message.hide()
 	new_game.emit()
+
+func show_key_ui():
+	$KeyUI.texture = key_texture_full
 	
