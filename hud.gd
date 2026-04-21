@@ -10,7 +10,14 @@ func _process(delta: float) -> void:
 func show_game_over():
 	show_message("GAME OVER")
 	await $MessageTimer.timeout
-	
+	get_tree().reload_current_scene()
+	show_new_game()
+
+func show_game_win():
+	show_message("You Win!")
+	await $MessageTimer.timeout
+	get_tree().reload_current_scene()
+	show_new_game()
 
 func show_new_game():
 	$Message.text = "Adventure"

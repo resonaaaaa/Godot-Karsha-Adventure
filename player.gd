@@ -1,7 +1,8 @@
 extends CharacterBody2D
 
-var speed = 250
-var jump_velocity = -400
+@export var speed = 250
+@export var jump_velocity = -400
+@export var has_key = false
 var gravity = 800
 signal game_over
 
@@ -40,3 +41,12 @@ func _physics_process(delta: float) -> void:
 		$AnimatedSprite2D.flip_h = direction < 0
 	if $AnimatedSprite2D.animation != target_animation:
 		$AnimatedSprite2D.play(target_animation)
+
+func set_has_key(val:bool):
+	has_key = val
+	
+func start(pos):
+	position = pos
+	set_physics_process(true)
+	show()
+	

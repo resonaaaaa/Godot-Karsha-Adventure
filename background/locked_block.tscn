@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://ca1xbtmltgqxx"]
+
+[ext_resource type="Script" uid="uid://v1wo3kfs8pa1" path="res://background/locked_block.gd" id="1_fcod8"]
+[ext_resource type="Texture2D" uid="uid://cli5ar1qx4jix" path="res://asset/kennys/PNG/Other/blockRed_lock.png" id="1_tv2qi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8fqkq"]
+size = Vector2(68.5, 66.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fcod8"]
+size = Vector2(64, 64)
+
+[node name="LockedBlock" type="Node2D" unique_id=1018975342]
+position = Vector2(-4, 2)
+script = ExtResource("1_fcod8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2012598846]
+position = Vector2(100, 30)
+texture = ExtResource("1_tv2qi")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=835799813]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=555094001]
+position = Vector2(100, 29.75)
+shape = SubResource("RectangleShape2D_8fqkq")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1667012036]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=961091409]
+position = Vector2(100, 30)
+shape = SubResource("RectangleShape2D_fcod8")
+debug_color = Color(0.7542331, 0.38538152, 0.6435744, 0.41960785)
+metadata/_edit_lock_ = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

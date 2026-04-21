@@ -34,7 +34,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D" unique_id=730714528]
+[node name="Player" type="CharacterBody2D" unique_id=730714528 groups=["player"]]
 script = ExtResource("1_hqtel")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=507906603]
@@ -50,5 +50,7 @@ metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1421780966]
-limit_left = 0
-limit_right = 3200
+limit_left = -17
+limit_top = -205
+limit_right = 3503
+limit_bottom = 9999995

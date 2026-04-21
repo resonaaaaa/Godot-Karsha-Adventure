@@ -5,22 +5,21 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_640wx"]
 font = ExtResource("2_8sq4i")
-font_size = 48
+font_size = 64
 
 [node name="HUD" type="CanvasLayer" unique_id=1959219276]
 script = ExtResource("1_64ctp")
 
 [node name="StartButton" type="Button" parent="." unique_id=1673303586]
-visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -92.5
-offset_top = -287.0
-offset_right = 92.5
-offset_bottom = -208.0
+offset_left = -92.0
+offset_top = -385.0
+offset_right = 93.0
+offset_bottom = -306.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_8sq4i")
@@ -36,17 +35,16 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -185.7175
-offset_top = -64.875
-offset_right = 185.7175
-offset_bottom = 64.875
+offset_top = -159.0
+offset_right = 185.71753
+offset_bottom = -29.25
 grow_horizontal = 2
 grow_vertical = 2
+text = "Adventure"
 label_settings = SubResource("LabelSettings_640wx")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
 
 [node name="MessageTimer" type="Timer" parent="." unique_id=1988960483]
 wait_time = 1.5
