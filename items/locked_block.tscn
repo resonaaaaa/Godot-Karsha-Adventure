@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ca1xbtmltgqxx"]
 
-[ext_resource type="Script" uid="uid://v1wo3kfs8pa1" path="res://background/locked_block.gd" id="1_fcod8"]
-[ext_resource type="Texture2D" uid="uid://cli5ar1qx4jix" path="res://asset/kennys/PNG/Other/blockRed_lock.png" id="1_tv2qi"]
+[ext_resource type="Script" uid="uid://v1wo3kfs8pa1" path="res://items/locked_block.gd" id="1_fcod8"]
+[ext_resource type="Texture2D" uid="uid://cli5ar1qx4jix" path="res://asset/PNG/PNG/Other/blockRed_lock.png" id="1_tv2qi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fqkq"]
 size = Vector2(68.5, 66.5)

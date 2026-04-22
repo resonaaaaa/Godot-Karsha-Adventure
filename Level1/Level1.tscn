@@ -1,11 +1,11 @@
 [gd_scene format=4 uid="uid://dl63md45s4rk0"]
 
-[ext_resource type="Script" uid="uid://bdmlxrucn11ks" path="res://main.gd" id="1_lmyl5"]
+[ext_resource type="Script" uid="uid://bdmlxrucn11ks" path="res://Level1/Level1.gd" id="1_lmyl5"]
 [ext_resource type="PackedScene" uid="uid://bmp86xonl3go0" path="res://player.tscn" id="2_mlbie"]
-[ext_resource type="PackedScene" uid="uid://davjc5hn0ac31" path="res://background/floor.tscn" id="3_s3sxq"]
-[ext_resource type="PackedScene" uid="uid://ca1xbtmltgqxx" path="res://background/locked_block.tscn" id="4_5py54"]
-[ext_resource type="PackedScene" uid="uid://q537ounub7qb" path="res://background/key.tscn" id="5_1bjei"]
-[ext_resource type="PackedScene" uid="uid://d0eaog41dcwjc" path="res://hud.tscn" id="6_5g1s2"]
+[ext_resource type="PackedScene" uid="uid://davjc5hn0ac31" path="res://floor.tscn" id="3_s3sxq"]
+[ext_resource type="PackedScene" uid="uid://b8ya7dgnr0ekp" path="res://items.tscn" id="5_iits7"]
+[ext_resource type="PackedScene" uid="uid://d0eaog41dcwjc" path="res://Level1/hud.tscn" id="6_5g1s2"]
+[ext_resource type="PackedScene" uid="uid://crq65rj846wbv" path="res://items/spire.tscn" id="6_btw7m"]
 
 [node name="Level1" type="Node2D" unique_id=2049257024]
 script = ExtResource("1_lmyl5")
@@ -21,20 +21,46 @@ tile_map_data = PackedByteArray("AAD8/wYAAgABAAIAAAD9/wUAAgABAAIAAAD9/wYAAgAAAAA
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="LockedBlock" parent="floor" unique_id=1018975342 instance=ExtResource("4_5py54")]
-position = Vector2(2251, 19)
-
-[node name="Key" parent="floor" unique_id=885123096 instance=ExtResource("5_1bjei")]
-position = Vector2(11, -309)
-metadata/_edit_lock_ = true
-
 [node name="HUD" parent="." unique_id=1959219276 instance=ExtResource("6_5g1s2")]
 
 [node name="StartPosition" type="Marker2D" parent="." unique_id=765772294]
 position = Vector2(48, 400)
 metadata/_edit_group_ = true
 
+[node name="Items" parent="." unique_id=1187595077 instance=ExtResource("5_iits7")]
+position = Vector2(64, 160)
+
+[node name="Key" parent="Items" index="0" unique_id=885123096]
+position = Vector2(320, -216)
+
+[node name="Diamond" parent="Items" index="1" unique_id=1205686764]
+visible = false
+monitoring = false
+
+[node name="LockedBlock" parent="Items" index="2" unique_id=1018975342]
+position = Vector2(2560, 104)
+
+[node name="Spire" parent="Items" index="3" unique_id=1114092551]
+position = Vector2(1192, 128)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" parent="Items/Spire" index="1" unique_id=1122291942]
+visible = false
+
+[node name="Spire2" parent="Items" unique_id=1980033957 instance=ExtResource("6_btw7m")]
+position = Vector2(2128, 192)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" parent="Items/Spire2" index="1" unique_id=1122291942]
+visible = false
+
 [connection signal="game_over" from="Player" to="." method="game_over"]
-[connection signal="game_win" from="floor/LockedBlock" to="." method="game_win"]
-[connection signal="get_key" from="floor/Key" to="HUD" method="show_key_ui"]
 [connection signal="new_game" from="HUD" to="." method="_on_hud_new_game"]
+[connection signal="get_key" from="Items/Key" to="HUD" method="show_key_ui"]
+[connection signal="game_win" from="Items/LockedBlock" to="." method="game_win"]
+[connection signal="hit" from="Items/Spire" to="." method="game_over"]
+[connection signal="hit" from="Items/Spire2" to="." method="game_over"]
+
+[editable path="Items"]
+[editable path="Items/Spire"]
+[editable path="Items/Spire2"]

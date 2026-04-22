@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://crq65rj846wbv"]
+
+[ext_resource type="Script" uid="uid://c8kcw5441f5vq" path="res://items/spire.gd" id="1_0tjbd"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0tjbd"]
+load_path = "res://.godot/imported/spikesHigh.png-0e050fff913e0c7e2c7afea73878e81c.ctex"
+
+[node name="Spire" type="Area2D" unique_id=1944486045]
+script = ExtResource("1_0tjbd")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=914776484]
+scale = Vector2(1.3, 1.3)
+texture = SubResource("CompressedTexture2D_0tjbd")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=1122291942]
+polygon = PackedVector2Array(43.5, 16, 29.5, -24, 23.5, -24, 15.5, 5, 4.5, -24, -2.5, -24, -11.5, 5, -21.5, -23, -27.5, -24, -40.5, 15)
+metadata/_edit_lock_ = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

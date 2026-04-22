@@ -2,6 +2,8 @@ extends CanvasLayer
 signal new_game
 @export var key_texture_empty: Texture
 @export var key_texture_full: Texture
+@export var PauseButton_pause:Texture2D
+@export var PauseButton_play:Texture2D
 
 func _ready() -> void:
 	pass # Replace with function body.
@@ -41,3 +43,13 @@ func _on_start_button_pressed() -> void:
 func show_key_ui():
 	$KeyUI.texture = key_texture_full
 	
+#检测暂停状态是否切换
+func _on_pause_button_toggled(toggled_on: bool) -> void:
+	var tree = get_tree()
+	tree.paused = toggled_on
+	if toggled_on:
+		$PauseButton.icon = PauseButton_play
+		$PauseMessage.show()
+	else :
+		$PauseButton.icon = PauseButton_pause
+		$PauseMessage.hide()

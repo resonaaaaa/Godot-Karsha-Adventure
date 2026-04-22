@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var speed = 250
 @export var jump_velocity = -400
 @export var has_key = false
+@export var has_diamond = false
 var gravity = 800
 signal game_over
 
@@ -44,6 +45,9 @@ func _physics_process(delta: float) -> void:
 
 func set_has_key(val:bool):
 	has_key = val
+	
+func set_has_diamond(val:bool):
+	has_diamond = val
 	
 func start(pos):
 	position = pos

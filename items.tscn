@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b8ya7dgnr0ekp"]
+
+[ext_resource type="PackedScene" uid="uid://q537ounub7qb" path="res://items/key.tscn" id="1_u5wui"]
+[ext_resource type="PackedScene" uid="uid://blm3cp0tg2c0u" path="res://items/diamond.tscn" id="2_aa2cp"]
+[ext_resource type="PackedScene" uid="uid://ca1xbtmltgqxx" path="res://items/locked_block.tscn" id="3_nudqs"]
+[ext_resource type="PackedScene" uid="uid://crq65rj846wbv" path="res://items/spire.tscn" id="4_g7036"]
+
+[node name="Items" type="Node2D" unique_id=1187595077]
+
+[node name="Key" parent="." unique_id=885123096 instance=ExtResource("1_u5wui")]
+
+[node name="Diamond" parent="." unique_id=1205686764 instance=ExtResource("2_aa2cp")]
+
+[node name="LockedBlock" parent="." unique_id=1018975342 instance=ExtResource("3_nudqs")]
+position = Vector2(-16, 136)
+
+[node name="Spire" parent="." unique_id=1114092551 instance=ExtResource("4_g7036")]
+position = Vector2(147.09468, 65.68916)
