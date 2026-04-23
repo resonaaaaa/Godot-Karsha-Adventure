@@ -7,6 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://d0eaog41dcwjc" path="res://Level1/hud.tscn" id="6_5g1s2"]
 [ext_resource type="PackedScene" uid="uid://crq65rj846wbv" path="res://items/spire.tscn" id="6_btw7m"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_btw7m"]
+load_path = "res://.godot/imported/outlineKey.png-c9417171e504c70fd9ca17d3de8779ec.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wmj75"]
+load_path = "res://.godot/imported/keyRed.png-f2c6dd3e072e909e1d30ae4b251d983b.ctex"
+
 [node name="Level1" type="Node2D" unique_id=2049257024]
 script = ExtResource("1_lmyl5")
 
@@ -22,6 +28,8 @@ metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="HUD" parent="." unique_id=1959219276 instance=ExtResource("6_5g1s2")]
+key_texture_empty = SubResource("CompressedTexture2D_btw7m")
+key_texture_full = SubResource("CompressedTexture2D_wmj75")
 
 [node name="StartPosition" type="Marker2D" parent="." unique_id=765772294]
 position = Vector2(48, 400)
@@ -47,6 +55,9 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape2D" parent="Items/Spire" index="1" unique_id=1122291942]
 visible = false
 
+[node name="magic_circle" parent="Items" index="4" unique_id=564121405]
+position = Vector2(2304, -152)
+
 [node name="Spire2" parent="Items" unique_id=1980033957 instance=ExtResource("6_btw7m")]
 position = Vector2(2128, 192)
 metadata/_edit_lock_ = true
@@ -58,8 +69,8 @@ visible = false
 [connection signal="new_game" from="HUD" to="." method="_on_hud_new_game"]
 [connection signal="get_key" from="Items/Key" to="HUD" method="show_key_ui"]
 [connection signal="game_win" from="Items/LockedBlock" to="." method="game_win"]
-[connection signal="hit" from="Items/Spire" to="." method="game_over"]
-[connection signal="hit" from="Items/Spire2" to="." method="game_over"]
+[connection signal="hit" from="Items/Spire" to="Player" method="player_dead"]
+[connection signal="hit" from="Items/Spire2" to="Player" method="player_dead"]
 
 [editable path="Items"]
 [editable path="Items/Spire"]

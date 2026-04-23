@@ -53,3 +53,11 @@ func _on_pause_button_toggled(toggled_on: bool) -> void:
 	else :
 		$PauseButton.icon = PauseButton_pause
 		$PauseMessage.hide()
+
+
+func _on_pause_button_mouse_entered() -> void:
+	$PauseText.show()
+
+func _on_pause_button_mouse_exited() -> void:
+	#await get_tree().create_timer(0.5).timeout
+	$PauseText.hide()

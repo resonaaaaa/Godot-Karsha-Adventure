@@ -6,9 +6,12 @@ extends CharacterBody2D
 @export var has_diamond = false
 var gravity = 800
 signal game_over
+var is_dead = false
 
 # 水平速度和垂直速度全部交给 velocity
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		return
 	var target_animation = "stay"
 	# direction：-1左，1右，0静止
 	var direction = 0
@@ -33,7 +36,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	if position.y > 1000:
-		game_over.emit()
+		player_dead()
+		return
 
 	# 动画和翻转
 	if direction != 0:
@@ -46,11 +50,22 @@ func _physics_process(delta: float) -> void:
 func set_has_key(val:bool):
 	has_key = val
 	
+func player_dead():
+	if is_dead:
+		return
+	is_dead = true
+	set_physics_process(false)
+	$AnimatedSprite2D.play("hurt")
+	await get_tree().create_timer(1).timeout
+	game_over.emit()	
+
 func set_has_diamond(val:bool):
 	has_diamond = val
 	
 func start(pos):
 	position = pos
+	is_dead = false
 	set_physics_process(true)
 	show()
+	
 	

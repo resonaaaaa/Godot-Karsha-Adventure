@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bswooqui6c3md" path="res://Level1/hud.gd" id="1_64ctp"]
 [ext_resource type="FontFile" uid="uid://scmbdd7yljqj" path="res://asset/fonts/Xolonium-Regular.ttf" id="2_8sq4i"]
-[ext_resource type="Texture2D" uid="uid://bcvquks0awfl4" path="res://asset/PNG/PNG/Items/outlineKey.png" id="2_640wx"]
-[ext_resource type="Texture2D" uid="uid://17mxaopowrtn" path="res://asset/PNG/PNG/Items/keyRed.png" id="3_8sq4i"]
+[ext_resource type="Texture2D" uid="uid://bcvquks0awfl4" path="res://asset/From Kennys/PNG/Items/outlineKey.png" id="2_640wx"]
+[ext_resource type="Texture2D" uid="uid://17mxaopowrtn" path="res://asset/From Kennys/PNG/Items/keyRed.png" id="3_8sq4i"]
 [ext_resource type="Texture2D" uid="uid://4q4vg7qqoo8s" path="res://asset/UI/pause.png" id="4_gspdd"]
 [ext_resource type="Texture2D" uid="uid://ibetmkik2xhf" path="res://asset/UI/play.png" id="5_8ebpa"]
 
@@ -16,6 +16,9 @@ events = [SubResource("InputEventAction_64ctp")]
 [sub_resource type="LabelSettings" id="LabelSettings_640wx"]
 font = ExtResource("2_8sq4i")
 font_size = 64
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gspdd"]
+load_path = "res://.godot/imported/outlineKey.png-c9417171e504c70fd9ca17d3de8779ec.ctex"
 
 [sub_resource type="InputEventAction" id="InputEventAction_nwkrt"]
 action = &"pause"
@@ -75,7 +78,7 @@ one_shot = true
 [node name="KeyUI" type="Sprite2D" parent="." unique_id=100428237]
 position = Vector2(152, 40)
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("2_640wx")
+texture = SubResource("CompressedTexture2D_gspdd")
 
 [node name="PauseButton" type="Button" parent="." unique_id=399172259]
 process_mode = 3
@@ -110,5 +113,19 @@ text = "Paused…"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="PauseText" type="Button" parent="." unique_id=81667330]
+visible = false
+offset_left = 808.0
+offset_top = 88.0
+offset_right = 1083.0
+offset_bottom = 136.0
+theme_override_colors/font_color = Color(0.8745098, 0.67058825, 0.88235295, 1)
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = " 暂停/继续游戏(快捷键 P)"
+metadata/_edit_lock_ = true
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="mouse_entered" from="PauseButton" to="." method="_on_pause_button_mouse_entered"]
+[connection signal="mouse_exited" from="PauseButton" to="." method="_on_pause_button_mouse_exited"]
 [connection signal="toggled" from="PauseButton" to="." method="_on_pause_button_toggled"]

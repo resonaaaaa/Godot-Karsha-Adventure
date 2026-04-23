@@ -1,16 +1,17 @@
 [gd_scene format=3 uid="uid://bmp86xonl3go0"]
 
 [ext_resource type="Script" uid="uid://c2hef8ynhrj5p" path="res://player.gd" id="1_hqtel"]
-[ext_resource type="Texture2D" uid="uid://dvjn08042krfa" path="res://asset/animation/player/play_right_0.png" id="2_hqtel"]
-[ext_resource type="Texture2D" uid="uid://nmbe72lxdo3f" path="res://asset/animation/player/play_right_1.png" id="3_sweqy"]
-[ext_resource type="Texture2D" uid="uid://b2ugtfuj22j7w" path="res://asset/animation/player/play_right_2.png" id="4_2hs0m"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hqtel"]
-radius = 23.0
-height = 54.0
+[ext_resource type="Texture2D" uid="uid://dvjn08042krfa" path="res://asset/animation/player/walk/play_right_0.png" id="2_hqtel"]
+[ext_resource type="Texture2D" uid="uid://nmbe72lxdo3f" path="res://asset/animation/player/walk/play_right_1.png" id="3_sweqy"]
+[ext_resource type="Texture2D" uid="uid://b2ugtfuj22j7w" path="res://asset/animation/player/walk/play_right_2.png" id="4_2hs0m"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hqtel"]
 animations = [{
+"frames": [],
+"loop": false,
+"name": &"hurt",
+"speed": 11.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_hqtel")
@@ -34,20 +35,22 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hqtel"]
+radius = 23.0
+height = 54.0
+
 [node name="Player" type="CharacterBody2D" unique_id=730714528 groups=["player"]]
 script = ExtResource("1_hqtel")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1684169231]
+sprite_frames = SubResource("SpriteFrames_hqtel")
+animation = &"hurt"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=507906603]
 z_index = 1
 shape = SubResource("CapsuleShape2D_hqtel")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1684169231]
-sprite_frames = SubResource("SpriteFrames_hqtel")
-animation = &"right"
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1421780966]
 limit_left = -17
