@@ -2,15 +2,51 @@
 
 [ext_resource type="Script" uid="uid://c2hef8ynhrj5p" path="res://player.gd" id="1_hqtel"]
 [ext_resource type="Texture2D" uid="uid://dvjn08042krfa" path="res://asset/animation/player/walk/play_right_0.png" id="2_hqtel"]
+[ext_resource type="Texture2D" uid="uid://bt165v4rfnapq" path="res://asset/animation/player/hurt/Actor3_8_37.png" id="2_urp6f"]
 [ext_resource type="Texture2D" uid="uid://nmbe72lxdo3f" path="res://asset/animation/player/walk/play_right_1.png" id="3_sweqy"]
 [ext_resource type="Texture2D" uid="uid://b2ugtfuj22j7w" path="res://asset/animation/player/walk/play_right_2.png" id="4_2hs0m"]
+[ext_resource type="Texture2D" uid="uid://c8811muid8y2e" path="res://asset/animation/player/hurt/Actor3_8_35.png" id="6_op7ga"]
+[ext_resource type="Texture2D" uid="uid://vmkjnj8yg8cr" path="res://asset/animation/player/hurt/Actor3_8_52.png" id="8_pylmc"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hqtel"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_urp6f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_urp6f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_urp6f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_op7ga")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_op7ga")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_op7ga")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_pylmc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_pylmc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_pylmc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_pylmc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_pylmc")
+}],
 "loop": false,
 "name": &"hurt",
-"speed": 11.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -44,16 +80,17 @@ script = ExtResource("1_hqtel")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1684169231]
 sprite_frames = SubResource("SpriteFrames_hqtel")
-animation = &"hurt"
+animation = &"right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=507906603]
+visible = false
 z_index = 1
 shape = SubResource("CapsuleShape2D_hqtel")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1421780966]
-limit_left = -17
-limit_top = -205
-limit_right = 3503
+limit_left = -50
+limit_top = -1000
+limit_right = 10000
 limit_bottom = 9999995

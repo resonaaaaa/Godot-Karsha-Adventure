@@ -7,10 +7,13 @@ extends CharacterBody2D
 var gravity = 800
 signal game_over
 var is_dead = false
+var can_move = false
 
 # 水平速度和垂直速度全部交给 velocity
 func _physics_process(delta: float) -> void:
 	if is_dead:
+		return
+	if not can_move:
 		return
 	var target_animation = "stay"
 	# direction：-1左，1右，0静止
@@ -35,7 +38,7 @@ func _physics_process(delta: float) -> void:
 	# 根据velocity移动并处理碰撞
 	move_and_slide()
 
-	if position.y > 1000:
+	if position.y > 2000:
 		player_dead()
 		return
 
@@ -54,10 +57,17 @@ func player_dead():
 	if is_dead:
 		return
 	is_dead = true
+	can_move = false
 	set_physics_process(false)
 	$AnimatedSprite2D.play("hurt")
 	await get_tree().create_timer(1).timeout
 	game_over.emit()	
+	
+func apply_jump_boost(val):
+	jump_velocity += val
+
+func remove_jump_boost(val):
+	jump_velocity -= val
 
 func set_has_diamond(val:bool):
 	has_diamond = val
@@ -65,7 +75,9 @@ func set_has_diamond(val:bool):
 func start(pos):
 	position = pos
 	is_dead = false
+	can_move = true
 	set_physics_process(true)
 	show()
+
 	
 	

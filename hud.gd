@@ -2,14 +2,15 @@ extends CanvasLayer
 signal new_game
 @export var key_texture_empty: Texture
 @export var key_texture_full: Texture
-@export var PauseButton_pause:Texture2D
-@export var PauseButton_play:Texture2D
 
 func _ready() -> void:
-	pass # Replace with function body.
+	$PauseMenu.hide()
+	$PauseMessage.hide()
+	$PauseButton.button_pressed = false
 
 func _process(delta: float) -> void:
-	pass
+	if Input.is_action_just_pressed("menu"):
+		$PauseButton.button_pressed = not $PauseButton.button_pressed
 
 func show_game_over():
 	show_message("GAME OVER")
@@ -48,16 +49,27 @@ func _on_pause_button_toggled(toggled_on: bool) -> void:
 	var tree = get_tree()
 	tree.paused = toggled_on
 	if toggled_on:
-		$PauseButton.icon = PauseButton_play
 		$PauseMessage.show()
+		$PauseMenu.popup_centered()
 	else :
-		$PauseButton.icon = PauseButton_pause
 		$PauseMessage.hide()
+		$PauseMenu.hide()
 
+#隐藏菜单时同步恢复运行状态
+func _on_pause_menu_popup_hide() -> void:
+	if $PauseButton.button_pressed:
+		$PauseButton.button_pressed = false
+	get_tree().paused = false
+	$PauseMessage.hide()
 
 func _on_pause_button_mouse_entered() -> void:
 	$PauseText.show()
 
 func _on_pause_button_mouse_exited() -> void:
-	#await get_tree().create_timer(0.5).timeout
 	$PauseText.hide()
+
+#继续游戏
+func _on_continue_button_pressed() -> void:
+	get_tree().paused = false
+	$PauseMessage.hide()
+	$PauseMenu.hide()

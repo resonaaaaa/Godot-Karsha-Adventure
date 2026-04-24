@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bevtbhnumrevp"]
+
+[ext_resource type="Texture2D" uid="uid://b0jmvp5mky1k1" path="res://asset/From Kennys/PNG/Other/doorRed_top.png" id="1_hnmrk"]
+[ext_resource type="Script" uid="uid://ry7l4l7mxjrd" path="res://items/jump_boost_block.gd" id="1_x6k1e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x6k1e"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hnmrk"]
+size = Vector2(58, 20)
+
+[node name="JumpBoostBlock" type="Node2D" unique_id=1780843405]
+script = ExtResource("1_x6k1e")
+
+[node name="Block" type="StaticBody2D" parent="." unique_id=1914449405]
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Block" unique_id=708728977]
+position = Vector2(160, 96)
+texture = ExtResource("1_hnmrk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Block" unique_id=843639182]
+visible = false
+position = Vector2(160, 96)
+shape = SubResource("RectangleShape2D_x6k1e")
+debug_color = Color(0, 0.6, 0.36078432, 0.41960785)
+
+[node name="Sensor" type="Area2D" parent="." unique_id=632700240]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor" unique_id=2011721327]
+position = Vector2(160, 72)
+shape = SubResource("RectangleShape2D_hnmrk")
+
+[connection signal="body_entered" from="Sensor" to="." method="_on_sensor_body_entered"]
+[connection signal="body_exited" from="Sensor" to="." method="_on_sensor_body_exited"]

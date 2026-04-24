@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://blm3cp0tg2c0u"]
 
 [ext_resource type="Script" uid="uid://crljcslr0cr24" path="res://items/diamond.gd" id="1_h85px"]
-[ext_resource type="Texture2D" uid="uid://db3ra2sqv8d8i" path="res://asset/PNG/PNG/Items/redJewel.png" id="1_sbdmf"]
+[ext_resource type="Texture2D" uid="uid://db3ra2sqv8d8i" path="res://asset/From Kennys/PNG/Items/redJewel.png" id="1_sbdmf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h85px"]
 radius = 14.000004
@@ -19,3 +19,5 @@ texture = ExtResource("1_sbdmf")
 position = Vector2(64, 56)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_h85px")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

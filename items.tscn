@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ca1xbtmltgqxx" path="res://items/locked_block.tscn" id="3_nudqs"]
 [ext_resource type="PackedScene" uid="uid://crq65rj846wbv" path="res://items/spire.tscn" id="4_g7036"]
 [ext_resource type="PackedScene" uid="uid://dvu76lldwo2hr" path="res://items/magic_circle.tscn" id="5_3grub"]
+[ext_resource type="PackedScene" uid="uid://bevtbhnumrevp" path="res://items/jump_boost_block.tscn" id="6_cy7rr"]
 
 [node name="Items" type="Node2D" unique_id=1187595077]
 
@@ -19,3 +20,5 @@ position = Vector2(-16, 136)
 position = Vector2(147.09468, 65.68916)
 
 [node name="magic_circle" parent="." unique_id=564121405 instance=ExtResource("5_3grub")]
+
+[node name="JumpBoostBlock" parent="." unique_id=1780843405 instance=ExtResource("6_cy7rr")]
