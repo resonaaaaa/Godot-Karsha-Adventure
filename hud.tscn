@@ -4,7 +4,10 @@
 [ext_resource type="FontFile" uid="uid://scmbdd7yljqj" path="res://asset/fonts/Xolonium-Regular.ttf" id="2_8sq4i"]
 [ext_resource type="Texture2D" uid="uid://bcvquks0awfl4" path="res://asset/From Kennys/PNG/Items/outlineKey.png" id="2_640wx"]
 [ext_resource type="Texture2D" uid="uid://17mxaopowrtn" path="res://asset/From Kennys/PNG/Items/keyRed.png" id="3_8sq4i"]
+[ext_resource type="FontFile" uid="uid://dkwbmjyfk3xse" path="res://asset/fonts/字魂无外润黑体(商用需授权).ttf" id="6_rftc2"]
+[ext_resource type="StyleBox" uid="uid://2an01y0kj5tm" path="res://asset/MenuButtonTheme/ButtonTheme.tres" id="7_61f8s"]
 [ext_resource type="Texture2D" uid="uid://c343ugva7x535" path="res://asset/UI/menu.png" id="7_rftc2"]
+[ext_resource type="StyleBox" uid="uid://dowv48iuvc6ml" path="res://asset/MenuButtonTheme/ButtonHover.tres" id="8_61f8s"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_64ctp"]
 action = &"start"
@@ -112,8 +115,8 @@ offset_top = 88.0
 offset_right = 1083.0
 offset_bottom = 136.0
 theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.4392157, 1)
-theme_override_colors/font_pressed_color = Color(0.019607844, 0.6784314, 0.043137256, 1)
-theme_override_colors/font_disabled_color = Color(0.1882353, 0.8392157, 0.18039216, 0.6666667)
+theme_override_colors/font_pressed_color = Color(0.04669073, 1.1710608, 0.08637621, 1)
+theme_override_colors/font_disabled_color = Color(0.1882353, 0.87058824, 0.21568628, 0.92156863)
 theme_override_font_sizes/font_size = 24
 disabled = true
 text = "菜单(快捷键ESC)"
@@ -121,17 +124,19 @@ metadata/_edit_lock_ = true
 
 [node name="PauseMenu" type="Popup" parent="." unique_id=411305131]
 process_mode = 3
+transparent_bg = true
 oversampling_override = 1.0
 title = "暂停"
 initial_position = 1
-size = Vector2i(407, 300)
+size = Vector2i(3581, 2658)
 visible = true
 transient = false
 exclusive = true
+transparent = true
 min_size = Vector2i(300, 200)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu" unique_id=1161699104]
-modulate = Color(0.3254902, 0.8627451, 0.7529412, 0.76862746)
+modulate = Color(0.3254902, 0.8627451, 0.7529412, 1)
 self_modulate = Color(1, 1, 1, 0.1882353)
 custom_minimum_size = Vector2(300, 200)
 anchors_preset = 8
@@ -151,20 +156,38 @@ alignment = 1
 [node name="ContinueButton" type="Button" parent="PauseMenu/VBoxContainer" unique_id=2045552466]
 custom_minimum_size = Vector2(150, 75)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("6_rftc2")
 theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = ExtResource("7_61f8s")
+theme_override_styles/hover = ExtResource("8_61f8s")
 text = "继续游戏"
 icon_alignment = 1
 
 [node name="RestartButton" type="Button" parent="PauseMenu/VBoxContainer" unique_id=522102084]
 custom_minimum_size = Vector2(150, 75)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("6_rftc2")
 theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = ExtResource("7_61f8s")
+theme_override_styles/hover = ExtResource("8_61f8s")
 text = "重新开始"
+
+[node name="SettingButton" type="Button" parent="PauseMenu/VBoxContainer" unique_id=1001512015]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_rftc2")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = ExtResource("7_61f8s")
+theme_override_styles/hover = ExtResource("8_61f8s")
+text = "游戏设置"
 
 [node name="TitleButton" type="Button" parent="PauseMenu/VBoxContainer" unique_id=866512234]
 custom_minimum_size = Vector2(150, 75)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("6_rftc2")
 theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = ExtResource("7_61f8s")
+theme_override_styles/hover = ExtResource("8_61f8s")
 text = "返回标题"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

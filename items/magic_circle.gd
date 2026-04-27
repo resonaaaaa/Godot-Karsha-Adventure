@@ -11,8 +11,6 @@ func _on_body_entered(body: Node2D) -> void:
 		await tp
 		body.show()
 		
-
-
 func _on_animated_sprite_2d_animation_finished() -> void:
 	$AnimatedSprite2D.hide()
 	tp.emit()

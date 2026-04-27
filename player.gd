@@ -9,12 +9,24 @@ signal game_over
 var is_dead = false
 var can_move = false
 
+#梯子相关参数
+var on_ladder = false
+var ladder_ref
+var climb_speed = 300
+
 # 水平速度和垂直速度全部交给 velocity
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
 	if not can_move:
 		return
+	#处理爬梯子的情况
+	if on_ladder:
+		process_climb(delta)
+	else:
+		process_normal(delta)
+
+func process_normal(delta):
 	var target_animation = "stay"
 	# direction：-1左，1右，0静止
 	var direction = 0
@@ -49,6 +61,40 @@ func _physics_process(delta: float) -> void:
 		$AnimatedSprite2D.flip_h = direction < 0
 	if $AnimatedSprite2D.animation != target_animation:
 		$AnimatedSprite2D.play(target_animation)
+
+func process_climb(delta):
+	var horizontal = Input.get_axis("move_left", "move_right")
+	var vertical = Input.get_axis("move_up", "move_down")
+	velocity.x = horizontal * speed
+	velocity.y = vertical * climb_speed
+	
+	if vertical != 0:
+		if $AnimatedSprite2D.animation != "climb":
+			$AnimatedSprite2D.play("climb")
+		else:
+			$AnimatedSprite2D.play()
+	else:
+		$AnimatedSprite2D.stop() # 停止动画，保持在当前帧
+
+	
+	move_and_slide()
+	
+func enter_ladder(ladder):
+	on_ladder = true
+	ladder_ref = ladder
+	velocity = Vector2.ZERO
+	if $AnimatedSprite2D.animation != "climb":
+		$AnimatedSprite2D.play("climb")
+
+func exit_ladder(ladder = null):
+	if not on_ladder:
+		return
+	if ladder != null and ladder_ref != ladder:
+		return
+	on_ladder = false
+	ladder_ref = null
+	#离开梯子时保持水平位置不变，垂直位置稍微调整一下，避免再次触发梯子碰撞
+	position.y += 5
 
 func set_has_key(val:bool):
 	has_key = val

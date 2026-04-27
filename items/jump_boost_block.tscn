@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bevtbhnumrevp"]
 
-[ext_resource type="Texture2D" uid="uid://b0jmvp5mky1k1" path="res://asset/From Kennys/PNG/Other/doorRed_top.png" id="1_hnmrk"]
 [ext_resource type="Script" uid="uid://ry7l4l7mxjrd" path="res://items/jump_boost_block.gd" id="1_x6k1e"]
+[ext_resource type="Texture2D" uid="uid://b1sfp4sx0l7te" path="res://asset/From Kennys/JumpBoostBlock/1(1).png" id="2_x6k1e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x6k1e"]
 size = Vector2(64, 64)
@@ -17,7 +17,7 @@ metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Block" unique_id=708728977]
 position = Vector2(160, 96)
-texture = ExtResource("1_hnmrk")
+texture = ExtResource("2_x6k1e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Block" unique_id=843639182]
 visible = false

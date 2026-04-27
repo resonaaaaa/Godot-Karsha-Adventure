@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://b21ion04vop61"]
+
+[ext_resource type="Texture2D" uid="uid://dfvwkto7e1h05" path="res://asset/From Kennys/PNG/Other/ladderNarrow_mid.png" id="1_qrg3c"]
+[ext_resource type="Script" uid="uid://x4pb1hnc5v7n" path="res://items/ladder.gd" id="1_sxhnb"]
+[ext_resource type="Texture2D" uid="uid://da07augh7b7lt" path="res://asset/From Kennys/PNG/Other/ladderNarrow_top.png" id="2_sxhnb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xupru"]
+size = Vector2(38, 93)
+
+[node name="ladder" type="Area2D" unique_id=896826381]
+script = ExtResource("1_sxhnb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1891870262]
+position = Vector2(123, 74)
+texture = ExtResource("1_qrg3c")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D" unique_id=4806673]
+position = Vector2(0, -55)
+texture = ExtResource("2_sxhnb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1222928805]
+position = Vector2(122, 58.5)
+shape = SubResource("RectangleShape2D_xupru")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
