@@ -7,10 +7,20 @@ extends CharacterBody2D
 @export var push_force := 1800.0
 @export var max_horizontal_speed := 450.0
 @export var max_vertical_speed := 1200.0
+@export var double_jump_enabled = false
+@export var double_jump_window := 0.5
 var gravity = 800
 signal game_over
 var is_dead = false
 var can_move = false
+var double_jump_used := false
+@onready var double_jump_timer: Timer = $doubleJumpTimer
+
+func _ready() -> void:
+	if double_jump_window > 0.0:
+		double_jump_timer.wait_time = double_jump_window
+	double_jump_timer.one_shot = true
+	double_jump_timer.stop()
 
 #梯子相关参数
 var on_ladder = false
@@ -46,9 +56,24 @@ func process_normal(delta):
 		velocity.y += gravity * delta
 	else:
 		velocity.y = 0
+		double_jump_timer.stop()
+		double_jump_used = false
 		# 跳跃
 		if Input.is_action_just_pressed("jump"):
 			velocity.y = jump_velocity
+			double_jump_used = false
+			double_jump_timer.start()
+	# 空中二段跳：第一段跳起后的窗口内可触发
+	if (
+		double_jump_enabled
+		and not is_on_floor()
+		and not double_jump_used
+		and double_jump_timer.time_left > 0.0
+		and Input.is_action_just_pressed("jump")
+	):
+		velocity.y = jump_velocity
+		double_jump_used = true
+		double_jump_timer.stop()
 
 	# 根据velocity移动并处理碰撞
 	move_and_slide()

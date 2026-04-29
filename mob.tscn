@@ -1,0 +1,124 @@
+[gd_scene format=3 uid="uid://cta0qjvex0ydx"]
+
+[ext_resource type="Script" uid="uid://c1787aih6gcpf" path="res://mob.gd" id="1_cixyi"]
+[ext_resource type="Texture2D" uid="uid://3uj6b1jejgsg" path="res://asset/From Kennys/PNG/Enemies/enemyFloating_1.png" id="2_7ulmv"]
+[ext_resource type="Texture2D" uid="uid://c7be1bvkbhkic" path="res://asset/From Kennys/PNG/Enemies/enemyFloating_2.png" id="3_pcqmr"]
+[ext_resource type="Texture2D" uid="uid://b21t7m2tt6bp4" path="res://asset/From Kennys/PNG/Enemies/enemyFloating_3.png" id="4_jbnni"]
+[ext_resource type="Texture2D" uid="uid://fcs3lmhb6215" path="res://asset/From Kennys/PNG/Enemies/enemySwimming_1.png" id="5_yscv0"]
+[ext_resource type="Texture2D" uid="uid://cbcepexkpon21" path="res://asset/From Kennys/PNG/Enemies/enemySwimming_2.png" id="6_eqsov"]
+[ext_resource type="Texture2D" uid="uid://da8jen385unvd" path="res://asset/From Kennys/PNG/Enemies/enemySwimming_3.png" id="7_wvrms"]
+[ext_resource type="Texture2D" uid="uid://bvxlsp0dfifae" path="res://asset/From Kennys/PNG/Enemies/enemyWalking_1.png" id="8_h0ign"]
+[ext_resource type="Texture2D" uid="uid://bn7br6o3jfn6w" path="res://asset/From Kennys/PNG/Enemies/enemyWalking_2.png" id="9_6ak38"]
+[ext_resource type="Texture2D" uid="uid://cfmih6iv5tlxr" path="res://asset/From Kennys/PNG/Enemies/enemyWalking_3.png" id="10_rxhkm"]
+[ext_resource type="Texture2D" uid="uid://bbnif0ba1hwib" path="res://asset/From Kennys/PNG/Enemies/enemyFloating_4.png" id="11_jbnni"]
+[ext_resource type="Texture2D" uid="uid://b1hhhxqbum0q0" path="res://asset/From Kennys/PNG/Enemies/enemySwimming_4.png" id="12_yscv0"]
+[ext_resource type="Texture2D" uid="uid://c7nk7qgm3mcxa" path="res://asset/From Kennys/PNG/Enemies/enemyWalking_4.png" id="13_eqsov"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j170q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7ulmv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_pcqmr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_pcqmr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jbnni")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jbnni")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_7ulmv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_7ulmv")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_yscv0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_eqsov")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_wvrms")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_h0ign")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_6ak38")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_rxhkm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_6ak38")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_h0ign")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x3t1q"]
+radius = 24.0
+height = 48.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0x8ks"]
+radius = 16.0
+height = 48.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_58ppg"]
+radius = 16.0
+height = 48.0
+
+[node name="mob" type="Area2D" unique_id=2111941873]
+script = ExtResource("1_cixyi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1143930279]
+sprite_frames = SubResource("SpriteFrames_j170q")
+animation = &"swim"
+frame_progress = 0.11564573
+
+[node name="ColliShapeFly" type="CollisionShape2D" parent="." unique_id=1669301025]
+visible = false
+shape = SubResource("CapsuleShape2D_x3t1q")
+
+[node name="ColliShapeWalk" type="CollisionShape2D" parent="." unique_id=141813235]
+visible = false
+shape = SubResource("CapsuleShape2D_0x8ks")
+
+[node name="ColliShapeSwim" type="CollisionShape2D" parent="." unique_id=1237870265]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_58ppg")
+
+[node name="Dead_fly" type="Sprite2D" parent="." unique_id=331073911]
+visible = false
+texture = ExtResource("11_jbnni")
+
+[node name="Dead_swim" type="Sprite2D" parent="." unique_id=1472855649]
+visible = false
+texture = ExtResource("12_yscv0")
+
+[node name="Dead_walk" type="Sprite2D" parent="." unique_id=2042880488]
+visible = false
+texture = ExtResource("13_eqsov")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

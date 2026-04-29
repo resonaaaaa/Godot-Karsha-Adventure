@@ -170,6 +170,7 @@ height = 54.0
 
 [node name="Player" type="CharacterBody2D" unique_id=730714528 groups=["player"]]
 script = ExtResource("1_hqtel")
+double_jump_enabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1684169231]
 sprite_frames = SubResource("SpriteFrames_hqtel")
@@ -187,3 +188,7 @@ limit_left = -50
 limit_top = -1000
 limit_right = 10000
 limit_bottom = 9999995
+
+[node name="doubleJumpTimer" type="Timer" parent="." unique_id=1142118245]
+wait_time = 0.5
+one_shot = true

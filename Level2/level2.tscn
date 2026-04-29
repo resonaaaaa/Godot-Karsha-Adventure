@@ -1,0 +1,23 @@
+[gd_scene format=4 uid="uid://ckpdv5bthbrw0"]
+
+[ext_resource type="PackedScene" uid="uid://d0eaog41dcwjc" path="res://hud.tscn" id="1_5somw"]
+[ext_resource type="Script" uid="uid://c4u5q2pvwkty5" path="res://Level2/level2.gd" id="1_fvsne"]
+[ext_resource type="PackedScene" uid="uid://bmp86xonl3go0" path="res://player.tscn" id="2_fvsne"]
+[ext_resource type="PackedScene" uid="uid://davjc5hn0ac31" path="res://floor.tscn" id="3_0imyp"]
+
+[node name="Level2" type="Node2D" unique_id=1016823236]
+script = ExtResource("1_fvsne")
+
+[node name="HUD" parent="." unique_id=1959219276 instance=ExtResource("1_5somw")]
+
+[node name="Player" parent="." unique_id=730714528 instance=ExtResource("2_fvsne")]
+position = Vector2(107, 151)
+
+[node name="floor" parent="." unique_id=1650392354 instance=ExtResource("3_0imyp")]
+tile_map_data = PackedByteArray("AAAAAAMAAgABAAMAAAABAAMAAgACAAMAAAACAAMAAgACAAMAAAADAAMAAgACAAMAAAAEAAMAAgADAAMAAAAGAAIAAgAEAAMAAAAIAAIAAgAEAAMAAAA=")
+
+[node name="StartPosition" type="Marker2D" parent="." unique_id=1267579456]
+position = Vector2(107, 150)
+
+[connection signal="new_game" from="HUD" to="." method="_on_hud_new_game"]
+[connection signal="game_over" from="Player" to="." method="game_over"]

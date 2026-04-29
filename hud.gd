@@ -20,9 +20,7 @@ func show_game_over():
 
 func show_game_win():
 	show_message("You Win!")
-	await $MessageTimer.timeout
-	get_tree().reload_current_scene()
-	show_new_game()
+
 
 func show_new_game():
 	$Message.text = "Adventure"

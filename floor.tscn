@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://davjc5hn0ac31"]
 
+[ext_resource type="PackedScene" uid="uid://b21ion04vop61" path="res://items/ladder.tscn" id="1_dgmes"]
 [ext_resource type="Texture2D" uid="uid://cuayp3oyw4nub" path="res://asset/TileSet/base_sheet.tres" id="1_oj3tl"]
 [ext_resource type="PackedScene" uid="uid://ca1xbtmltgqxx" path="res://items/locked_block.tscn" id="1_qn07e"]
 [ext_resource type="PackedScene" uid="uid://crq65rj846wbv" path="res://items/spire.tscn" id="2_dgmes"]
 [ext_resource type="PackedScene" uid="uid://bevtbhnumrevp" path="res://items/jump_boost_block.tscn" id="3_36s4f"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_v5cjn"]
+scenes/1/scene = ExtResource("1_dgmes")
 scenes/2/scene = ExtResource("2_dgmes")
 scenes/3/scene = ExtResource("3_36s4f")
 scenes/7/scene = ExtResource("1_qn07e")

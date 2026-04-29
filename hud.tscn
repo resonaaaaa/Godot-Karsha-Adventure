@@ -5,9 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://bcvquks0awfl4" path="res://asset/From Kennys/PNG/Items/outlineKey.png" id="2_640wx"]
 [ext_resource type="Texture2D" uid="uid://17mxaopowrtn" path="res://asset/From Kennys/PNG/Items/keyRed.png" id="3_8sq4i"]
 [ext_resource type="FontFile" uid="uid://dkwbmjyfk3xse" path="res://asset/fonts/字魂无外润黑体(商用需授权).ttf" id="6_rftc2"]
-[ext_resource type="StyleBox" uid="uid://2an01y0kj5tm" path="res://asset/MenuButtonTheme/ButtonTheme.tres" id="7_61f8s"]
+[ext_resource type="StyleBox" uid="uid://2an01y0kj5tm" path="res://asset/UI/MenuButtonTheme/ButtonTheme.tres" id="7_61f8s"]
 [ext_resource type="Texture2D" uid="uid://c343ugva7x535" path="res://asset/UI/menu.png" id="7_rftc2"]
-[ext_resource type="StyleBox" uid="uid://dowv48iuvc6ml" path="res://asset/MenuButtonTheme/ButtonHover.tres" id="8_61f8s"]
+[ext_resource type="StyleBox" uid="uid://dowv48iuvc6ml" path="res://asset/UI/MenuButtonTheme/ButtonHover.tres" id="8_61f8s"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_64ctp"]
 action = &"start"
@@ -152,6 +152,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
 alignment = 1
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="ContinueButton" type="Button" parent="PauseMenu/VBoxContainer" unique_id=2045552466]
 custom_minimum_size = Vector2(150, 75)
@@ -189,6 +191,38 @@ theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = ExtResource("7_61f8s")
 theme_override_styles/hover = ExtResource("8_61f8s")
 text = "返回标题"
+
+[node name="SettingPanel" type="PopupPanel" parent="." unique_id=1352290604]
+oversampling_override = 1.0
+title = "游戏设置"
+initial_position = 2
+size = Vector2i(500, 300)
+
+[node name="SplitContainer" type="SplitContainer" parent="SettingPanel" unique_id=430146904]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 496.0
+offset_bottom = 296.0
+split_offsets = PackedInt32Array(347)
+split_offset = 347
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingPanel/SplitContainer" unique_id=918456166]
+modulate = Color(0.3254902, 0.8627451, 0.7529412, 1)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="SettingPanel/SplitContainer/VBoxContainer" unique_id=2099640832]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("7_61f8s")
+text = "1111"
+
+[node name="Button2" type="Button" parent="SettingPanel/SplitContainer/VBoxContainer" unique_id=580721174]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("7_61f8s")
+text = "2222"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="SettingPanel/SplitContainer" unique_id=1919871121]
+layout_mode = 2
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="mouse_entered" from="PauseButton" to="." method="_on_pause_button_mouse_entered"]
