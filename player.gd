@@ -4,6 +4,9 @@ extends CharacterBody2D
 @export var jump_velocity = -400
 @export var has_key = false
 @export var has_diamond = false
+@export var push_force := 1800.0
+@export var max_horizontal_speed := 450.0
+@export var max_vertical_speed := 1200.0
 var gravity = 800
 signal game_over
 var is_dead = false
@@ -12,7 +15,7 @@ var can_move = false
 #梯子相关参数
 var on_ladder = false
 var ladder_ref
-var climb_speed = 300
+var climb_speed = 200
 
 # 水平速度和垂直速度全部交给 velocity
 func _physics_process(delta: float) -> void:
@@ -49,6 +52,10 @@ func process_normal(delta):
 
 	# 根据velocity移动并处理碰撞
 	move_and_slide()
+	# Clamp velocity after collision response to avoid spike from physics feedback
+	velocity.x = clamp(velocity.x, -max_horizontal_speed, max_horizontal_speed)
+	velocity.y = clamp(velocity.y, -max_vertical_speed, max_vertical_speed)
+	_apply_push_to_rigidbodies(delta)
 
 	if position.y > 2000:
 		player_dead()
@@ -78,6 +85,10 @@ func process_climb(delta):
 
 	
 	move_and_slide()
+	# Clamp velocity after collision response to avoid spike from physics feedback
+	velocity.x = clamp(velocity.x, -max_horizontal_speed, max_horizontal_speed)
+	velocity.y = clamp(velocity.y, -max_vertical_speed, max_vertical_speed)
+	_apply_push_to_rigidbodies(delta)
 	
 func enter_ladder(ladder):
 	on_ladder = true
@@ -125,5 +136,28 @@ func start(pos):
 	set_physics_process(true)
 	show()
 
+func on_spire_hit(spire: Node2D) -> void:
+	if not is_in_group("player"):
+		return
+	player_dead()
+
+func _apply_push_to_rigidbodies(delta: float) -> void:
+	var slide_count = get_slide_collision_count()
+	for i in range(slide_count):
+		var collision = get_slide_collision(i)
+		var body = collision.get_collider()
+		if body is RigidBody2D:
+			var input_dir = Input.get_axis("move_left", "move_right")
+			if input_dir == 0.0:
+				continue
+			# Avoid pushing when standing on top of the body
+			if collision.get_normal().y < -0.6:
+				continue
+			var push_dir = Vector2(sign(input_dir), 0.0)
+			#施加冲力
+			body.apply_central_impulse(push_dir * push_force * delta)
+
+func on_platform_move(movement: Vector2) -> void:
+	position += movement
 	
 	

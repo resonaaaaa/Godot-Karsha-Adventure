@@ -6,6 +6,8 @@
 load_path = "res://.godot/imported/spikesHigh.png-0e050fff913e0c7e2c7afea73878e81c.ctex"
 
 [node name="Spire" type="Area2D" unique_id=1944486045]
+position = Vector2(0, 17)
+scale = Vector2(0.8, 1)
 script = ExtResource("1_0tjbd")
 metadata/_edit_group_ = true
 
@@ -15,6 +17,7 @@ texture = SubResource("CompressedTexture2D_0tjbd")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=1122291942]
+visible = false
 polygon = PackedVector2Array(43.5, 16, 29.5, -24, 23.5, -24, 15.5, 5, 4.5, -24, -2.5, -24, -11.5, 5, -21.5, -23, -27.5, -24, -40.5, 15)
 metadata/_edit_lock_ = true
 

@@ -1,6 +1,14 @@
 [gd_scene format=3 uid="uid://davjc5hn0ac31"]
 
 [ext_resource type="Texture2D" uid="uid://cuayp3oyw4nub" path="res://asset/TileSet/base_sheet.tres" id="1_oj3tl"]
+[ext_resource type="PackedScene" uid="uid://ca1xbtmltgqxx" path="res://items/locked_block.tscn" id="1_qn07e"]
+[ext_resource type="PackedScene" uid="uid://crq65rj846wbv" path="res://items/spire.tscn" id="2_dgmes"]
+[ext_resource type="PackedScene" uid="uid://bevtbhnumrevp" path="res://items/jump_boost_block.tscn" id="3_36s4f"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_v5cjn"]
+scenes/2/scene = ExtResource("2_dgmes")
+scenes/3/scene = ExtResource("3_36s4f")
+scenes/7/scene = ExtResource("1_qn07e")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cgngl"]
 resource_name = "地板"
@@ -363,8 +371,10 @@ texture_region_size = Vector2i(64, 64)
 8:8/0/z_index = 2
 8:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, -6.2837257, 1.9124374, 6.283722, -32, 32)
 9:8/0 = 0
+9:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 10:8/0 = 0
 11:8/0 = 0
+11:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 12:8/0 = 0
 13:8/0 = 0
 14:8/0 = 0
@@ -406,8 +416,11 @@ texture_region_size = Vector2i(64, 64)
 8:9/0/z_index = 2
 8:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 13.725338, 2.6216927, 22.361504, -32, 14.0337715)
 9:9/0 = 0
+9:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 10:9/0 = 0
+10:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 11:9/0 = 0
+11:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 12:9/0 = 0
 13:9/0 = 0
 14:9/0 = 0
@@ -508,6 +521,7 @@ texture_region_size = Vector2i(64, 64)
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
 sources/2 = SubResource("TileSetAtlasSource_cgngl")
+sources/0 = SubResource("TileSetScenesCollectionSource_v5cjn")
 
 [node name="floor" type="TileMapLayer" unique_id=1650392354]
 tile_set = SubResource("TileSet_cgngl")

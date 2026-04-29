@@ -196,3 +196,4 @@ text = "返回标题"
 [connection signal="toggled" from="PauseButton" to="." method="_on_pause_button_toggled"]
 [connection signal="popup_hide" from="PauseMenu" to="." method="_on_pause_menu_popup_hide"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

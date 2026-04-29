@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://blduurtn3gvoh"]
+
+[ext_resource type="Script" uid="uid://yn2dxn3oirmy" path="res://items/box.gd" id="1_2nuwg"]
+[ext_resource type="Texture2D" uid="uid://bo48aut04yv57" path="res://asset/From Kennys/PNG/Other/blockRed.png" id="2_8pjg8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2nuwg"]
+size = Vector2(64, 63)
+
+[node name="Box" type="RigidBody2D" unique_id=976230700]
+script = ExtResource("1_2nuwg")
+push_mass = 1.0
+push_linear_damp = 1.5
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1924062209]
+texture = ExtResource("2_8pjg8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=993149108]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_2nuwg")

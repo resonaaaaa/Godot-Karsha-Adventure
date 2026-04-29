@@ -73,3 +73,17 @@ func _on_continue_button_pressed() -> void:
 	get_tree().paused = false
 	$PauseMessage.hide()
 	$PauseMenu.hide()
+
+
+func _on_restart_button_pressed() -> void:
+	var tree = get_tree()
+	if tree.paused:
+		tree.paused = false
+	$PauseButton.button_pressed = false
+	$PauseMessage.hide()
+	$PauseMenu.hide()
+	$PauseText.hide()
+	call_deferred("_reload_scene")
+
+func _reload_scene() -> void:
+	get_tree().reload_current_scene()

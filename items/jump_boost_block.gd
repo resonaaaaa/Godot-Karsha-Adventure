@@ -5,7 +5,7 @@ extends Node2D
 @export var block_inactive: Texture
 @export var boost_val = -300
 var jump_boost_active = false	
-var block_is_active = true
+var block_is_active = false
 
 func _ready() -> void:
 	$Block/Sprite2D.texture = block_inactive
@@ -32,6 +32,11 @@ func _on_sensor_body_exited(body: Node2D) -> void:
 		jump_boost_active = false
 		$Block/Sprite2D.texture = block_activated_wait
 		
-func set_block_is_active(val:bool):
-	block_is_active = val
+func set_block_active():
+	block_is_active = true
+	$Block/Sprite2D.texture = block_activated_wait
+
+func set_block_inactive():
+	block_is_active = false
+	$Block/Sprite2D.texture = block_inactive
 	
