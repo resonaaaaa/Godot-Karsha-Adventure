@@ -85,3 +85,26 @@ func _on_restart_button_pressed() -> void:
 
 func _reload_scene() -> void:
 	get_tree().reload_current_scene()
+
+#打开设置菜单
+func _on_setting_button_pressed() -> void:
+	$PauseMenu.hide()
+	$SettingPanel.popup_centered()
+
+#关闭设置菜单，返回暂停菜单
+func _on_setting_close_button_pressed() -> void:
+	$SettingPanel.hide()
+	$PauseMenu.popup_centered()
+
+#恢复默认设置
+func _on_setting_default_button_pressed() -> void:
+	var audio_tab = $SettingPanel/TabContainer/音频
+	audio_tab.get_node("MuteCheckBox").button_pressed = false
+	audio_tab.get_node("MasterVolume/HSlider").value = 50.0
+	audio_tab.get_node("MusicVolume/HSlider").value = 50.0
+	audio_tab.get_node("SFXVolume/HSlider").value = 50.0
+	audio_tab.get_node("UIVolume/HSlider").value = 50.0
+	
+	var graphics_tab = $SettingPanel/TabContainer/画面
+	graphics_tab.get_node("Resolution/OptionButton").selected = 0
+	graphics_tab.get_node("Fullscreen").button_pressed = false

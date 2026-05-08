@@ -19,6 +19,7 @@ func _on_sensor_body_entered(body: Node2D) -> void:
 func _on_sensor_body_exited(body: Node2D) -> void:
 	if (body.is_in_group("player") or body.is_in_group("box")) and pressed:
 		pressed = false
+		await get_tree().create_timer(0.3).timeout 
 		$Block/ButtonPressed.hide()
 		$Block/ButtonReleased.show()
 		button_released.emit()

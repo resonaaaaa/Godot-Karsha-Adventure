@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://5iv11q5x52u5"]
+
+[ext_resource type="Texture2D" uid="uid://tdtvhimbclgs" path="res://asset/16899378.png" id="1_08khs"]
+[ext_resource type="Script" uid="uid://cf40e2xfmgbnb" path="res://items/fireball.gd" id="2_fireball_script"]
+[ext_resource type="Texture2D" uid="uid://bberfd26jwv6r" path="res://asset/fire_particle.png" id="3_gwjuy"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gwjuy"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 48.0
+angle_min = -13.59999
+angle_max = 13.600011
+orbit_velocity_min = -0.32699993
+orbit_velocity_max = 0.3270001
+radial_velocity_min = -62.890022
+radial_velocity_max = 62.889977
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -29.560001
+radial_accel_max = 29.559998
+tangential_accel_min = -8.810002
+tangential_accel_max = 8.809998
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_08khs"]
+radius = 15.0
+height = 46.0
+
+[node name="fireball" type="Area2D" unique_id=448574159]
+script = ExtResource("2_fireball_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=795612043]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("1_08khs")
+
+[node name="ExplosionParticles" type="GPUParticles2D" parent="." unique_id=1490768782]
+emitting = false
+amount = 64
+texture = ExtResource("3_gwjuy")
+lifetime = 0.4
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_gwjuy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=547170832]
+position = Vector2(5, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_08khs")
