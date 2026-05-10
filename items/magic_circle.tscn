@@ -67,23 +67,23 @@ animations = [{
 size = Vector2(114, 59)
 
 [node name="magic_circle" type="Area2D" unique_id=564121405]
+position = Vector2(-24, 0)
 script = ExtResource("1_xpr5n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1756380350]
-visible = false
-position = Vector2(357, 408.5)
+position = Vector2(24, 8)
 scale = Vector2(0.53124994, 0.53124994)
 sprite_frames = SubResource("SpriteFrames_xpr5n")
 animation = &"tp"
-frame = 8
-frame_progress = 0.2988729
+frame = 12
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1715272067]
-position = Vector2(360, 403.5)
+position = Vector2(25.125, -3.6927948)
 shape = SubResource("RectangleShape2D_xg5hp")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1203128964]
-position = Vector2(350, 389)
+position = Vector2(15.125, -18.192795)
 scale = Vector2(1.0550847, 1.2395805)
 texture = ExtResource("15_jgscy")
 

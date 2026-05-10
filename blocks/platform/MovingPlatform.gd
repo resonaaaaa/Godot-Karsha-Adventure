@@ -1,12 +1,15 @@
 extends StaticBody2D
 @export var platform_speed = 100.0
+@export var platform_texture: Texture2D
 #平台的目的地
 @export var platform_target_position = [Vector2.ZERO, Vector2(300, 0)]
+
 var direction = 1
 var platform_velocity = Vector2.ZERO
 var rider = []
 
 func _ready() -> void:
+	$Sprite2D.texture = platform_texture
 	for i in range(platform_target_position.size()):
 		platform_target_position[i] += position
 

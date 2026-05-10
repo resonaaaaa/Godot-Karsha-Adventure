@@ -35,6 +35,8 @@ func _on_body_entered(body: Node) -> void:
 		return
 	if body.has_method("die"):
 		body.die()
+	if body.has_method("break_block"):
+		body.break_block()
 	_explode()
 
 func _on_area_entered(area: Area2D) -> void:

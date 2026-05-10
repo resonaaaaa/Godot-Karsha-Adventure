@@ -226,9 +226,7 @@ double_jump_enabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1684169231]
 sprite_frames = SubResource("SpriteFrames_hqtel")
-animation = &"shooting_fireball"
-frame = 15
-frame_progress = 1.0
+animation = &"stay"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=507906603]
 visible = false
@@ -239,8 +237,8 @@ metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1421780966]
 limit_left = -50
-limit_top = -1000
-limit_right = 10000
+limit_top = -5000
+limit_right = 30000
 limit_bottom = 9999995
 
 [node name="doubleJumpTimer" type="Timer" parent="." unique_id=1142118245]

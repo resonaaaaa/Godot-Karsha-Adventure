@@ -31,8 +31,6 @@ func _ready() -> void:
 	elif mob_type == "swim":
 		speed = swim_speed
 		$ColliShapeSwim.disabled = false
-		
-	body_entered.connect(_on_body_entered)
 
 func _process(delta: float) -> void:
 	if is_dead:

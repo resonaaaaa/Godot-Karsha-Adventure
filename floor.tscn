@@ -2,15 +2,21 @@
 
 [ext_resource type="PackedScene" uid="uid://b21ion04vop61" path="res://items/ladder.tscn" id="1_dgmes"]
 [ext_resource type="Texture2D" uid="uid://cuayp3oyw4nub" path="res://asset/TileSet/base_sheet.tres" id="1_oj3tl"]
-[ext_resource type="PackedScene" uid="uid://ca1xbtmltgqxx" path="res://items/locked_block.tscn" id="1_qn07e"]
+[ext_resource type="PackedScene" uid="uid://ca1xbtmltgqxx" path="res://blocks/locked_block.tscn" id="1_qn07e"]
 [ext_resource type="PackedScene" uid="uid://crq65rj846wbv" path="res://items/spire.tscn" id="2_dgmes"]
-[ext_resource type="PackedScene" uid="uid://bevtbhnumrevp" path="res://items/jump_boost_block.tscn" id="3_36s4f"]
+[ext_resource type="PackedScene" uid="uid://bevtbhnumrevp" path="res://blocks/jump_boost_block.tscn" id="3_36s4f"]
+[ext_resource type="PackedScene" uid="uid://cc25e8fd6nqfg" path="res://blocks/platform/fake_platform_red.tscn" id="4_36s4f"]
+[ext_resource type="PackedScene" uid="uid://b7bpwm34ftvr5" path="res://blocks/breakable_block.tscn" id="7_2jbdd"]
+[ext_resource type="PackedScene" uid="uid://bkgdpe6fd5s81" path="res://blocks/platform/fake_platform_blue.tscn" id="7_ce06e"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_v5cjn"]
 scenes/1/scene = ExtResource("1_dgmes")
 scenes/2/scene = ExtResource("2_dgmes")
 scenes/3/scene = ExtResource("3_36s4f")
+scenes/4/scene = ExtResource("4_36s4f")
+scenes/6/scene = ExtResource("7_2jbdd")
 scenes/7/scene = ExtResource("1_qn07e")
+scenes/8/scene = ExtResource("7_ce06e")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cgngl"]
 resource_name = "地板"
@@ -34,12 +40,14 @@ texture_region_size = Vector2i(64, 64)
 5:0/0 = 0
 5:0/0/z_index = 2
 5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 13.725338, 2.6216927, 22.361504, -32, 14.0337715)
+6:0/next_alternative_id = 2
 6:0/0 = 0
 6:0/0/z_index = 2
 6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 13.725338, 2.6216927, 22.361504, -32, 14.0337715)
 7:0/0 = 0
 7:0/0/z_index = 2
 7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 13.725338, 2.6216927, 22.361504, -32, 14.0337715)
+8:0/next_alternative_id = 3
 8:0/0 = 0
 8:0/0/z_index = 2
 8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 13.725338, 2.6216927, 22.361504, -32, 14.0337715)
@@ -467,9 +475,13 @@ texture_region_size = Vector2i(64, 64)
 10:10/0 = 0
 11:10/0 = 0
 12:10/0 = 0
+12:10/0/z_index = 2
 13:10/0 = 0
+13:10/0/z_index = 2
 14:10/0 = 0
+14:10/0/z_index = 2
 15:10/0 = 0
+15:10/0/z_index = 2
 16:10/0 = 0
 17:10/0 = 0
 18:10/0 = 0
@@ -507,9 +519,17 @@ texture_region_size = Vector2i(64, 64)
 10:11/0 = 0
 11:11/0 = 0
 12:11/0 = 0
+12:11/0/z_index = 2
+12:11/0/custom_data_0 = true
 13:11/0 = 0
+13:11/0/z_index = 2
+13:11/0/custom_data_0 = true
 14:11/0 = 0
+14:11/0/z_index = 2
+14:11/0/custom_data_0 = true
 15:11/0 = 0
+15:11/0/z_index = 2
+15:11/0/custom_data_0 = true
 16:11/0 = 0
 17:11/0 = 0
 18:11/0 = 0
@@ -522,6 +542,8 @@ texture_region_size = Vector2i(64, 64)
 [sub_resource type="TileSet" id="TileSet_cgngl"]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
+custom_data_layer_0/name = "water"
+custom_data_layer_0/type = 1
 sources/2 = SubResource("TileSetAtlasSource_cgngl")
 sources/0 = SubResource("TileSetScenesCollectionSource_v5cjn")
 

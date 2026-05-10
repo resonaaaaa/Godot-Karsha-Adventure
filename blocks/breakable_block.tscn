@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b7bpwm34ftvr5"]
+
+[ext_resource type="Script" uid="uid://bn7hcvkwj4gql" path="res://blocks/breakable_block.gd" id="1_x8al8"]
+[ext_resource type="Texture2D" uid="uid://dg1yhd62h8d3u" path="res://asset/From Kennys/PNG/Other/blockGrey_broken.png" id="2_uixh3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u0phx"]
+size = Vector2(64, 64)
+
+[node name="BreakableBlock" type="StaticBody2D" unique_id=1192366450]
+script = ExtResource("1_x8al8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=367157117]
+texture = ExtResource("2_uixh3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=453679032]
+visible = false
+shape = SubResource("RectangleShape2D_u0phx")

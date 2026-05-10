@@ -4,13 +4,16 @@
 [ext_resource type="PackedScene" uid="uid://bmp86xonl3go0" path="res://player.tscn" id="2_mlbie"]
 [ext_resource type="Texture2D" uid="uid://btr84d2nq61qp" path="res://asset/From Kennys/PNG/Backgrounds/set1_background.png" id="2_wmj75"]
 [ext_resource type="PackedScene" uid="uid://davjc5hn0ac31" path="res://floor.tscn" id="3_s3sxq"]
-[ext_resource type="PackedScene" uid="uid://ber7gi7ie5wbo" path="res://items/platform.tscn" id="5_gay30"]
+[ext_resource type="PackedScene" uid="uid://ber7gi7ie5wbo" path="res://blocks/platform/MovingPlatform.tscn" id="5_gay30"]
 [ext_resource type="PackedScene" uid="uid://b8ya7dgnr0ekp" path="res://items.tscn" id="5_iits7"]
-[ext_resource type="PackedScene" uid="uid://d0eaog41dcwjc" path="res://hud.tscn" id="6_5g1s2"]
+[ext_resource type="Texture2D" uid="uid://d2v5wr7jcwogf" path="res://asset/From Kennys/PNG/Tiles/Brown tiles/tileBrown_08.png" id="6_3eq7j"]
+[ext_resource type="PackedScene" uid="uid://d0eaog41dcwjc" path="res://UI/HUD/hud.tscn" id="6_5g1s2"]
 [ext_resource type="PackedScene" uid="uid://crq65rj846wbv" path="res://items/spire.tscn" id="6_btw7m"]
 [ext_resource type="PackedScene" uid="uid://cccjd1n1hgkpy" path="res://items/button.tscn" id="7_177rw"]
-[ext_resource type="PackedScene" uid="uid://bevtbhnumrevp" path="res://items/jump_boost_block.tscn" id="8_q8ihw"]
+[ext_resource type="PackedScene" uid="uid://bevtbhnumrevp" path="res://blocks/jump_boost_block.tscn" id="8_q8ihw"]
 [ext_resource type="PackedScene" uid="uid://cta0qjvex0ydx" path="res://mob.tscn" id="11_2cjhy"]
+[ext_resource type="PackedScene" uid="uid://v3k0dkchgs6w" path="res://items/notice_board.tscn" id="11_su40w"]
+[ext_resource type="PackedScene" uid="uid://dddialog12345" path="res://UI/DialogManager/dialog_manager.tscn" id="14_jip2a"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_btw7m"]
 load_path = "res://.godot/imported/outlineKey.png-c9417171e504c70fd9ca17d3de8779ec.ctex"
@@ -43,10 +46,11 @@ position = Vector2(6037, 1229)
 [node name="Platform" parent="Background" unique_id=703036019 instance=ExtResource("5_gay30")]
 position = Vector2(5546, 415)
 platform_speed = 150.0
+platform_texture = ExtResource("6_3eq7j")
 platform_target_position = [Vector2(0, 0), Vector2(300, 0), Vector2(400, 100)]
 
 [node name="StartPosition" type="Marker2D" parent="." unique_id=765772294]
-position = Vector2(6586, 999)
+position = Vector2(6498, 975)
 metadata/_edit_group_ = true
 
 [node name="HUD" parent="." unique_id=1959219276 instance=ExtResource("6_5g1s2")]
@@ -63,14 +67,14 @@ position = Vector2(64, 160)
 position = Vector2(320, -216)
 
 [node name="Diamond" parent="Items" index="1" unique_id=1205686764]
-position = Vector2(4759, 113)
+position = Vector2(4898, 119)
 
 [node name="Spire" parent="Items" index="2" unique_id=1114092551]
 position = Vector2(1192, 128)
 metadata/_edit_lock_ = true
 
 [node name="magic_circle" parent="Items" index="3" unique_id=564121405]
-position = Vector2(6341, 549)
+position = Vector2(6682, 959)
 
 [node name="Box" parent="Items" index="4" unique_id=976230700 groups=["box"]]
 position = Vector2(5214, 940)
@@ -89,6 +93,9 @@ metadata/_edit_lock_ = true
 position = Vector2(4320, 1024)
 metadata/_edit_lock_ = true
 
+[node name="NoticeBoard" parent="Items" unique_id=442811837 instance=ExtResource("11_su40w")]
+position = Vector2(6250, 815)
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1655655313]
 
 [node name="Background" type="ParallaxLayer" parent="ParallaxBackground" unique_id=138249918]
@@ -104,17 +111,19 @@ texture = ExtResource("2_wmj75")
 [node name="mob" parent="." unique_id=2111941873 instance=ExtResource("11_2cjhy")]
 position = Vector2(5650, 1295)
 
+[node name="DialogManager" parent="." unique_id=861114537 instance=ExtResource("14_jip2a")]
+
 [connection signal="game_over" from="Player" to="." method="game_over"]
 [connection signal="body_entered" from="Background/floor/Spire" to="Background/floor/Spire" method="_on_body_entered"]
-[connection signal="body_entered" from="Background/floor/@Area2D@30272" to="Background/floor/@Area2D@30272" method="_on_body_entered"]
-[connection signal="body_entered" from="Background/floor/@Area2D@30273" to="Background/floor/@Area2D@30273" method="_on_body_entered"]
-[connection signal="body_entered" from="Background/floor/@Area2D@30274" to="Background/floor/@Area2D@30274" method="_on_body_entered"]
-[connection signal="body_entered" from="Background/floor/@Area2D@30275" to="Background/floor/@Area2D@30275" method="_on_body_entered"]
-[connection signal="body_entered" from="Background/floor/@Area2D@30276" to="Background/floor/@Area2D@30276" method="_on_body_entered"]
+[connection signal="body_entered" from="Background/floor/@Area2D@344766" to="Background/floor/@Area2D@344766" method="_on_body_entered"]
+[connection signal="body_entered" from="Background/floor/@Area2D@344767" to="Background/floor/@Area2D@344767" method="_on_body_entered"]
+[connection signal="body_entered" from="Background/floor/@Area2D@344768" to="Background/floor/@Area2D@344768" method="_on_body_entered"]
+[connection signal="body_entered" from="Background/floor/@Area2D@344769" to="Background/floor/@Area2D@344769" method="_on_body_entered"]
+[connection signal="body_entered" from="Background/floor/@Area2D@344770" to="Background/floor/@Area2D@344770" method="_on_body_entered"]
 [connection signal="body_entered" from="Background/floor/ladder" to="Background/floor/ladder" method="_on_body_entered"]
 [connection signal="body_exited" from="Background/floor/ladder" to="Background/floor/ladder" method="_on_body_exited"]
-[connection signal="body_entered" from="Background/floor/@Area2D@30277" to="Background/floor/@Area2D@30277" method="_on_body_entered"]
-[connection signal="body_exited" from="Background/floor/@Area2D@30277" to="Background/floor/@Area2D@30277" method="_on_body_exited"]
+[connection signal="body_entered" from="Background/floor/@Area2D@344771" to="Background/floor/@Area2D@344771" method="_on_body_entered"]
+[connection signal="body_exited" from="Background/floor/@Area2D@344771" to="Background/floor/@Area2D@344771" method="_on_body_exited"]
 [connection signal="new_game" from="HUD" to="." method="_on_hud_new_game"]
 [connection signal="get_key" from="Items/Key" to="HUD" method="show_key_ui"]
 [connection signal="tp" from="Items/magic_circle" to="." method="game_win"]

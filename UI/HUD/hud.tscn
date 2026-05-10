@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d0eaog41dcwjc"]
 
-[ext_resource type="Script" uid="uid://bswooqui6c3md" path="res://hud.gd" id="1_64ctp"]
+[ext_resource type="Script" uid="uid://bswooqui6c3md" path="res://UI/HUD/hud.gd" id="1_64ctp"]
 [ext_resource type="FontFile" uid="uid://scmbdd7yljqj" path="res://asset/fonts/Xolonium-Regular.ttf" id="2_8sq4i"]
 [ext_resource type="Texture2D" uid="uid://bcvquks0awfl4" path="res://asset/From Kennys/PNG/Items/outlineKey.png" id="2_640wx"]
 [ext_resource type="Texture2D" uid="uid://17mxaopowrtn" path="res://asset/From Kennys/PNG/Items/keyRed.png" id="3_8sq4i"]
@@ -23,7 +23,11 @@ font_size = 64
 load_path = "res://.godot/imported/outlineKey.png-c9417171e504c70fd9ca17d3de8779ec.ctex"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_setting_panel"]
-bg_color = Color(0.6, 0.5529, 0.6, 0.7059)
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.28235295, 0.5529412, 0.75686276, 0.9019608)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -226,14 +230,20 @@ text = "返回标题"
 oversampling_override = 1.0
 title = "游戏设置"
 initial_position = 2
-size = Vector2i(580, 350)
+size = Vector2i(582, 345)
 theme_override_styles/panel = SubResource("StyleBoxFlat_setting_panel")
 
-[node name="TabContainer" type="TabContainer" parent="SettingPanel" unique_id=679608089]
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 578.0
-offset_bottom = 348.0
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingPanel" unique_id=2045638591]
+custom_minimum_size = Vector2(0, 20)
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 581.0
+offset_bottom = 344.0
+theme_override_constants/separation = 3
+
+[node name="TabContainer" type="TabContainer" parent="SettingPanel/VBoxContainer" unique_id=679608089]
+custom_minimum_size = Vector2(572, 290)
+layout_mode = 2
 theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hovered_color = Color(1, 1, 1, 1)
 theme_override_colors/font_unselected_color = Color(1, 1, 1, 1)
@@ -246,54 +256,54 @@ theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_tab_hover")
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_tab_selected")
 current_tab = 2
 
-[node name="音频" type="VBoxContainer" parent="SettingPanel/TabContainer" unique_id=918456166]
+[node name="音频" type="VBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer" unique_id=918456166]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 15
 metadata/_tab_index = 0
 
-[node name="MuteCheckBox" type="CheckBox" parent="SettingPanel/TabContainer/音频" unique_id=119326881]
+[node name="MuteCheckBox" type="CheckBox" parent="SettingPanel/VBoxContainer/TabContainer/音频" unique_id=119326881]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16
 text = "静音"
 
-[node name="MasterVolume" type="HBoxContainer" parent="SettingPanel/TabContainer/音频" unique_id=637545608]
+[node name="MasterVolume" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/音频" unique_id=637545608]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingPanel/TabContainer/音频/MasterVolume" unique_id=612691389]
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/音频/MasterVolume" unique_id=612691389]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16
 text = "总音量"
 
-[node name="HSlider" type="HSlider" parent="SettingPanel/TabContainer/音频/MasterVolume" unique_id=1133188360]
+[node name="HSlider" type="HSlider" parent="SettingPanel/VBoxContainer/TabContainer/音频/MasterVolume" unique_id=1133188360]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 50.0
 
-[node name="MusicVolume" type="HBoxContainer" parent="SettingPanel/TabContainer/音频" unique_id=1881690399]
+[node name="MusicVolume" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/音频" unique_id=1881690399]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingPanel/TabContainer/音频/MusicVolume" unique_id=2120113655]
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/音频/MusicVolume" unique_id=2120113655]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16
 text = "音乐音量"
 
-[node name="HSlider" type="HSlider" parent="SettingPanel/TabContainer/音频/MusicVolume" unique_id=685165711]
+[node name="HSlider" type="HSlider" parent="SettingPanel/VBoxContainer/TabContainer/音频/MusicVolume" unique_id=685165711]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 50.0
 
-[node name="SFXVolume" type="HBoxContainer" parent="SettingPanel/TabContainer/音频" unique_id=2078518301]
+[node name="SFXVolume" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/音频" unique_id=2078518301]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingPanel/TabContainer/音频/SFXVolume" unique_id=1823527369]
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/音频/SFXVolume" unique_id=1823527369]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -301,16 +311,16 @@ theme_override_fonts/font = ExtResource("2_8sq4i")
 theme_override_font_sizes/font_size = 16
 text = "效果音量"
 
-[node name="HSlider" type="HSlider" parent="SettingPanel/TabContainer/音频/SFXVolume" unique_id=2048615901]
+[node name="HSlider" type="HSlider" parent="SettingPanel/VBoxContainer/TabContainer/音频/SFXVolume" unique_id=2048615901]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 50.0
 
-[node name="UIVolume" type="HBoxContainer" parent="SettingPanel/TabContainer/音频" unique_id=1035011814]
+[node name="UIVolume" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/音频" unique_id=1035011814]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingPanel/TabContainer/音频/UIVolume" unique_id=1990054404]
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/音频/UIVolume" unique_id=1990054404]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -318,22 +328,22 @@ theme_override_fonts/font = ExtResource("2_8sq4i")
 theme_override_font_sizes/font_size = 16
 text = "UI音量"
 
-[node name="HSlider" type="HSlider" parent="SettingPanel/TabContainer/音频/UIVolume" unique_id=547259111]
+[node name="HSlider" type="HSlider" parent="SettingPanel/VBoxContainer/TabContainer/音频/UIVolume" unique_id=547259111]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 50.0
 
-[node name="画面" type="VBoxContainer" parent="SettingPanel/TabContainer" unique_id=1919871121]
+[node name="画面" type="VBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer" unique_id=1919871121]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 15
 metadata/_tab_index = 1
 
-[node name="Resolution" type="HBoxContainer" parent="SettingPanel/TabContainer/画面" unique_id=1931797029]
+[node name="Resolution" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/画面" unique_id=1931797029]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingPanel/TabContainer/画面/Resolution" unique_id=1258626336]
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/画面/Resolution" unique_id=1258626336]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -341,7 +351,7 @@ theme_override_fonts/font = ExtResource("2_8sq4i")
 theme_override_font_sizes/font_size = 16
 text = "分辨率"
 
-[node name="OptionButton" type="OptionButton" parent="SettingPanel/TabContainer/画面/Resolution" unique_id=253517285]
+[node name="OptionButton" type="OptionButton" parent="SettingPanel/VBoxContainer/TabContainer/画面/Resolution" unique_id=253517285]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_8sq4i")
@@ -352,126 +362,130 @@ popup/item_0/id = 0
 popup/item_1/text = "1280x720"
 popup/item_1/id = 1
 
-[node name="Fullscreen" type="CheckBox" parent="SettingPanel/TabContainer/画面" unique_id=1937315898]
+[node name="Fullscreen" type="CheckBox" parent="SettingPanel/VBoxContainer/TabContainer/画面" unique_id=1937315898]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_8sq4i")
 theme_override_font_sizes/font_size = 16
 text = "全屏"
 
-[node name="控制" type="VBoxContainer" parent="SettingPanel/TabContainer" unique_id=933904974]
+[node name="控制" type="VBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer" unique_id=933904974]
 layout_mode = 2
 theme_override_constants/separation = 10
 metadata/_tab_index = 2
 
-[node name="Key" type="VBoxContainer" parent="SettingPanel/TabContainer/控制" unique_id=1488189653]
+[node name="Key" type="VBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/控制" unique_id=1488189653]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="W" type="HBoxContainer" parent="SettingPanel/TabContainer/控制/Key" unique_id=23334222]
+[node name="W" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key" unique_id=23334222]
 layout_mode = 2
-theme_override_constants/separation = 200
+theme_override_constants/separation = 156
 alignment = 1
 
-[node name="Label" type="Label" parent="SettingPanel/TabContainer/控制/Key/W" unique_id=517603880]
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/W" unique_id=517603880]
 layout_mode = 2
-text = "向上"
+text = "向上、跳跃"
 
-[node name="Button" type="Button" parent="SettingPanel/TabContainer/控制/Key/W" unique_id=1111345461]
+[node name="Button" type="Button" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/W" unique_id=1111345461]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 text = "W"
 
-[node name="S" type="HBoxContainer" parent="SettingPanel/TabContainer/控制/Key" unique_id=286246021]
+[node name="S" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key" unique_id=286246021]
 layout_mode = 2
 theme_override_constants/separation = 200
 alignment = 1
 
-[node name="Label" type="Label" parent="SettingPanel/TabContainer/控制/Key/S" unique_id=1284290341]
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/S" unique_id=1284290341]
 layout_mode = 2
 text = "向下"
 
-[node name="Button" type="Button" parent="SettingPanel/TabContainer/控制/Key/S" unique_id=420104894]
+[node name="Button" type="Button" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/S" unique_id=420104894]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 text = "S"
 
-[node name="A" type="HBoxContainer" parent="SettingPanel/TabContainer/控制/Key" unique_id=1264430743]
+[node name="A" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key" unique_id=1264430743]
 layout_mode = 2
 theme_override_constants/separation = 200
 alignment = 1
 
-[node name="Label" type="Label" parent="SettingPanel/TabContainer/控制/Key/A" unique_id=409705901]
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/A" unique_id=409705901]
 layout_mode = 2
 text = "向左"
 
-[node name="Button" type="Button" parent="SettingPanel/TabContainer/控制/Key/A" unique_id=2145197225]
+[node name="Button" type="Button" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/A" unique_id=2145197225]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 text = "A"
 
-[node name="D" type="HBoxContainer" parent="SettingPanel/TabContainer/控制/Key" unique_id=70309569]
+[node name="D" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key" unique_id=70309569]
 layout_mode = 2
 theme_override_constants/separation = 200
 alignment = 1
 
-[node name="Label" type="Label" parent="SettingPanel/TabContainer/控制/Key/D" unique_id=1714067805]
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/D" unique_id=1714067805]
 layout_mode = 2
 text = "向右"
 
-[node name="Button" type="Button" parent="SettingPanel/TabContainer/控制/Key/D" unique_id=858097947]
+[node name="Button" type="Button" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/D" unique_id=858097947]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 text = "D"
 
-[node name="Jump" type="HBoxContainer" parent="SettingPanel/TabContainer/控制/Key" unique_id=245558022]
+[node name="F" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key" unique_id=1206622706]
 layout_mode = 2
 theme_override_constants/separation = 200
 alignment = 1
 
-[node name="Label" type="Label" parent="SettingPanel/TabContainer/控制/Key/Jump" unique_id=846164616]
-layout_mode = 2
-text = "跳跃"
-
-[node name="Button" type="Button" parent="SettingPanel/TabContainer/控制/Key/Jump" unique_id=312721]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-text = "W"
-
-[node name="F" type="HBoxContainer" parent="SettingPanel/TabContainer/控制/Key" unique_id=1206622706]
-layout_mode = 2
-theme_override_constants/separation = 200
-alignment = 1
-
-[node name="Label" type="Label" parent="SettingPanel/TabContainer/控制/Key/F" unique_id=1099017121]
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/F" unique_id=1099017121]
 layout_mode = 2
 text = "攻击"
 
-[node name="Button" type="Button" parent="SettingPanel/TabContainer/控制/Key/F" unique_id=1889732740]
+[node name="Button" type="Button" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/F" unique_id=1889732740]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 text = "F"
 
-[node name="CloseButton" type="Button" parent="SettingPanel" unique_id=123984712]
-visible = false
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 578.0
-offset_bottom = 348.0
-theme_override_fonts/font = ExtResource("2_8sq4i")
-theme_override_font_sizes/font_size = 20
-text = "×"
-flat = true
+[node name="E" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key" unique_id=1994412872]
+layout_mode = 2
+theme_override_constants/separation = 200
+alignment = 1
 
-[node name="DefaultButton" type="Button" parent="SettingPanel" unique_id=561023910]
-visible = false
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 578.0
-offset_bottom = 348.0
-theme_override_fonts/font = ExtResource("2_8sq4i")
-theme_override_font_sizes/font_size = 16
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/E" unique_id=1652396609]
+layout_mode = 2
+text = "交互"
+
+[node name="Button" type="Button" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/E" unique_id=1768103123]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "E"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingPanel/VBoxContainer" unique_id=1993248154]
+layout_mode = 2
+theme_override_constants/separation = 80
+alignment = 1
+
+[node name="DefaultButton" type="Button" parent="SettingPanel/VBoxContainer/HBoxContainer" unique_id=561023910]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab_bg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tab_bg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tab_bg")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_tab_bg")
+theme_override_styles/focus = SubResource("StyleBoxFlat_tab_bg")
 text = "恢复默认设置"
+
+[node name="CloseButton" type="Button" parent="SettingPanel/VBoxContainer/HBoxContainer" unique_id=123984712]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab_bg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tab_bg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tab_bg")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_tab_bg")
+theme_override_styles/focus = SubResource("StyleBoxFlat_tab_bg")
+text = "返回"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="mouse_entered" from="PauseButton" to="." method="_on_pause_button_mouse_entered"]
@@ -481,5 +495,5 @@ text = "恢复默认设置"
 [connection signal="pressed" from="PauseMenu/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/SettingButton" to="." method="_on_setting_button_pressed"]
-[connection signal="pressed" from="SettingPanel/CloseButton" to="." method="_on_setting_close_button_pressed"]
-[connection signal="pressed" from="SettingPanel/DefaultButton" to="." method="_on_setting_default_button_pressed"]
+[connection signal="pressed" from="SettingPanel/VBoxContainer/HBoxContainer/DefaultButton" to="." method="_on_setting_default_button_pressed"]
+[connection signal="pressed" from="SettingPanel/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_setting_close_button_pressed"]

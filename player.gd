@@ -26,9 +26,13 @@ var attack_facing := 1
 var on_ladder = false
 var ladder_ref
 var climb_speed = 200
+#魔法相关
+@export var red_gem_magic_unlocked = false
 
 @onready var double_jump_timer: Timer = $doubleJumpTimer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+var tilemap_layers: Array[Node] = []
 
 func _ready() -> void:
 	if double_jump_window > 0.0:
@@ -37,6 +41,33 @@ func _ready() -> void:
 	double_jump_timer.stop()
 	animated_sprite.animation = "stay"
 	animated_sprite.animation_finished.connect(_on_animation_finished)
+	call_deferred("_cache_tilemap_layers")
+
+func _cache_tilemap_layers() -> void:
+	if get_tree() and get_tree().current_scene:
+		tilemap_layers = get_tree().current_scene.find_children("*", "TileMapLayer", true, false)
+		var tm = get_tree().current_scene.find_children("*", "TileMap", true, false)
+		tilemap_layers.append_array(tm)
+
+#检查玩家所在位置是否有水，如果有则触发死亡
+func _check_water_tiles() -> void:
+	for layer in tilemap_layers:
+		var local_pos = layer.to_local(global_position)
+		var map_pos = layer.local_to_map(local_pos)
+		
+		if layer.has_method("get_cell_tile_data"):
+			
+			var tile_data: TileData
+			if layer is TileMapLayer:
+				tile_data = layer.get_cell_tile_data(map_pos)
+			else:
+				tile_data = layer.get_cell_tile_data(0, map_pos) # 默认检查第0层
+
+			if tile_data:
+				var is_water = tile_data.get_custom_data("water")
+				if is_water:
+					player_dead()
+					return
 
 func start(pos):
 	position = pos
@@ -53,6 +84,11 @@ func _physics_process(delta: float) -> void:
 		return
 	if not can_move:
 		return
+		
+	_check_water_tiles()
+	if is_dead:
+		return
+		
 	#处理爬梯子的情况
 	if on_ladder:
 		process_climb(delta)
@@ -208,6 +244,9 @@ func set_has_diamond(val:bool):
 
 #发射火球，返回是否成功发射
 func shoot_fireball() -> bool:
+	if red_gem_magic_unlocked == false:
+		return false
+
 	#在梯子上禁用火球发射
 	if on_ladder:
 		return false
