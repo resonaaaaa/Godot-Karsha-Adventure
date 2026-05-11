@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b8ya7dgnr0ekp"]
+
+[ext_resource type="PackedScene" uid="uid://q537ounub7qb" path="res://items/loot/key_red.tscn" id="1_u5wui"]
+[ext_resource type="PackedScene" uid="uid://blm3cp0tg2c0u" path="res://items/loot/diamond.tscn" id="2_aa2cp"]
+[ext_resource type="PackedScene" uid="uid://crq65rj846wbv" path="res://mapElement/mechanism/spire.tscn" id="4_g7036"]
+[ext_resource type="PackedScene" uid="uid://dvu76lldwo2hr" path="res://items/magic_circle.tscn" id="5_3grub"]
+[ext_resource type="PackedScene" uid="uid://blduurtn3gvoh" path="res://mapElement/blocks/box.tscn" id="8_4bwdg"]
+
+[node name="Items" type="Node2D" unique_id=1187595077]
+
+[node name="Key" parent="." unique_id=885123096 instance=ExtResource("1_u5wui")]
+
+[node name="Diamond" parent="." unique_id=1205686764 instance=ExtResource("2_aa2cp")]
+
+[node name="Spire" parent="." unique_id=1114092551 instance=ExtResource("4_g7036")]
+position = Vector2(147.09468, 65.68916)
+
+[node name="magic_circle" parent="." unique_id=564121405 instance=ExtResource("5_3grub")]
+
+[node name="Box" parent="." unique_id=976230700 instance=ExtResource("8_4bwdg")]

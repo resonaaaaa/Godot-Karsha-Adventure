@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://kak13a2n3fgu"]
+
+[ext_resource type="Script" uid="uid://cooaswb10wloa" path="res://character/magic_master.gd" id="1_iba52"]
+[ext_resource type="Texture2D" uid="uid://dqlbgjx6nl3ml" path="res://asset/animation/master/images/walk_04.png" id="1_w2xml"]
+[ext_resource type="Texture2D" uid="uid://uvgjl7h5q80b" path="res://asset/animation/master/images/walk_05.png" id="2_iba52"]
+[ext_resource type="Texture2D" uid="uid://dcw6yotta5dy" path="res://asset/animation/master/images/walk_06.png" id="3_6t2pp"]
+[ext_resource type="Texture2D" uid="uid://bt17xdprh10qs" path="res://asset/animation/master/images/walk_07.png" id="4_t3yly"]
+[ext_resource type="Texture2D" uid="uid://b1yntwo2ldw3k" path="res://asset/animation/master/images/walk_08.png" id="5_l6lrq"]
+[ext_resource type="Texture2D" uid="uid://c6ullcxbtrcvc" path="res://asset/animation/master/images/walk_09.png" id="6_f4845"]
+[ext_resource type="Texture2D" uid="uid://4p60ld17nq88" path="res://asset/animation/master/images/walk_02.png" id="7_syxwm"]
+[ext_resource type="Texture2D" uid="uid://ov0ii3r2ebxc" path="res://asset/animation/master/FIRE/fire/fight_02.png" id="8_01dpv"]
+[ext_resource type="FontFile" uid="uid://dkwbmjyfk3xse" path="res://asset/fonts/字魂无外润黑体(商用需授权).ttf" id="9_6t2pp"]
+[ext_resource type="Texture2D" uid="uid://d3ydcvl5dcsc7" path="res://asset/animation/master/FIRE/fire/fight_03.png" id="9_dtnyh"]
+[ext_resource type="Texture2D" uid="uid://bmo2mrcglb7w" path="res://asset/animation/master/FIRE/fire/fight_04.png" id="10_cvmr6"]
+[ext_resource type="Texture2D" uid="uid://7akonajlpcgd" path="res://asset/animation/master/FIRE/fire/fight_05.png" id="11_ctn0s"]
+[ext_resource type="Texture2D" uid="uid://8ro026myhhff" path="res://asset/animation/master/FIRE/fire/fight_06.png" id="12_vd43j"]
+[ext_resource type="Texture2D" uid="uid://btgkyfagsp6fa" path="res://asset/animation/master/FIRE/fire/fight_07.png" id="13_ueb4a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7suci"]
+size = Vector2(157, 76)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_01dpv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_w2xml")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_iba52")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6t2pp")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_t3yly")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_l6lrq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_f4845")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_01dpv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_dtnyh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_cvmr6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_cvmr6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_cvmr6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ctn0s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_vd43j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ueb4a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ueb4a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ueb4a")
+}],
+"loop": false,
+"name": &"shooting",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_syxwm")
+}],
+"loop": true,
+"name": &"stay",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w2xml"]
+radius = 16.0
+height = 48.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t3yly"]
+content_margin_left = 9.0
+bg_color = Color(0, 0.003921569, 0.08627451, 0.3372549)
+
+[node name="MagicMaster" type="Area2D" unique_id=1118763764]
+script = ExtResource("1_iba52")
+
+[node name="Sensor" type="Area2D" parent="." unique_id=559895649]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor" unique_id=985443001]
+position = Vector2(-0.5, -5)
+shape = SubResource("RectangleShape2D_7suci")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1773601553]
+sprite_frames = SubResource("SpriteFrames_01dpv")
+animation = &"stay"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=181377432]
+visible = false
+shape = SubResource("CapsuleShape2D_w2xml")
+debug_color = Color(0.83703774, 0.32046267, 0.5644911, 0.41960785)
+
+[node name="Tips" type="Label" parent="." unique_id=846603194]
+visible = false
+offset_left = -62.0
+offset_top = -89.0
+offset_right = 70.0
+offset_bottom = -55.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5647059)
+theme_override_fonts/font = ExtResource("9_6t2pp")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_t3yly")
+text = "对话（ E ）"
+
+[connection signal="body_entered" from="Sensor" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Sensor" to="." method="_on_body_exited"]

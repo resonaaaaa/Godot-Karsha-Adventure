@@ -71,10 +71,9 @@ func _reset_player_properties(level: Node) -> void:
 	var player := level.get_node_or_null("Player")
 	if player == null:
 		return
-	if player.has_method("set_has_key"):
-		player.set_has_key(false)
-	else:
-		player.set("has_key", false)
+	if player.has_method("set_has_key_red"):
+		player.set_has_key_red(false)
+		player.set_has_key_green(false)
 
 func _show_loading() -> Node:
 	if loading_scene_path.is_empty():

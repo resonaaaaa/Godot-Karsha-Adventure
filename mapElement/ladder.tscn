@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b21ion04vop61"]
+
+[ext_resource type="Texture2D" uid="uid://dfvwkto7e1h05" path="res://asset/From Kennys/PNG/Other/ladderNarrow_mid.png" id="1_qrg3c"]
+[ext_resource type="Script" uid="uid://x4pb1hnc5v7n" path="res://mapElement/ladder.gd" id="1_sxhnb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xupru"]
+size = Vector2(38, 64.5)
+
+[node name="ladder" type="Area2D" unique_id=896826381]
+script = ExtResource("1_sxhnb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1891870262]
+texture = ExtResource("1_qrg3c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1222928805]
+position = Vector2(0, -0.75)
+shape = SubResource("RectangleShape2D_xupru")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

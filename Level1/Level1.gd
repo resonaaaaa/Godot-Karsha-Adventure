@@ -1,6 +1,10 @@
 extends Node2D
 signal level_completed
 
+func _ready() -> void:
+	if has_node("HUD"):
+		$HUD.setup_level(1)
+
 func game_over():
 	$HUD.show_game_over()
 	$Player.hide()

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://q537ounub7qb"]
+
+[ext_resource type="Script" uid="uid://dxsebwfe0fcyx" path="res://items/loot/key_red.gd" id="1_n0ccv"]
+[ext_resource type="Texture2D" uid="uid://17mxaopowrtn" path="res://asset/From Kennys/PNG/Items/keyRed.png" id="2_gkl1y"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p0yg6"]
+radius = 17.121902
+height = 48.0
+
+[node name="RedKey" type="Area2D" unique_id=885123096]
+script = ExtResource("1_n0ccv")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=254014536]
+position = Vector2(0.8499985, 0.5)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("2_gkl1y")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1733421438]
+position = Vector2(0.8499832, 0.49999237)
+rotation = 0.7574729
+shape = SubResource("CapsuleShape2D_p0yg6")
+metadata/_edit_group_ = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

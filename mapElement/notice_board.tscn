@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://v3k0dkchgs6w"]
+
+[ext_resource type="Script" uid="uid://bq772xshe7gpr" path="res://mapElement/notice_board.gd" id="1_6mjw6"]
+[ext_resource type="Texture2D" uid="uid://bac1epmocpu53" path="res://asset/From Kennys/PNG/Other/signSmall.png" id="2_t4oux"]
+[ext_resource type="FontFile" uid="uid://dkwbmjyfk3xse" path="res://asset/fonts/字魂无外润黑体(商用需授权).ttf" id="3_t4oux"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wc2di"]
+size = Vector2(131, 82)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wc2di"]
+content_margin_left = 9.0
+bg_color = Color(0, 0.003921569, 0.08627451, 0.3372549)
+
+[node name="NoticeBoard" type="Area2D" unique_id=442811837]
+script = ExtResource("1_6mjw6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=356128140]
+texture = ExtResource("2_t4oux")
+
+[node name="Sensor" type="CollisionShape2D" parent="." unique_id=1062936094]
+position = Vector2(3.5, -5)
+shape = SubResource("RectangleShape2D_wc2di")
+
+[node name="Label" type="Label" parent="." unique_id=317401242]
+visible = false
+offset_left = -62.0
+offset_top = -89.0
+offset_right = 70.0
+offset_bottom = -55.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5647059)
+theme_override_fonts/font = ExtResource("3_t4oux")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_wc2di")
+text = "查看（ E ）"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

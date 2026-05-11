@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://ber7gi7ie5wbo"]
+
+[ext_resource type="Script" uid="uid://cswek2sikmvg" path="res://mapElement/blocks/platform/MovingPlatform.gd" id="1_cr6s0"]
+[ext_resource type="Texture2D" uid="uid://d2v5wr7jcwogf" path="res://asset/From Kennys/PNG/Tiles/Brown tiles/tileBrown_08.png" id="1_qrv2m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cr6s0"]
+size = Vector2(56, 13)
+
+[node name="MovingPlatform" type="StaticBody2D" unique_id=703036019]
+script = ExtResource("1_cr6s0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1734955614]
+texture = ExtResource("1_qrv2m")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=1618088790]
+visible = false
+polygon = PackedVector2Array(-21, -26, -26, -23, -29, -20, -32, -13, -32, 20, -20, 20, -6, 26, 6, 26, 17, 22, 31, 19, 32, -15, 28, -22, 20, -26)
+
+[node name="sensor" type="Area2D" parent="." unique_id=1301942362]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sensor" unique_id=1812861864]
+position = Vector2(-1, -24.5)
+shape = SubResource("RectangleShape2D_cr6s0")
+
+[connection signal="body_entered" from="sensor" to="." method="_on_sensor_body_entered"]
+[connection signal="body_exited" from="sensor" to="." method="_on_sensor_body_exited"]

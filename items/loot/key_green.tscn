@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bghlt4f5ncpi2"]
+
+[ext_resource type="Script" uid="uid://d07nlwnv1vgtv" path="res://items/loot/key_green.gd" id="1_1ybau"]
+[ext_resource type="Texture2D" uid="uid://bt3dudibk145a" path="res://asset/From Kennys/PNG/Items/keyGreen.png" id="2_6o3m6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p0yg6"]
+radius = 17.121902
+height = 48.0
+
+[node name="GreenKey" type="Area2D" unique_id=885123096]
+script = ExtResource("1_1ybau")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=254014536]
+position = Vector2(0.84999084, 2.5)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("2_6o3m6")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1733421438]
+position = Vector2(0.8499756, 2.4999924)
+rotation = 0.7574729
+shape = SubResource("CapsuleShape2D_p0yg6")
+metadata/_edit_group_ = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

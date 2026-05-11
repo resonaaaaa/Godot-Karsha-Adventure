@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://b1s43ph7nh08j"]
+
+[ext_resource type="Script" uid="uid://6e4tgdg14h87" path="res://UI/loading.gd" id="1_25ta2"]
+[ext_resource type="FontFile" uid="uid://scmbdd7yljqj" path="res://asset/fonts/Xolonium-Regular.ttf" id="1_gov4d"]
+[ext_resource type="Texture2D" uid="uid://bge4daeanmtsm" path="res://asset/animation/creative_gear_frames/creative_gear_00_0.0deg.png" id="3_6c35k"]
+[ext_resource type="Texture2D" uid="uid://c82uxuk8l2tei" path="res://asset/animation/creative_gear_frames/creative_gear_01_3.0deg.png" id="4_nbgtl"]
+[ext_resource type="Texture2D" uid="uid://crk6eamksqn5o" path="res://asset/animation/creative_gear_frames/creative_gear_02_6.0deg.png" id="5_tab87"]
+[ext_resource type="Texture2D" uid="uid://b41eu8kxqus6r" path="res://asset/animation/creative_gear_frames/creative_gear_03_9.0deg.png" id="6_dcpsv"]
+[ext_resource type="Texture2D" uid="uid://bd4oqhgy0brlt" path="res://asset/animation/creative_gear_frames/creative_gear_04_12.0deg.png" id="7_lswgm"]
+[ext_resource type="Texture2D" uid="uid://bdhfh8rndf37c" path="res://asset/animation/creative_gear_frames/creative_gear_05_15.0deg.png" id="8_7bfkj"]
+[ext_resource type="Texture2D" uid="uid://6rhfvisdp3t6" path="res://asset/animation/creative_gear_frames/creative_gear_06_18.0deg.png" id="9_h1tvv"]
+[ext_resource type="Texture2D" uid="uid://nmov080ug5b2" path="res://asset/animation/creative_gear_frames/creative_gear_07_21.0deg.png" id="10_ovmdy"]
+[ext_resource type="Texture2D" uid="uid://if02jhavusyj" path="res://asset/animation/creative_gear_frames/creative_gear_08_24.0deg.png" id="11_mjuv8"]
+[ext_resource type="Texture2D" uid="uid://crihy0ulv8omq" path="res://asset/animation/creative_gear_frames/creative_gear_09_27.0deg.png" id="12_shx5g"]
+[ext_resource type="Texture2D" uid="uid://j41ew0gx7u2r" path="res://asset/animation/creative_gear_frames/creative_gear_10_30.0deg.png" id="13_nq3dp"]
+[ext_resource type="Texture2D" uid="uid://52d4mve2ovwt" path="res://asset/animation/creative_gear_frames/creative_gear_11_33.0deg.png" id="14_i22tp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_25ta2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6c35k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_nbgtl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tab87")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_dcpsv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_lswgm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_7bfkj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_h1tvv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ovmdy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_mjuv8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_shx5g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_nq3dp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_i22tp")
+}],
+"loop": true,
+"name": &"loading",
+"speed": 10.0
+}]
+
+[node name="Loading" type="CanvasLayer" unique_id=1902950474]
+layer = 100
+script = ExtResource("1_25ta2")
+
+[node name="Backdrop" type="ColorRect" parent="." unique_id=2072400822]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.8, 0.56078434, 0.42352942, 1)
+
+[node name="Label" type="Label" parent="." unique_id=2002263516]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -164.0
+offset_top = -40.0
+offset_right = 163.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.36078432, 0.19215687, 1, 0.76862746)
+theme_override_colors/font_shadow_color = Color(0, 0.96794677, 0.9823519, 0.25882354)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.4862745)
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 1
+theme_override_constants/shadow_outline_size = 1
+theme_override_fonts/font = ExtResource("1_gov4d")
+theme_override_font_sizes/font_size = 64
+text = "Loading..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=230635664]
+position = Vector2(304, 352)
+scale = Vector2(0.15, 0.15)
+sprite_frames = SubResource("SpriteFrames_25ta2")
+animation = &"loading"
+frame_progress = 0.8086701

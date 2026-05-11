@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://blm3cp0tg2c0u"]
+
+[ext_resource type="Script" uid="uid://crljcslr0cr24" path="res://items/loot/diamond.gd" id="1_h85px"]
+[ext_resource type="Texture2D" uid="uid://db3ra2sqv8d8i" path="res://asset/From Kennys/PNG/Items/redJewel.png" id="1_sbdmf"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h85px"]
+radius = 14.000004
+height = 32.0
+
+[node name="Diamond" type="Area2D" unique_id=1205686764]
+script = ExtResource("1_h85px")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1864025720]
+position = Vector2(64, 56)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("1_sbdmf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2114758723]
+position = Vector2(64, 56)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_h85px")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

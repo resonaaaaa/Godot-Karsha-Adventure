@@ -1,25 +1,19 @@
 [gd_scene format=4 uid="uid://dl63md45s4rk0"]
 
 [ext_resource type="Script" uid="uid://bdmlxrucn11ks" path="res://Level1/Level1.gd" id="1_lmyl5"]
-[ext_resource type="PackedScene" uid="uid://bmp86xonl3go0" path="res://player.tscn" id="2_mlbie"]
+[ext_resource type="PackedScene" uid="uid://bmp86xonl3go0" path="res://character/player.tscn" id="2_mlbie"]
 [ext_resource type="Texture2D" uid="uid://btr84d2nq61qp" path="res://asset/From Kennys/PNG/Backgrounds/set1_background.png" id="2_wmj75"]
-[ext_resource type="PackedScene" uid="uid://davjc5hn0ac31" path="res://floor.tscn" id="3_s3sxq"]
-[ext_resource type="PackedScene" uid="uid://ber7gi7ie5wbo" path="res://blocks/platform/MovingPlatform.tscn" id="5_gay30"]
-[ext_resource type="PackedScene" uid="uid://b8ya7dgnr0ekp" path="res://items.tscn" id="5_iits7"]
+[ext_resource type="PackedScene" uid="uid://davjc5hn0ac31" path="res://mapElement/floor.tscn" id="3_s3sxq"]
+[ext_resource type="PackedScene" uid="uid://ber7gi7ie5wbo" path="res://mapElement/blocks/platform/MovingPlatform.tscn" id="5_gay30"]
+[ext_resource type="PackedScene" uid="uid://b8ya7dgnr0ekp" path="res://items/items.tscn" id="5_iits7"]
 [ext_resource type="Texture2D" uid="uid://d2v5wr7jcwogf" path="res://asset/From Kennys/PNG/Tiles/Brown tiles/tileBrown_08.png" id="6_3eq7j"]
 [ext_resource type="PackedScene" uid="uid://d0eaog41dcwjc" path="res://UI/HUD/hud.tscn" id="6_5g1s2"]
-[ext_resource type="PackedScene" uid="uid://crq65rj846wbv" path="res://items/spire.tscn" id="6_btw7m"]
-[ext_resource type="PackedScene" uid="uid://cccjd1n1hgkpy" path="res://items/button.tscn" id="7_177rw"]
-[ext_resource type="PackedScene" uid="uid://bevtbhnumrevp" path="res://blocks/jump_boost_block.tscn" id="8_q8ihw"]
-[ext_resource type="PackedScene" uid="uid://cta0qjvex0ydx" path="res://mob.tscn" id="11_2cjhy"]
-[ext_resource type="PackedScene" uid="uid://v3k0dkchgs6w" path="res://items/notice_board.tscn" id="11_su40w"]
+[ext_resource type="PackedScene" uid="uid://crq65rj846wbv" path="res://mapElement/mechanism/spire.tscn" id="6_btw7m"]
+[ext_resource type="PackedScene" uid="uid://cccjd1n1hgkpy" path="res://mapElement/mechanism/button.tscn" id="7_177rw"]
+[ext_resource type="PackedScene" uid="uid://bevtbhnumrevp" path="res://mapElement/blocks/jump_boost_block.tscn" id="8_q8ihw"]
+[ext_resource type="PackedScene" uid="uid://cta0qjvex0ydx" path="res://character/mob.tscn" id="11_2cjhy"]
+[ext_resource type="PackedScene" uid="uid://v3k0dkchgs6w" path="res://mapElement/notice_board.tscn" id="11_su40w"]
 [ext_resource type="PackedScene" uid="uid://dddialog12345" path="res://UI/DialogManager/dialog_manager.tscn" id="14_jip2a"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_btw7m"]
-load_path = "res://.godot/imported/outlineKey.png-c9417171e504c70fd9ca17d3de8779ec.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wmj75"]
-load_path = "res://.godot/imported/keyRed.png-f2c6dd3e072e909e1d30ae4b251d983b.ctex"
 
 [node name="Level1" type="Node2D" unique_id=2049257024]
 position = Vector2(-2, 1)
@@ -28,7 +22,6 @@ script = ExtResource("1_lmyl5")
 [node name="Player" parent="." unique_id=730714528 instance=ExtResource("2_mlbie")]
 z_index = 1
 position = Vector2(48, 404)
-has_key = true
 double_jump_window = 0.8
 metadata/_edit_group_ = true
 
@@ -54,8 +47,6 @@ position = Vector2(6498, 975)
 metadata/_edit_group_ = true
 
 [node name="HUD" parent="." unique_id=1959219276 instance=ExtResource("6_5g1s2")]
-key_texture_empty = SubResource("CompressedTexture2D_btw7m")
-key_texture_full = SubResource("CompressedTexture2D_wmj75")
 
 [node name="VBoxContainer" parent="HUD/PauseMenu" parent_id_path=PackedInt32Array(1959219276, 411305131) index="0" unique_id=1161699104]
 clip_children = 1
@@ -64,7 +55,7 @@ clip_children = 1
 position = Vector2(64, 160)
 
 [node name="Key" parent="Items" index="0" unique_id=885123096]
-position = Vector2(320, -216)
+position = Vector2(578, -81)
 
 [node name="Diamond" parent="Items" index="1" unique_id=1205686764]
 position = Vector2(4898, 119)
@@ -75,6 +66,7 @@ metadata/_edit_lock_ = true
 
 [node name="magic_circle" parent="Items" index="3" unique_id=564121405]
 position = Vector2(6682, 959)
+end_flag = true
 
 [node name="Box" parent="Items" index="4" unique_id=976230700 groups=["box"]]
 position = Vector2(5214, 940)
@@ -115,18 +107,18 @@ position = Vector2(5650, 1295)
 
 [connection signal="game_over" from="Player" to="." method="game_over"]
 [connection signal="body_entered" from="Background/floor/Spire" to="Background/floor/Spire" method="_on_body_entered"]
-[connection signal="body_entered" from="Background/floor/@Area2D@344766" to="Background/floor/@Area2D@344766" method="_on_body_entered"]
-[connection signal="body_entered" from="Background/floor/@Area2D@344767" to="Background/floor/@Area2D@344767" method="_on_body_entered"]
-[connection signal="body_entered" from="Background/floor/@Area2D@344768" to="Background/floor/@Area2D@344768" method="_on_body_entered"]
-[connection signal="body_entered" from="Background/floor/@Area2D@344769" to="Background/floor/@Area2D@344769" method="_on_body_entered"]
-[connection signal="body_entered" from="Background/floor/@Area2D@344770" to="Background/floor/@Area2D@344770" method="_on_body_entered"]
+[connection signal="body_entered" from="Background/floor/@Area2D@126787" to="Background/floor/@Area2D@126787" method="_on_body_entered"]
+[connection signal="body_entered" from="Background/floor/@Area2D@126788" to="Background/floor/@Area2D@126788" method="_on_body_entered"]
+[connection signal="body_entered" from="Background/floor/@Area2D@126789" to="Background/floor/@Area2D@126789" method="_on_body_entered"]
+[connection signal="body_entered" from="Background/floor/@Area2D@126790" to="Background/floor/@Area2D@126790" method="_on_body_entered"]
+[connection signal="body_entered" from="Background/floor/@Area2D@126791" to="Background/floor/@Area2D@126791" method="_on_body_entered"]
 [connection signal="body_entered" from="Background/floor/ladder" to="Background/floor/ladder" method="_on_body_entered"]
 [connection signal="body_exited" from="Background/floor/ladder" to="Background/floor/ladder" method="_on_body_exited"]
-[connection signal="body_entered" from="Background/floor/@Area2D@344771" to="Background/floor/@Area2D@344771" method="_on_body_entered"]
-[connection signal="body_exited" from="Background/floor/@Area2D@344771" to="Background/floor/@Area2D@344771" method="_on_body_exited"]
+[connection signal="body_entered" from="Background/floor/@Area2D@126792" to="Background/floor/@Area2D@126792" method="_on_body_entered"]
+[connection signal="body_exited" from="Background/floor/@Area2D@126792" to="Background/floor/@Area2D@126792" method="_on_body_exited"]
 [connection signal="new_game" from="HUD" to="." method="_on_hud_new_game"]
-[connection signal="get_key" from="Items/Key" to="HUD" method="show_key_ui"]
-[connection signal="tp" from="Items/magic_circle" to="." method="game_win"]
+[connection signal="get_key_red" from="Items/Key" to="HUD" method="show_red_key_ui"]
+[connection signal="level_completed" from="Items/magic_circle" to="." method="game_win"]
 [connection signal="button_pressed" from="Items/Button" to="Background/JumpBoostBlock" method="set_block_active"]
 [connection signal="button_released" from="Items/Button" to="Background/JumpBoostBlock" method="set_block_inactive"]
 

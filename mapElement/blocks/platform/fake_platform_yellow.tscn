@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dm43kjgqxprwp"]
+
+[ext_resource type="Script" uid="uid://c1ks60lhs7sc" path="res://mapElement/blocks/platform/fake_platform.gd" id="1_pbr1n"]
+[ext_resource type="Texture2D" uid="uid://drfrls7htc6wv" path="res://asset/From Kennys/PNG/Tiles/Yellow tiles/tileYellow_03.png" id="2_pbr1n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hndnj"]
+size = Vector2(64, 11)
+
+[node name="FakePlatform" type="StaticBody2D" unique_id=9103255]
+script = ExtResource("1_pbr1n")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=625742371]
+position = Vector2(0, -5)
+texture = ExtResource("2_pbr1n")
+
+[node name="Sensor" type="Area2D" parent="." unique_id=1704534709]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor" unique_id=1093462574]
+visible = false
+position = Vector2(0, -23)
+shape = SubResource("RectangleShape2D_hndnj")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=1754810324]
+visible = false
+position = Vector2(-9, -7)
+polygon = PackedVector2Array(-11, -19, -19, -15, -23, -7, -23, 26, 5, 33, 14, 33, 41, 26, 41, -8, 37, -15, 30, -19)
+
+[node name="BlinkTimer" type="Timer" parent="." unique_id=144375747]
+wait_time = 0.1
+
+[connection signal="body_entered" from="Sensor" to="." method="_on_sensor_body_entered"]

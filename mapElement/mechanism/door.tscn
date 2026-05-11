@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://w506ct4247cu"]
+
+[ext_resource type="Script" uid="uid://b7vulfub0gd0b" path="res://mapElement/door.gd" id="1_yby7g"]
+
+[node name="Door" type="Area2D" unique_id=330821691]
+script = ExtResource("1_yby7g")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1460957367]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=573121960]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

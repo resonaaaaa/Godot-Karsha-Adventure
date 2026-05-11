@@ -1,7 +1,9 @@
 extends CanvasLayer
 signal new_game
-@export var key_texture_empty: Texture
-@export var key_texture_full: Texture
+
+var key_texture_empty = preload("res://asset/From Kennys/PNG/Items/outlineKey.png")
+var key_texture_red = preload("res://asset/From Kennys/PNG/Items/keyRed.png")
+var key_texture_green = preload("res://asset/From Kennys/PNG/Items/keyGreen.png")
 
 func _ready() -> void:
 	$PauseMenu.hide()
@@ -26,7 +28,8 @@ func show_new_game():
 	$Message.text = "Adventure"
 	$Message.show()
 	$StartButton.show()
-	$KeyUI.texture = key_texture_empty
+	$RedKeyUI.texture = key_texture_empty
+	$GreenKeyUI.texture = key_texture_empty
 	
 func show_message(text):
 	$Message.text = text
@@ -39,8 +42,21 @@ func _on_start_button_pressed() -> void:
 	$Message.hide()
 	new_game.emit()
 
-func show_key_ui():
-	$KeyUI.texture = key_texture_full
+func setup_level(level_num: int):
+	$RedKeyUI.texture = key_texture_empty
+	$GreenKeyUI.texture = key_texture_empty
+	if level_num == 1:
+		$RedKeyUI.show()
+		$GreenKeyUI.hide()
+	elif level_num >= 2:
+		$RedKeyUI.show()
+		$GreenKeyUI.show()
+
+func show_red_key_ui():
+	$RedKeyUI.texture = key_texture_red
+
+func show_green_key_ui():
+	$GreenKeyUI.texture = key_texture_green
 	
 #检测暂停状态是否切换
 func _on_pause_button_toggled(toggled_on: bool) -> void:
