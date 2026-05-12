@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://be818o0vgws74"]
+
+[ext_resource type="Texture2D" uid="uid://qmjpqubqvccx" path="res://asset/animation/traveller/images/traveller_walk_05.png" id="1_0gjvy"]
+[ext_resource type="Texture2D" uid="uid://b5h7ej5lue7bm" path="res://asset/animation/traveller/images/traveller_walk_04.png" id="2_pctda"]
+[ext_resource type="Texture2D" uid="uid://tybdmgiq2ydi" path="res://asset/animation/traveller/images/traveller_walk_06.png" id="3_x045a"]
+[ext_resource type="Texture2D" uid="uid://di4pmii8gncs6" path="res://asset/animation/traveller/images/traveller_walk_07.png" id="4_oc3h5"]
+[ext_resource type="Texture2D" uid="uid://4ls0wwc6rxkc" path="res://asset/animation/traveller/images/traveller_walk_08.png" id="5_qubdc"]
+[ext_resource type="Texture2D" uid="uid://cp7yd61kll5xm" path="res://asset/animation/traveller/images/traveller_walk_09.png" id="6_jgtup"]
+[ext_resource type="Texture2D" uid="uid://dtwa8yk1m3bn3" path="res://asset/animation/traveller/images/traveller_walk_02.png" id="7_qubdc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oc3h5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0gjvy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_0gjvy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_pctda")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_pctda")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_x045a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_x045a")
+}],
+"loop": true,
+"name": &"left",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_oc3h5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_oc3h5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_qubdc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_qubdc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_jgtup")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_jgtup")
+}],
+"loop": true,
+"name": &"right",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_qubdc")
+}],
+"loop": true,
+"name": &"stay",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qubdc"]
+radius = 16.0
+height = 44.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qubdc"]
+size = Vector2(162, 20)
+
+[node name="traveller" type="CharacterBody2D" unique_id=1904862981]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1768118556]
+sprite_frames = SubResource("SpriteFrames_oc3h5")
+animation = &"left"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1828215116]
+shape = SubResource("CapsuleShape2D_qubdc")
+
+[node name="sensor" type="Area2D" parent="." unique_id=920887453]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sensor" unique_id=491245758]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_qubdc")
+debug_color = Color(0.7633134, 0.39507884, 0.5738561, 0.41960785)

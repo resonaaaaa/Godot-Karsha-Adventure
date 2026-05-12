@@ -1,0 +1,187 @@
+[gd_scene format=3 uid="uid://d4fcrsmvbrlxq"]
+
+[ext_resource type="Script" uid="uid://cqjgw3xkrpkry" path="res://character/green_gem_keeper.gd" id="1_wbiod"]
+[ext_resource type="Texture2D" uid="uid://bmdfiseptdsdg" path="res://asset/animation/green_gem_keeper/face.png" id="2_in05g"]
+[ext_resource type="Texture2D" uid="uid://dh8uhhubu65fx" path="res://asset/animation/player/face_08.png" id="3_ad8e4"]
+[ext_resource type="Texture2D" uid="uid://d2e2nh4as44g2" path="res://asset/animation/green_gem_keeper/images/fight_26.png" id="5_0gi34"]
+[ext_resource type="Texture2D" uid="uid://cdgwy7twanyen" path="res://asset/animation/green_gem_keeper/images/fight_17.png" id="5_asygs"]
+[ext_resource type="Texture2D" uid="uid://bfclxc5704pkd" path="res://asset/animation/green_gem_keeper/images/fight_25.png" id="5_mp3xp"]
+[ext_resource type="Texture2D" uid="uid://bo6gxi8tfrmot" path="res://asset/animation/green_gem_keeper/images/fight_27.png" id="6_asygs"]
+[ext_resource type="Texture2D" uid="uid://dd7nrjk3dysjk" path="res://asset/animation/green_gem_keeper/images/fight_18.png" id="6_b14or"]
+[ext_resource type="Texture2D" uid="uid://c2xt2hhumtfmw" path="res://asset/animation/green_gem_keeper/walk/walk_02.png" id="7_ubm26"]
+[ext_resource type="Texture2D" uid="uid://ds826ykb85ff5" path="res://asset/animation/green_gem_keeper/images/fight_19.png" id="8_b14or"]
+[ext_resource type="Texture2D" uid="uid://b7scvkob5xfat" path="res://asset/animation/green_gem_keeper/images/fight_20.png" id="9_gm8j1"]
+[ext_resource type="FontFile" uid="uid://dkwbmjyfk3xse" path="res://asset/fonts/字魂无外润黑体(商用需授权).ttf" id="10_ad8e4"]
+[ext_resource type="Texture2D" uid="uid://dgj182f7ap2k7" path="res://asset/animation/green_gem_keeper/images/fight_04.png" id="10_q8gmk"]
+[ext_resource type="Texture2D" uid="uid://cvjllf0h8rjdr" path="res://asset/animation/green_gem_keeper/images/fight_16.png" id="11_ubm26"]
+[ext_resource type="Texture2D" uid="uid://5k2118jmixty" path="res://asset/animation/green_gem_keeper/images/fight_13.png" id="11_xrffp"]
+[ext_resource type="Texture2D" uid="uid://sbwhsf6my0rk" path="res://asset/animation/double_jump/star.png" id="16_asygs"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0srrn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_ubm26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_asygs")
+}, {
+"duration": 3.0,
+"texture": ExtResource("6_b14or")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ubm26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_asygs")
+}, {
+"duration": 3.0,
+"texture": ExtResource("6_b14or")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ubm26")
+}],
+"loop": false,
+"name": &"cheer",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_mp3xp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_0gi34")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_asygs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_b14or")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_gm8j1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_b14or")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_gm8j1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_b14or")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_gm8j1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_b14or")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_q8gmk")
+}, {
+"duration": 8.0,
+"texture": ExtResource("11_xrffp")
+}, {
+"duration": 6.0,
+"texture": ExtResource("11_ubm26")
+}],
+"loop": false,
+"name": &"cure",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_mp3xp")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_ubm26")
+}],
+"loop": true,
+"name": &"stay",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n4m1t"]
+radius = 15.0
+height = 48.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ad8e4"]
+size = Vector2(178, 8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wbiod"]
+content_margin_left = 9.0
+bg_color = Color(0, 0.003921569, 0.08627451, 0.3372549)
+
+[sub_resource type="Gradient" id="Gradient_asygs"]
+offsets = PackedFloat32Array(0, 0.2, 0.8, 1)
+colors = PackedColorArray(0.2, 1, 0.4, 0, 0.2, 1, 0.4, 1, 0.4, 1, 0.6, 1, 0.4, 1, 0.6, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_asygs"]
+gradient = SubResource("Gradient_asygs")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_asygs"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(80, 5, 1)
+direction = Vector3(0, -1, 0)
+spread = 15.0
+initial_velocity_min = 20.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, -20, 0)
+tangential_accel_min = -30.0
+tangential_accel_max = 30.0
+scale_min = 0.5
+color_ramp = SubResource("GradientTexture1D_asygs")
+
+[node name="GreenGemKeeper" type="CharacterBody2D" unique_id=1816377639]
+position = Vector2(0, 1)
+script = ExtResource("1_wbiod")
+keeper_portrait = ExtResource("2_in05g")
+player_portrait = ExtResource("3_ad8e4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=656519510]
+sprite_frames = SubResource("SpriteFrames_0srrn")
+animation = &"cure"
+frame = 12
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=507618977]
+visible = false
+shape = SubResource("CapsuleShape2D_n4m1t")
+
+[node name="sensor" type="Area2D" parent="." unique_id=1328388229]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sensor" unique_id=1708245873]
+position = Vector2(0, 25)
+shape = SubResource("RectangleShape2D_ad8e4")
+debug_color = Color(0.7926399, 0.3610132, 0.59901243, 0.41960785)
+
+[node name="Tips" type="Label" parent="." unique_id=2129686917]
+visible = false
+offset_left = -62.0
+offset_top = -89.0
+offset_right = 70.0
+offset_bottom = -55.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5647059)
+theme_override_fonts/font = ExtResource("10_ad8e4")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_wbiod")
+text = "对话（ E ）"
+
+[node name="CureParticle" type="GPUParticles2D" parent="." unique_id=618209282]
+modulate = Color(0, 1, 0.2901961, 1)
+position = Vector2(0, 15)
+scale = Vector2(0.3, 0.3)
+emitting = false
+amount = 32
+texture = ExtResource("16_asygs")
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_asygs")
+
+[connection signal="body_entered" from="sensor" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="sensor" to="." method="_on_body_exited"]

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://qw4pxae1hlin"]
+
+[ext_resource type="Script" uid="uid://b5rmgkbqhhdeq" path="res://items/loot/gem.gd" id="1_knfeo"]
+[ext_resource type="Texture2D" uid="uid://dwjgdica6ioq2" path="res://asset/From Kennys/PNG/Items/blueJewel.png" id="1_y2ffv"]
+[ext_resource type="Texture2D" uid="uid://db3ra2sqv8d8i" path="res://asset/From Kennys/PNG/Items/redJewel.png" id="2_cfe0t"]
+[ext_resource type="Texture2D" uid="uid://b1xb4md2c15y5" path="res://asset/From Kennys/PNG/Items/greenJewel.png" id="4_ci31m"]
+[ext_resource type="Texture2D" uid="uid://cnnxhyarry8ag" path="res://asset/From Kennys/PNG/Items/yellowJewel.png" id="5_1l6lq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_knfeo"]
+radius = 12.0415945
+
+[node name="Gem" type="Area2D" unique_id=1705505638]
+script = ExtResource("1_knfeo")
+gem_texture_red = ExtResource("2_cfe0t")
+gem_texture_blue = ExtResource("1_y2ffv")
+gem_texture_green = ExtResource("4_ci31m")
+gem_texture_yellow = ExtResource("5_1l6lq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=453070760]
+texture = ExtResource("1_y2ffv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=239129855]
+visible = false
+shape = SubResource("CircleShape2D_knfeo")
+debug_color = Color(0.90038127, 0.10814493, 0.71405965, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

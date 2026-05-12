@@ -2,6 +2,8 @@ extends Area2D
 
 var speed: float = 80.0
 @export var target_position = [Vector2.ZERO, Vector2(250, 0), Vector2(90, 0),Vector2(200, 0),Vector2(130, 0),Vector2(30, 0)]
+@export var master_portrait: Texture2D
+@export var player_portrait: Texture2D
 var direction: int = 1
 var player_in_range: bool = false
 var met_player: bool = false
@@ -55,7 +57,7 @@ func _physics_process(delta: float) -> void:
 			anim.play("stay")
 			return
 		var movement = to_vec.normalized() * speed * delta
-		# Updating animation direction
+		# 更新动画方向
 		if movement.x > 0:
 			anim.play("right")
 		elif movement.x < 0:
@@ -73,31 +75,31 @@ func _physics_process(delta: float) -> void:
 			if not met_player:
 				#初次对话
 				var dialog_data = [
-					{"speaker": "？？？", "text": "你好啊，卡莎，欢迎来到月光湖畔。"},
-					{"speaker": "卡莎", "text": "你是谁？怎么会知道我的名字？"},
-					{"speaker": "？？？", "text": "呵呵呵……你可以叫我希奥娜，不过是一名路过的魔法师而已。"},
-					{"speaker": "希奥娜", "text": "来说正事吧。你刚刚从活火山过来吧？想必你已经拿到了红宝石了吧？"},
-					{"speaker": "卡莎", "text": "是有这么个东西。我感受到了它里面蕴藏的魔力，但我还不太清楚它的用途。"},
-					{"speaker": "希奥娜", "text": "没关系，我对宝石魔法略懂一二，看好了。"},
-					{"speaker": "希奥娜", "text": "（演示中...）", "action": "shoot"},
-					{"speaker": "卡莎", "text": "哇哦！"},
-					{"speaker": "希奥娜", "text": "待会你也可以试着发射一个火球，看到前面那个方块了吗，跟周围不大一样的那个。向它发射火球吧！"},
-					{"speaker": "希奥娜", "text": "呵呵呵，别急，除了红宝石，还有各色的宝石藏在世界各处，拿到它们，你就可以使用不同的魔法了。好了，去试试你的新魔法吧！"},
-					{"speaker": "", "text": "（提示：按F键发射火球）"}
+					{"speaker": "？？？", "text": "你好啊，卡莎，欢迎来到月光湖畔。", "portrait": master_portrait},
+					{"speaker": "卡莎", "text": "你是谁？怎么会知道我的名字？", "portrait": player_portrait},
+					{"speaker": "？？？", "text": "呵呵呵……你可以叫我希奥娜，不过是一名路过的魔法师而已。", "portrait": master_portrait},
+					{"speaker": "希奥娜", "text": "来说正事吧。你刚刚从活火山过来吧？想必你已经拿到了红宝石了吧？", "portrait": master_portrait},
+					{"speaker": "卡莎", "text": "是有这么个东西。我感受到了它里面蕴藏的魔力，但我还不太清楚它的用途。", "portrait": player_portrait},
+					{"speaker": "希奥娜", "text": "没关系，我对宝石魔法略懂一二，看好了。", "portrait": master_portrait},
+					{"speaker": "希奥娜", "text": "（演示中...）", "action": "shoot", "portrait": master_portrait},
+					{"speaker": "卡莎", "text": "哇哦！感觉好厉害！", "portrait": player_portrait},
+					{"speaker": "希奥娜", "text": "呵呵呵，别急，待会你也可以试着发射一个火球，看到前面那个方块了吗，有一点裂痕的那个。向它发射火球吧！", "portrait": master_portrait},
+					{"speaker": "希奥娜", "text": "除了红宝石，还有各色的宝石藏在世界各处，拿到它们，你就可以使用不同的魔法了。好了，去试试你的新魔法吧！", "portrait": master_portrait},
+					{"speaker": "", "text": "（提示：按F键发射火球）", "portrait": null}
 				]
 				# 让玩家无法移动
 				if player_node and player_node.has_method("set_physics_process"):
 					player_node.set_physics_process(false)
-				DialogManager.show_dialogue(dialog_data)
+				DialogManager.show_dialogue(dialog_data, master_portrait, "希奥娜")
 				#玩家解锁魔法
 				if player_node:
 					player_node.set("red_gem_magic_unlocked", true)
 			else:
 				# Repeated conversation
 				var dialog_data = [
-					{"speaker": "希奥娜", "text": "卡莎，你试过魔法了吗？感觉如何？对了，你在活火山有碰到怪物吧？试着对它们发射火球看看。"}
+					{"speaker": "希奥娜", "text": "卡莎，你试过魔法了吗？感觉如何？对了，你在活火山有碰到怪物吧？试着对它们发射火球看看。", "portrait": master_portrait}
 				]
-				DialogManager.show_dialogue(dialog_data)
+				DialogManager.show_dialogue(dialog_data, master_portrait, "希奥娜")
 
 	
 

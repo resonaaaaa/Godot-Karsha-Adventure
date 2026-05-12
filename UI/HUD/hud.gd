@@ -4,11 +4,18 @@ signal new_game
 var key_texture_empty = preload("res://asset/From Kennys/PNG/Items/outlineKey.png")
 var key_texture_red = preload("res://asset/From Kennys/PNG/Items/keyRed.png")
 var key_texture_green = preload("res://asset/From Kennys/PNG/Items/keyGreen.png")
+var flower_texture_red: Texture2D = preload("res://asset/From Kennys/PNG/Items/redCrystal.png")
+var flower_texture_blue = preload("res://asset/From Kennys/PNG/Items/blueCrystal.png")
+var flower_texture_empty = preload("res://asset/From Kennys/PNG/Items/outlineCrystal.png")
+
+@onready var _red_flower_ui: Sprite2D = $RedFlowerUI
+@onready var _blue_flower_ui: Sprite2D = $BlueFlowerUI
 
 func _ready() -> void:
 	$PauseMenu.hide()
 	$PauseMessage.hide()
 	$PauseButton.button_pressed = false
+
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("menu"):
@@ -30,7 +37,7 @@ func show_new_game():
 	$StartButton.show()
 	$RedKeyUI.texture = key_texture_empty
 	$GreenKeyUI.texture = key_texture_empty
-	
+
 func show_message(text):
 	$Message.text = text
 	$Message.show()
@@ -45,18 +52,35 @@ func _on_start_button_pressed() -> void:
 func setup_level(level_num: int):
 	$RedKeyUI.texture = key_texture_empty
 	$GreenKeyUI.texture = key_texture_empty
+	$RedFlowerUI.hide()
+	$BlueFlowerUI.hide()
 	if level_num == 1:
 		$RedKeyUI.show()
 		$GreenKeyUI.hide()
-	elif level_num >= 2:
+	elif level_num == 2:
 		$RedKeyUI.show()
 		$GreenKeyUI.show()
+
+	elif level_num == 3:
+		$RedKeyUI.show()
+		$GreenKeyUI.show()
+		
 
 func show_red_key_ui():
 	$RedKeyUI.texture = key_texture_red
 
 func show_green_key_ui():
 	$GreenKeyUI.texture = key_texture_green
+
+func show_flower_ui():
+	$RedFlowerUI.show()
+	$BlueFlowerUI.show()
+
+func set_red_flower_ui():
+	$RedFlowerUI.texture = flower_texture_red
+
+func set_blue_flower_ui():
+	$BlueFlowerUI.texture = flower_texture_blue
 	
 #检测暂停状态是否切换
 func _on_pause_button_toggled(toggled_on: bool) -> void:

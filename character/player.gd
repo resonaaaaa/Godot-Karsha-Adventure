@@ -9,7 +9,13 @@ var can_move = false
 #道具相关
 @export var has_key_red = false
 @export var has_key_green = false
-@export var has_diamond = false
+@export var has_red_flower = false
+@export var has_blue_flower = false
+#宝石相关
+var has_red_gem = false
+var has_green_gem = false
+var has_blue_gem = false
+var has_yellow_gem = false
 #推箱子相关
 @export var push_force := 1800.0
 #速度锁
@@ -29,6 +35,10 @@ var ladder_ref
 var climb_speed = 200
 #魔法相关
 @export var red_gem_magic_unlocked = false
+@export var green_gem_magic_unlocked = false
+@export var blue_gem_magic_unlocked = false
+@export var yellow_gem_magic_unlocked = false
+
 
 @onready var double_jump_timer: Timer = $doubleJumpTimer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -192,7 +202,10 @@ func process_climb(delta):
 	velocity.x = clamp(velocity.x, -max_horizontal_speed, max_horizontal_speed)
 	velocity.y = clamp(velocity.y, -max_vertical_speed, max_vertical_speed)
 	_apply_push_to_rigidbodies(delta)
-	
+
+#================================
+#爬梯子相关
+
 func enter_ladder(ladder):
 	on_ladder = true
 	ladder_ref = ladder
@@ -210,12 +223,35 @@ func exit_ladder(ladder = null):
 	#离开梯子时保持水平位置不变，垂直位置稍微调整一下，避免再次触发梯子碰撞
 	position.y += 5
 
+#===================================
+#道具拾取相关
+
 func set_has_key_red(val:bool):
 	has_key_red = val
 
 func set_has_key_green(val:bool):
 	has_key_green = val
+
+func set_has_red_flower(val:bool):
+	has_red_flower = val
+
+func set_has_blue_flower(val:bool):
+	has_blue_flower = val
+
+func get_gem(gem_type: String) -> void:
+	match gem_type:
+		"red":
+			has_red_gem = true
+		"green":
+			has_green_gem = true
+		"blue":
+			has_blue_gem = true
+		"yellow":
+			has_yellow_gem = true
 	
+#================================
+#尖刺相关
+
 func on_spire_hit(spire: Node2D) -> void:
 	if not is_in_group("player"):
 		return
@@ -232,18 +268,19 @@ func player_dead():
 	game_over.emit()	
 
 
+
+#===============================
 #跳跃平台相关
+
 func apply_jump_boost(val):
 	jump_velocity += val
 
 func remove_jump_boost(val):
 	jump_velocity -= val
 
-func set_has_diamond(val:bool):
-	has_diamond = val
 
 
-
+#===============================
 #发射火球相关
 
 #发射火球，返回是否成功发射
@@ -282,7 +319,7 @@ func _on_animation_finished() -> void:
 	_spawn_fireball()
 	
 
-
+#===============================
 #推箱子相关
 
 func _apply_push_to_rigidbodies(delta: float) -> void:
@@ -300,6 +337,9 @@ func _apply_push_to_rigidbodies(delta: float) -> void:
 			var push_dir = Vector2(sign(input_dir), 0.0)
 			#施加冲力
 			body.apply_central_impulse(push_dir * push_force * delta)
+
+#===============================
+#平台移动相关
 
 func on_platform_move(movement: Vector2) -> void:
 	position += movement

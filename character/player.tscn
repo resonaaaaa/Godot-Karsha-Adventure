@@ -199,24 +199,13 @@ height = 54.0
 lifetime_randomness = 0.16
 particle_flag_align_y = true
 particle_flag_disable_z = true
-emission_shape = 6
-emission_ring_axis = Vector3(0, 1, 0)
-emission_ring_height = 0.5
-emission_ring_radius = 1.0
-emission_ring_inner_radius = 0.0
-emission_ring_cone_angle = 60.0
+emission_shape = 3
+emission_box_extents = Vector3(60, 5, 1)
 angle_min = -26.89999
 angle_max = 26.900011
 direction = Vector3(-1, -1, 0)
 spread = 25.017
 flatness = 0.2
-initial_velocity_max = 22.01
-angular_velocity_min = 24.909983
-angular_velocity_max = 24.909983
-orbit_velocity_min = -0.2519999
-orbit_velocity_max = 1.3710002
-radial_velocity_min = -2.2351742e-05
-radial_velocity_max = 56.599976
 gravity = Vector3(0, 98, 0)
 
 [node name="Player" type="CharacterBody2D" unique_id=730714528 groups=["player"]]
@@ -246,9 +235,9 @@ wait_time = 0.5
 one_shot = true
 
 [node name="doubleJumpParticles" type="GPUParticles2D" parent="." unique_id=115757751]
-position = Vector2(0, 48)
+position = Vector2(0, 38)
 emitting = false
-amount = 32
+amount = 16
 texture = ExtResource("23_7lmhl")
 lifetime = 0.3
 one_shot = true

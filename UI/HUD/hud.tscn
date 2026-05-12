@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bswooqui6c3md" path="res://UI/HUD/hud.gd" id="1_64ctp"]
 [ext_resource type="FontFile" uid="uid://scmbdd7yljqj" path="res://asset/fonts/Xolonium-Regular.ttf" id="2_8sq4i"]
+[ext_resource type="Texture2D" uid="uid://cqusihychxrep" path="res://asset/From Kennys/PNG/Items/outlineCrystal.png" id="3_s83ig"]
 [ext_resource type="FontFile" uid="uid://dkwbmjyfk3xse" path="res://asset/fonts/字魂无外润黑体(商用需授权).ttf" id="6_rftc2"]
 [ext_resource type="StyleBox" uid="uid://2an01y0kj5tm" path="res://asset/UI/MenuButtonTheme/ButtonTheme.tres" id="7_61f8s"]
 [ext_resource type="Texture2D" uid="uid://c343ugva7x535" path="res://asset/UI/menu.png" id="7_rftc2"]
@@ -111,6 +112,18 @@ texture = SubResource("CompressedTexture2D_gspdd")
 position = Vector2(168.00002, 40)
 scale = Vector2(1.5, 1.5)
 texture = SubResource("CompressedTexture2D_gspdd")
+
+[node name="RedFlowerUI" type="Sprite2D" parent="." unique_id=1745274197]
+visible = false
+position = Vector2(240.00003, 40.000004)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("3_s83ig")
+
+[node name="BlueFlowerUI" type="Sprite2D" parent="." unique_id=1502900217]
+visible = false
+position = Vector2(304, 40)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("3_s83ig")
 
 [node name="PauseButton" type="Button" parent="." unique_id=399172259]
 process_mode = 3

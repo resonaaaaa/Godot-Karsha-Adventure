@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cooaswb10wloa" path="res://character/magic_master.gd" id="1_iba52"]
 [ext_resource type="Texture2D" uid="uid://dqlbgjx6nl3ml" path="res://asset/animation/master/images/walk_04.png" id="1_w2xml"]
+[ext_resource type="Texture2D" uid="uid://bi4lwseqtct0d" path="res://asset/animation/master/face.png" id="2_a80oe"]
 [ext_resource type="Texture2D" uid="uid://uvgjl7h5q80b" path="res://asset/animation/master/images/walk_05.png" id="2_iba52"]
 [ext_resource type="Texture2D" uid="uid://dcw6yotta5dy" path="res://asset/animation/master/images/walk_06.png" id="3_6t2pp"]
+[ext_resource type="Texture2D" uid="uid://dh8uhhubu65fx" path="res://asset/animation/player/face_08.png" id="3_wh7a3"]
 [ext_resource type="Texture2D" uid="uid://bt17xdprh10qs" path="res://asset/animation/master/images/walk_07.png" id="4_t3yly"]
 [ext_resource type="Texture2D" uid="uid://b1yntwo2ldw3k" path="res://asset/animation/master/images/walk_08.png" id="5_l6lrq"]
 [ext_resource type="Texture2D" uid="uid://c6ullcxbtrcvc" path="res://asset/animation/master/images/walk_09.png" id="6_f4845"]
@@ -17,7 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://btgkyfagsp6fa" path="res://asset/animation/master/FIRE/fire/fight_07.png" id="13_ueb4a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7suci"]
-size = Vector2(157, 76)
+size = Vector2(224, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_01dpv"]
 animations = [{
@@ -103,11 +105,13 @@ bg_color = Color(0, 0.003921569, 0.08627451, 0.3372549)
 
 [node name="MagicMaster" type="Area2D" unique_id=1118763764]
 script = ExtResource("1_iba52")
+master_portrait = ExtResource("2_a80oe")
+player_portrait = ExtResource("3_wh7a3")
 
 [node name="Sensor" type="Area2D" parent="." unique_id=559895649]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor" unique_id=985443001]
-position = Vector2(-0.5, -5)
+position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_7suci")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1773601553]

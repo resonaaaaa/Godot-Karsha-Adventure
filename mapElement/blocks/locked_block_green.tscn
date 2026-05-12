@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bqc6xjgtsnpo6"]
 
-[ext_resource type="Script" uid="uid://v1wo3kfs8pa1" path="res://mapElement/blocks/locked_block_red.gd" id="1_h6fg5"]
+[ext_resource type="Script" uid="uid://b5tuqxynuwvyl" path="res://mapElement/blocks/locked_block_green.gd" id="1_h6fg5"]
 [ext_resource type="Texture2D" uid="uid://cmv0ypg4vq0ng" path="res://asset/From Kennys/PNG/Other/lockGreenLock.png" id="2_h6fg5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fqkq"]
@@ -25,6 +25,7 @@ shape = SubResource("RectangleShape2D_8fqkq")
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1667012036]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=961091409]
+visible = false
 position = Vector2(32, 32)
 rotation = -3.1415927
 shape = SubResource("RectangleShape2D_fcod8")

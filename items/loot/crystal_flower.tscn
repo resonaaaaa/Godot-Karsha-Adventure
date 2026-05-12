@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://c157k1efyia71"]
+
+[ext_resource type="Texture2D" uid="uid://cpf3esp8e5skf" path="res://asset/From Kennys/PNG/Other/plantTop_red.png" id="1_8ba88"]
+[ext_resource type="Script" uid="uid://bc1gp8uh4ced" path="res://items/loot/crystal_flower.gd" id="1_i66ai"]
+[ext_resource type="Texture2D" uid="uid://dx76ujp6t618q" path="res://asset/From Kennys/PNG/Other/plantTop_blue.png" id="3_w1yf7"]
+[ext_resource type="Texture2D" uid="uid://li4ntqbn53j4" path="res://asset/From Kennys/PNG/Other/plantTop_leaves.png" id="4_kmihn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i66ai"]
+radius = 30.88689
+
+[node name="CrystalFlower" type="Area2D" unique_id=1239255463]
+script = ExtResource("1_i66ai")
+flower_texture_red = ExtResource("1_8ba88")
+flower_texture_blue = ExtResource("3_w1yf7")
+flower_texture_empty = ExtResource("4_kmihn")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=528403108]
+texture = ExtResource("1_8ba88")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1072356050]
+shape = SubResource("CircleShape2D_i66ai")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
