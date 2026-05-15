@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://c157k1efyia71"]
 
-[ext_resource type="Texture2D" uid="uid://cpf3esp8e5skf" path="res://asset/From Kennys/PNG/Other/plantTop_red.png" id="1_8ba88"]
+[ext_resource type="Texture2D" uid="uid://cpf3esp8e5skf" path="res://asset/TileSet/Other/plantTop_red.png" id="1_8ba88"]
 [ext_resource type="Script" uid="uid://bc1gp8uh4ced" path="res://items/loot/crystal_flower.gd" id="1_i66ai"]
-[ext_resource type="Texture2D" uid="uid://dx76ujp6t618q" path="res://asset/From Kennys/PNG/Other/plantTop_blue.png" id="3_w1yf7"]
-[ext_resource type="Texture2D" uid="uid://li4ntqbn53j4" path="res://asset/From Kennys/PNG/Other/plantTop_leaves.png" id="4_kmihn"]
+[ext_resource type="Texture2D" uid="uid://dx76ujp6t618q" path="res://asset/TileSet/Other/plantTop_blue.png" id="3_w1yf7"]
+[ext_resource type="Texture2D" uid="uid://li4ntqbn53j4" path="res://asset/TileSet/Other/plantTop_leaves.png" id="4_kmihn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i66ai"]
 radius = 30.88689

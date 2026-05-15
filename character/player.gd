@@ -22,7 +22,7 @@ var has_yellow_gem = false
 @export var max_horizontal_speed := 450.0
 @export var max_vertical_speed := 1200.0
 #二段跳相关
-@export var double_jump_enabled = false
+var double_jump_enabled = false
 @export var double_jump_window := 0.5
 var double_jump_used := false
 #攻击相关
@@ -38,10 +38,21 @@ var climb_speed = 200
 @export var green_gem_magic_unlocked = false
 @export var blue_gem_magic_unlocked = false
 @export var yellow_gem_magic_unlocked = false
-
+#缓降魔法相关
+var slow_descent_timer := 0.0
+var slow_descent_cooldown_timer := 0.0
+var max_slow_descent_time := 3.0
+var max_slow_descent_cooldown := 8.0
+#护盾相关
+var is_shield_active: bool = false
+var shield_timer: float = 0.0
+var shield_cooldown_timer: float = 0.0
+var max_shield_time: float = 5.0
+var max_shield_cooldown: float = 3.0
 
 @onready var double_jump_timer: Timer = $doubleJumpTimer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var cooldown_msg: Label = $CooldownMessage
 
 var tilemap_layers: Array[Node] = []
 
@@ -50,17 +61,66 @@ func _ready() -> void:
 		double_jump_timer.wait_time = double_jump_window
 	double_jump_timer.one_shot = true
 	double_jump_timer.stop()
+	if blue_gem_magic_unlocked:
+		double_jump_enabled = true
 	animated_sprite.animation = "stay"
 	animated_sprite.animation_finished.connect(_on_animation_finished)
 	call_deferred("_cache_tilemap_layers")
+	$MagicShieldParticles.emitting = false
 
+func _process(delta: float) -> void:
+	if slow_descent_cooldown_timer > 0:
+		slow_descent_cooldown_timer -= delta
+	
+	if green_gem_magic_unlocked and Input.is_action_just_pressed("slow_descent"):
+		if slow_descent_cooldown_timer > 0:
+			_show_cooldown_message()
+			
+	if shield_cooldown_timer > 0:
+		shield_cooldown_timer -= delta
+		
+	if is_shield_active:
+		shield_timer -= delta
+		if shield_timer <= 0:
+			is_shield_active = false
+			$MagicShieldParticles.emitting = false
+			shield_cooldown_timer = max_shield_cooldown
+
+	if yellow_gem_magic_unlocked and Input.is_action_just_pressed("shield"):
+		if shield_cooldown_timer > 0:
+			_show_cooldown_message()
+		elif not is_shield_active:
+			is_shield_active = true
+			shield_timer = max_shield_time
+			$MagicShieldParticles.emitting = true
+
+var cooldown_tween: Tween
+
+func _show_cooldown_message() -> void:
+	cooldown_msg.visible = true
+	cooldown_msg.modulate.a = 1.0
+	if cooldown_tween:
+		cooldown_tween.kill()
+	cooldown_tween = create_tween()
+	cooldown_tween.tween_interval(1.5)
+	cooldown_tween.tween_property(cooldown_msg, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_LINEAR)
+
+#进入场景时初始化玩家状态
+func start(pos):
+	position = pos
+	is_dead = false
+	can_move = true
+	set_physics_process(true)
+	show()
+
+#缓存当前场景中的TileMapLayer和TileMap节点，用于检测特殊Tile
 func _cache_tilemap_layers() -> void:
 	if get_tree() and get_tree().current_scene:
 		tilemap_layers = get_tree().current_scene.find_children("*", "TileMapLayer", true, false)
 		var tm = get_tree().current_scene.find_children("*", "TileMap", true, false)
 		tilemap_layers.append_array(tm)
 
-#检查玩家所在位置是否有水，如果有则触发死亡
+#检查玩家所在Tile是否是water，如果是则触发死亡
 func _check_water_tiles() -> void:
 	for layer in tilemap_layers:
 		var local_pos = layer.to_local(global_position)
@@ -80,14 +140,10 @@ func _check_water_tiles() -> void:
 					player_dead()
 					return
 
-func start(pos):
-	position = pos
-	is_dead = false
-	can_move = true
-	set_physics_process(true)
-	show()
 
 
+#================================
+#物理处理相关
 
 # 水平速度和垂直速度全部交给 velocity
 func _physics_process(delta: float) -> void:
@@ -136,8 +192,31 @@ func process_normal(delta):
 
 	# 重力
 	if not is_on_floor():
-		velocity.y += gravity * delta
+		#缓降魔法，按下空格键时进入缓降状态，下降速度减慢
+		if green_gem_magic_unlocked and Input.is_action_pressed("slow_descent") and velocity.y >= 0:
+			if slow_descent_cooldown_timer > 0:
+				velocity.y += gravity * delta
+			else:
+				if slow_descent_timer <= 0:
+					slow_descent_timer = max_slow_descent_time
+				slow_descent_timer -= delta
+				velocity.y += (gravity * 0.3) * delta
+				velocity.y = min(velocity.y, 80.0)
+				$slowDescentParticles.emitting = true
+				if slow_descent_timer <= 0:
+					slow_descent_cooldown_timer = max_slow_descent_cooldown
+					slow_descent_timer = 0
+		else:
+			if slow_descent_timer > 0:
+				slow_descent_cooldown_timer = max_slow_descent_cooldown
+				slow_descent_timer = 0
+				$slowDescentParticles.emitting = false
+			velocity.y += gravity * delta
 	else:
+		if slow_descent_timer > 0:
+			slow_descent_cooldown_timer = max_slow_descent_cooldown
+			slow_descent_timer = 0
+			$slowDescentParticles.emitting = false
 		velocity.y = 0
 		double_jump_timer.stop()
 		double_jump_used = false
@@ -242,17 +321,28 @@ func get_gem(gem_type: String) -> void:
 	match gem_type:
 		"red":
 			has_red_gem = true
+			red_gem_magic_unlocked = true
+			DialogManager.show_dialogue(["你在红宝石中感知到了炽热的魔力，但你不知道该如何利用它的能量。"], null, "获得红宝石")
 		"green":
 			has_green_gem = true
+			green_gem_magic_unlocked = true
+			DialogManager.show_dialogue(["你在绿宝石中感知到了温和的魔力，它的能量正在逐渐进入你的身体。", "现在你能够在跳跃时按下空格键来减缓下降速度！魔法持续时间为3秒，冷却时间为20秒。"], null, "获得绿宝石")
 		"blue":
 			has_blue_gem = true
+			blue_gem_magic_unlocked = true
+			double_jump_enabled = true
+			DialogManager.show_dialogue(["你在蓝宝石中感知到了灵动的魔力，它的能量正在逐渐进入你的身体。", "现在你能在起跳后再次按下跳跃键来进行二段跳了！"], null, "获得蓝宝石")
 		"yellow":
 			has_yellow_gem = true
+			yellow_gem_magic_unlocked = true
+			DialogManager.show_dialogue(["你在黄宝石中感知到了坚韧的魔力，它的能量正在逐渐进入你的身体。", "现在你可以按下T键使用魔法护盾了！护盾持续时间为5秒，冷却时间为30秒。"], null, "获得黄宝石")
 	
 #================================
 #尖刺相关
 
 func on_spire_hit(spire: Node2D) -> void:
+	if is_shield_active:
+		return
 	if not is_in_group("player"):
 		return
 	player_dead()

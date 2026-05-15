@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cagqn8v8hmdy6"]
+
+[ext_resource type="Script" uid="uid://dgb5cc7e1c0pw" path="res://rolling_stone.gd" id="1_7dtul"]
+[ext_resource type="Texture2D" uid="uid://cptu5g8hrebkc" path="res://asset/Items/rolling_stone.png" id="1_f1m2t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7dtul"]
+radius = 95.005264
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f1m2t"]
+radius = 102.0
+
+[node name="RollingStone" type="RigidBody2D" unique_id=2114042483]
+script = ExtResource("1_7dtul")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=257131791]
+texture = ExtResource("1_f1m2t")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=1412273675]
+visible = false
+position = Vector2(-4, 1)
+shape = SubResource("CircleShape2D_7dtul")
+
+[node name="Sensor" type="Area2D" parent="." unique_id=1965649856]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor" unique_id=1115102087]
+visible = false
+position = Vector2(-4, 0)
+shape = SubResource("CircleShape2D_f1m2t")
+debug_color = Color(0.7540487, 0.4112621, 0.5353434, 0.41960785)

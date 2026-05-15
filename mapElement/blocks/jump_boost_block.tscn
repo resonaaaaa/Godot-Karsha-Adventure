@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bevtbhnumrevp"]
 
 [ext_resource type="Script" uid="uid://ry7l4l7mxjrd" path="res://mapElement/blocks/jump_boost_block.gd" id="1_x6k1e"]
-[ext_resource type="Texture2D" uid="uid://dn1mra75kk3kk" path="res://asset/From Kennys/JumpBoostBlock/1(3).png" id="2_tsqsa"]
-[ext_resource type="Texture2D" uid="uid://b1sfp4sx0l7te" path="res://asset/From Kennys/JumpBoostBlock/1(1).png" id="2_x6k1e"]
-[ext_resource type="Texture2D" uid="uid://bj0exmkcl0b2l" path="res://asset/From Kennys/JumpBoostBlock/1(2).png" id="3_86p6p"]
+[ext_resource type="Texture2D" uid="uid://dn1mra75kk3kk" path="res://asset/Items/JumpBoostBlock/1(3).png" id="2_tsqsa"]
+[ext_resource type="Texture2D" uid="uid://b1sfp4sx0l7te" path="res://asset/Items/JumpBoostBlock/1(1).png" id="2_x6k1e"]
+[ext_resource type="Texture2D" uid="uid://bj0exmkcl0b2l" path="res://asset/Items/JumpBoostBlock/1(2).png" id="3_86p6p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x6k1e"]
 size = Vector2(64, 64)

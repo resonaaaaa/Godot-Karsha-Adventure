@@ -62,7 +62,9 @@ func _on_body_entered(body: Node2D) -> void:
 			# 给玩家一个弹跳的反馈
 			body.velocity.y = body.jump_velocity * 0.8
 		else:
-			if body.has_method("player_dead"):
+			if body.get("is_shield_active") == true:
+				pass
+			elif body.has_method("player_dead"):
 				body.player_dead()
 
 func die() -> void:

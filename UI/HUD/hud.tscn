@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bswooqui6c3md" path="res://UI/HUD/hud.gd" id="1_64ctp"]
 [ext_resource type="FontFile" uid="uid://scmbdd7yljqj" path="res://asset/fonts/Xolonium-Regular.ttf" id="2_8sq4i"]
-[ext_resource type="Texture2D" uid="uid://cqusihychxrep" path="res://asset/From Kennys/PNG/Items/outlineCrystal.png" id="3_s83ig"]
+[ext_resource type="Texture2D" uid="uid://cqusihychxrep" path="res://asset/TileSet/Items/outlineCrystal.png" id="3_s83ig"]
 [ext_resource type="FontFile" uid="uid://dkwbmjyfk3xse" path="res://asset/fonts/字魂无外润黑体(商用需授权).ttf" id="6_rftc2"]
 [ext_resource type="StyleBox" uid="uid://2an01y0kj5tm" path="res://asset/UI/MenuButtonTheme/ButtonTheme.tres" id="7_61f8s"]
 [ext_resource type="Texture2D" uid="uid://c343ugva7x535" path="res://asset/UI/menu.png" id="7_rftc2"]

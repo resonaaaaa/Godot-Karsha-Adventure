@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://58y5dq5cbcck" path="res://asset/animation/tp_anima/images/Cure1_18.png" id="1_xg5hp"]
 [ext_resource type="Script" uid="uid://c6dcq1ay06loc" path="res://items/magic_circle.gd" id="1_xpr5n"]
-[ext_resource type="Texture2D" uid="uid://d4mk36jgidqdg" path="res://asset/From Kennys/PNG/Other/flagRed_up.png" id="2_jgscy"]
+[ext_resource type="Texture2D" uid="uid://d4mk36jgidqdg" path="res://asset/TileSet/Other/flagRed_up.png" id="2_jgscy"]
 [ext_resource type="Texture2D" uid="uid://cgs6n6x4btq1h" path="res://asset/animation/tp_anima/images/Cure1_19.png" id="2_xpr5n"]
 [ext_resource type="Texture2D" uid="uid://ct48e8b3i4g30" path="res://asset/animation/tp_anima/images/Cure1_20.png" id="3_jgscy"]
 [ext_resource type="Texture2D" uid="uid://b4cwg6567byej" path="res://asset/animation/tp_anima/images/Cure1_21.png" id="4_5xij0"]
@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cd1ay8sqsqur" path="res://asset/animation/tp_anima/images/Cure1_26.png" id="9_eu3cy"]
 [ext_resource type="Texture2D" uid="uid://y28dnr7bjhgh" path="res://asset/animation/tp_anima/images/Cure1_27.png" id="10_dhkj3"]
 [ext_resource type="Texture2D" uid="uid://b1df6g0ttgb4g" path="res://asset/animation/tp_anima/images/Cure1_28.png" id="11_buwjw"]
-[ext_resource type="Texture2D" uid="uid://dayvxv3ywgcf8" path="res://asset/From Kennys/PNG/Other/flagGreen_up.png" id="15_jgscy"]
+[ext_resource type="Texture2D" uid="uid://dayvxv3ywgcf8" path="res://asset/TileSet/Other/flagGreen_up.png" id="15_jgscy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xpr5n"]
 animations = [{

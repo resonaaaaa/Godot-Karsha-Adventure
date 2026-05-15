@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://bp0dfk2x2hbky"]
+
+[ext_resource type="Texture2D" uid="uid://bberfd26jwv6r" path="res://asset/fire_particle.png" id="1_jmdgh"]
+[ext_resource type="Texture2D" uid="uid://d0x08nkjuoybg" path="res://asset/TileSet/Other/fluidRed_top.png" id="2_hicjh"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hicjh"]
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+emission_shape = 3
+emission_box_extents = Vector3(24, 1, 1)
+direction = Vector3(0, -1, 0)
+spread = 5.0
+initial_velocity_min = 50.0
+initial_velocity_max = 150.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w4d33"]
+size = Vector2(64, 115)
+
+[node name="SplashingLava" type="Area2D" unique_id=137933305]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1663422281]
+modulate = Color(1, 0.59607846, 0.58431375, 1)
+position = Vector2(-1, -22)
+emitting = false
+amount = 16
+texture = ExtResource("1_jmdgh")
+lifetime = 1.5
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_hicjh")
+
+[node name="DetectionArea" type="CollisionShape2D" parent="." unique_id=1332569076]
+visible = false
+position = Vector2(0, -69)
+shape = SubResource("RectangleShape2D_w4d33")
+
+[node name="IntervalTimer" type="Timer" parent="." unique_id=162047690]
+wait_time = 8.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=379949134]
+texture = ExtResource("2_hicjh")
+
+[node name="DurationTimer" type="Timer" parent="." unique_id=893336317]
+wait_time = 1.5

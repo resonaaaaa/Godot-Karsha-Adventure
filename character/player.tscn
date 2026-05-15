@@ -28,6 +28,9 @@
 [ext_resource type="Texture2D" uid="uid://dwp6w8gurb0ys" path="res://asset/animation/player/shooting_fireball/Actor3_8_22.png" id="25_ek41f"]
 [ext_resource type="Texture2D" uid="uid://bbn8lx4cma0di" path="res://asset/animation/player/shooting_fireball/Actor3_8_23.png" id="26_khis8"]
 [ext_resource type="Texture2D" uid="uid://bxav4iw0jea1c" path="res://asset/animation/player/shooting_fireball/Actor3_8_24.png" id="27_b88wv"]
+[ext_resource type="Texture2D" uid="uid://sbwhsf6my0rk" path="res://asset/animation/double_jump/star.png" id="29_k5ry5"]
+[ext_resource type="FontFile" uid="uid://dkwbmjyfk3xse" path="res://asset/fonts/字魂无外润黑体(商用需授权).ttf" id="30_45wte"]
+[ext_resource type="Texture2D" uid="uid://dyt45ce0tp1cc" path="res://asset/TileSet/Items/yellowGem.png" id="31_8vi7a"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hqtel"]
 animations = [{
@@ -193,7 +196,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hqtel"]
 radius = 16.0
-height = 54.0
+height = 50.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dx0e4"]
 lifetime_randomness = 0.16
@@ -208,21 +211,44 @@ spread = 25.017
 flatness = 0.2
 gravity = Vector3(0, 98, 0)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k5ry5"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 25.06
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 0.6070001
+gravity = Vector3(0, 98, 0)
+scale_min = 0.39999998
+scale_max = 0.59999996
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fqwjq"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 40.0
+emission_ring_inner_radius = 45.0
+emission_ring_cone_angle = 90.0
+orbit_velocity_min = 0.80000013
+orbit_velocity_max = 1.2000002
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.19999999
+
 [node name="Player" type="CharacterBody2D" unique_id=730714528 groups=["player"]]
 script = ExtResource("1_hqtel")
 speed = 300
-double_jump_enabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1684169231]
 sprite_frames = SubResource("SpriteFrames_hqtel")
 animation = &"stay"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=507906603]
-visible = false
 z_index = 1
 shape = SubResource("CapsuleShape2D_hqtel")
-metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1421780966]
 limit_left = -50
@@ -244,5 +270,32 @@ one_shot = true
 explosiveness = 0.8
 randomness = 0.39
 process_material = SubResource("ParticleProcessMaterial_dx0e4")
+
+[node name="slowDescentParticles" type="GPUParticles2D" parent="." unique_id=82017393]
+modulate = Color(0, 1, 0, 0.45882353)
+position = Vector2(0, 32)
+emitting = false
+amount = 16
+texture = ExtResource("29_k5ry5")
+lifetime = 0.39
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_k5ry5")
+
+[node name="CooldownMessage" type="Label" parent="." unique_id=126161461]
+visible = false
+offset_left = -48.0
+offset_top = -69.0
+offset_right = 61.0
+offset_bottom = -46.0
+theme_override_fonts/font = ExtResource("30_45wte")
+text = "魔法冷却中……"
+
+[node name="MagicShieldParticles" type="GPUParticles2D" parent="." unique_id=1756008867]
+emitting = false
+amount = 128
+texture = ExtResource("31_8vi7a")
+lifetime = 0.2
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_fqwjq")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

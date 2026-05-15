@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bkgdpe6fd5s81"]
 
 [ext_resource type="Script" uid="uid://c1ks60lhs7sc" path="res://mapElement/blocks/platform/fake_platform.gd" id="1_amqce"]
-[ext_resource type="Texture2D" uid="uid://bvnwdya32auvo" path="res://asset/From Kennys/PNG/Tiles/Blue tiles/tileBlue_02.png" id="2_amqce"]
+[ext_resource type="Texture2D" uid="uid://bvnwdya32auvo" path="res://asset/TileSet/Tiles/Blue tiles/tileBlue_02.png" id="2_amqce"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hndnj"]
 size = Vector2(64, 11)

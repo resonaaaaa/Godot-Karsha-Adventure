@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://q537ounub7qb"]
 
 [ext_resource type="Script" uid="uid://dxsebwfe0fcyx" path="res://items/loot/key_red.gd" id="1_n0ccv"]
-[ext_resource type="Texture2D" uid="uid://17mxaopowrtn" path="res://asset/From Kennys/PNG/Items/keyRed.png" id="2_gkl1y"]
+[ext_resource type="Texture2D" uid="uid://17mxaopowrtn" path="res://asset/TileSet/Items/keyRed.png" id="2_gkl1y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p0yg6"]
 radius = 17.121902

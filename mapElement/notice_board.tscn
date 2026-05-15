@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://v3k0dkchgs6w"]
 
 [ext_resource type="Script" uid="uid://bq772xshe7gpr" path="res://mapElement/notice_board.gd" id="1_6mjw6"]
-[ext_resource type="Texture2D" uid="uid://bac1epmocpu53" path="res://asset/From Kennys/PNG/Other/signSmall.png" id="2_t4oux"]
+[ext_resource type="Texture2D" uid="uid://bac1epmocpu53" path="res://asset/TileSet/Other/signSmall.png" id="2_t4oux"]
 [ext_resource type="FontFile" uid="uid://dkwbmjyfk3xse" path="res://asset/fonts/字魂无外润黑体(商用需授权).ttf" id="3_t4oux"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wc2di"]

@@ -1,12 +1,12 @@
 extends CanvasLayer
 signal new_game
 
-var key_texture_empty = preload("res://asset/From Kennys/PNG/Items/outlineKey.png")
-var key_texture_red = preload("res://asset/From Kennys/PNG/Items/keyRed.png")
-var key_texture_green = preload("res://asset/From Kennys/PNG/Items/keyGreen.png")
-var flower_texture_red: Texture2D = preload("res://asset/From Kennys/PNG/Items/redCrystal.png")
-var flower_texture_blue = preload("res://asset/From Kennys/PNG/Items/blueCrystal.png")
-var flower_texture_empty = preload("res://asset/From Kennys/PNG/Items/outlineCrystal.png")
+var key_texture_empty = preload("res://asset/TileSet/Items/outlineKey.png")
+var key_texture_red = preload("res://asset/TileSet/Items/keyRed.png")
+var key_texture_green = preload("res://asset/TileSet/Items/keyGreen.png")
+var flower_texture_red: Texture2D = preload("res://asset/TileSet/Items/redCrystal.png")
+var flower_texture_blue = preload("res://asset/TileSet/Items/blueCrystal.png")
+var flower_texture_empty = preload("res://asset/Tileset/Items/outlineCrystal.png")
 
 @onready var _red_flower_ui: Sprite2D = $RedFlowerUI
 @onready var _blue_flower_ui: Sprite2D = $BlueFlowerUI
@@ -64,8 +64,9 @@ func setup_level(level_num: int):
 	elif level_num == 3:
 		$RedKeyUI.show()
 		$GreenKeyUI.show()
-		
 
+#================================
+#拾取物UI更新
 func show_red_key_ui():
 	$RedKeyUI.texture = key_texture_red
 
@@ -81,7 +82,10 @@ func set_red_flower_ui():
 
 func set_blue_flower_ui():
 	$BlueFlowerUI.texture = flower_texture_blue
-	
+
+#================================
+#暂停菜单设置相关
+
 #检测暂停状态是否切换
 func _on_pause_button_toggled(toggled_on: bool) -> void:
 	var tree = get_tree()
@@ -93,7 +97,7 @@ func _on_pause_button_toggled(toggled_on: bool) -> void:
 		$PauseMessage.hide()
 		$PauseMenu.hide()
 
-#隐藏菜单时同步恢复运行状态
+#隐藏暂停菜单时同步恢复游戏状态
 func _on_pause_menu_popup_hide() -> void:
 	if $PauseButton.button_pressed:
 		$PauseButton.button_pressed = false
@@ -125,6 +129,9 @@ func _on_restart_button_pressed() -> void:
 
 func _reload_scene() -> void:
 	get_tree().reload_current_scene()
+
+#================================
+#设置菜单相关
 
 #打开设置菜单
 func _on_setting_button_pressed() -> void:
