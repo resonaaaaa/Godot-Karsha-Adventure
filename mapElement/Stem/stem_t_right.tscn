@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bx2k13ff4s1w1"]
+
+[ext_resource type="Script" uid="uid://bnn4pytwpjn3r" path="res://mapElement/Stem/stemTright.gd" id="1_ckxip"]
+[ext_resource type="Texture2D" uid="uid://derjid2skamjo" path="res://asset/TileSet/Other/plantStem_Tright.png" id="2_ckxip"]
+
+[node name="stemTRight" type="Area2D" unique_id=587666913]
+script = ExtResource("1_ckxip")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1102570788]
+position = Vector2(14, 0)
+texture = ExtResource("2_ckxip")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=305822281]
+visible = false
+position = Vector2(1, 0)
+polygon = PackedVector2Array(-5, -32, 5, -32, 5, -11, 8, -7, 11, -5, 31, -5, 31, 5, 11, 5, 5, 10, 5, 32, -5, 32)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

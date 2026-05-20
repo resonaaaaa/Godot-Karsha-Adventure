@@ -347,6 +347,13 @@ func on_spire_hit(spire: Node2D) -> void:
 		return
 	player_dead()
 
+func on_thorns_hit() -> void:
+	if is_shield_active:
+		return
+	if not is_in_group("player"):
+		return
+	player_dead()
+
 func player_dead():
 	if is_dead:
 		return

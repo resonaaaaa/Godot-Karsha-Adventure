@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://escsb6d5oj83"]
+
+[ext_resource type="Script" uid="uid://cosaa20octnyh" path="res://mapElement/Stem/stemCross.gd" id="1_8yduh"]
+[ext_resource type="Texture2D" uid="uid://crkday851w0je" path="res://asset/TileSet/Other/plantStem_cross.png" id="2_efnsg"]
+
+[node name="StemCross" type="Area2D" unique_id=330064277]
+script = ExtResource("1_8yduh")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1977989485]
+texture = ExtResource("2_efnsg")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1851727695]
+visible = false
+polygon = PackedVector2Array(-4, -32, 6, -32, 6, -12, 8, -7, 12, -5, 32, -5, 32, 5, 12, 5, 9, 8, 6, 12, 6, 33, -4, 33, -4, 11, -6, 8, -10, 5, -32, 5, -32, -5, -9, -5, -6, -8, -4, -12)

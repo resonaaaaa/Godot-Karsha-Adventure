@@ -20,6 +20,9 @@ func _ready() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if not body.is_in_group("player"):
 		return
+	var mgr = get_tree().current_scene.get_node_or_null("CheckpointManager")
+	if mgr:
+		mgr.record_collected(self)
 	match gem_type:
 		"red":
 			body.get_gem("red")

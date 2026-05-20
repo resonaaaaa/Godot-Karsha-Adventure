@@ -1,5 +1,6 @@
 extends CanvasLayer
 signal new_game
+signal retry
 
 var key_texture_empty = preload("res://asset/TileSet/Items/outlineKey.png")
 var key_texture_red = preload("res://asset/TileSet/Items/keyRed.png")
@@ -24,8 +25,10 @@ func _process(delta: float) -> void:
 func show_game_over():
 	show_message("GAME OVER")
 	await $MessageTimer.timeout
-	get_tree().reload_current_scene()
-	show_new_game()
+	# 不直接重载场景，而是显示重试按钮，让关卡决定如何重置玩家位置
+	$RetryButton.show()
+	$Message.show()
+	$RetryButton.visible = true
 
 func show_game_win():
 	show_message("You Win!")
@@ -42,6 +45,12 @@ func show_message(text):
 	$Message.text = text
 	$Message.show()
 	$MessageTimer.start()
+	
+func show_saving_massage():
+	$SavedMessage.show()
+	$MessageTimer.start()
+	await $MessageTimer.timeout
+	$SavedMessage.hide()
 	
 func _on_start_button_pressed() -> void:
 	# 隐藏按钮和消息
@@ -78,6 +87,24 @@ func set_red_flower_ui():
 
 func set_blue_flower_ui():
 	$BlueFlowerUI.texture = flower_texture_blue
+
+func apply_player_state(state: Dictionary) -> void:
+	if state.is_empty():
+		return
+	$RedKeyUI.texture = key_texture_empty
+	$GreenKeyUI.texture = key_texture_empty
+	if state.get("has_key_red", false):
+		show_red_key_ui()
+	if state.get("has_key_green", false):
+		show_green_key_ui()
+	var has_red_flower = state.get("has_red_flower", false)
+	var has_blue_flower = state.get("has_blue_flower", false)
+	if has_red_flower or has_blue_flower:
+		show_flower_ui()
+		if has_red_flower:
+			set_red_flower_ui()
+		if has_blue_flower:
+			set_blue_flower_ui()
 
 #================================
 #暂停菜单设置相关
@@ -151,3 +178,16 @@ func _on_setting_default_button_pressed() -> void:
 	var graphics_tab = $SettingPanel/TabContainer/画面
 	graphics_tab.get_node("Resolution/OptionButton").selected = 0
 	graphics_tab.get_node("Fullscreen").button_pressed = false
+
+
+func _on_retry_button_pressed() -> void:
+	var tree = get_tree()
+	if tree.paused:
+		tree.paused = false
+	$PauseButton.button_pressed = false
+	$PauseMessage.hide()
+	$PauseMenu.hide()
+	$PauseText.hide()
+	$RetryButton.hide()
+	$Message.hide()
+	emit_signal("retry")

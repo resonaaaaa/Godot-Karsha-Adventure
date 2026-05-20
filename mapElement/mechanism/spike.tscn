@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://crq65rj846wbv"]
 
-[ext_resource type="Script" uid="uid://c8kcw5441f5vq" path="res://mapElement/mechanism/spire.gd" id="1_0tjbd"]
+[ext_resource type="Script" uid="uid://c8kcw5441f5vq" path="res://mapElement/mechanism/spike.gd" id="1_0tjbd"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0tjbd"]
 load_path = "res://.godot/imported/spikesHigh.png-0e050fff913e0c7e2c7afea73878e81c.ctex"
 
-[node name="Spire" type="Area2D" unique_id=1944486045]
+[node name="Spike" type="Area2D" unique_id=1944486045]
 position = Vector2(0, 17)
 scale = Vector2(0.8, 1)
 script = ExtResource("1_0tjbd")

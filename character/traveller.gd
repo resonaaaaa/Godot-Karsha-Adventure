@@ -92,18 +92,14 @@ func _physics_process(delta: float) -> void:
 
 func _on_sensor_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		var tips = get_node_or_null("Tips")
-		if tips:
-			tips.show()
+		$Tips.show()
 		player_in_range = true
 		player_node = body
 		anim.play("stay")
 	
 func _on_sensor_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		var tips = get_node_or_null("Tips")
-		if tips:
-			tips.hide()
+		$Tips.hide()
 		player_in_range = false
 		player_node = null
 

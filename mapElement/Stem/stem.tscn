@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://xy4cuqk6ier2"]
+
+[ext_resource type="Script" uid="uid://balqyo38nmu3b" path="res://mapElement/Stem/stem.gd" id="1_afu4l"]
+[ext_resource type="Texture2D" uid="uid://dwq7a0qv070it" path="res://asset/TileSet/Other/plantStem_vertical.png" id="1_es0r5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_es0r5"]
+size = Vector2(12, 66)
+
+[node name="Stem" type="Area2D" unique_id=1252475540]
+script = ExtResource("1_afu4l")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1952023178]
+position = Vector2(1, 0)
+texture = ExtResource("1_es0r5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1535361135]
+visible = false
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_es0r5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
