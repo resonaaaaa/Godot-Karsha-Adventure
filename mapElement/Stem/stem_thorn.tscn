@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bnkxsfybyqqbt"]
+
+[ext_resource type="Script" uid="uid://b1atqdohgsouj" path="res://mapElement/Stem/stem_thorn.gd" id="1_pukia"]
+[ext_resource type="Texture2D" uid="uid://jfllmdjrhqbu" path="res://asset/TileSet/Other/plantThorns_vertical.png" id="2_a1drh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_edis5"]
+size = Vector2(10, 66)
+
+[node name="StemThorn" type="Area2D" unique_id=1979820242]
+position = Vector2(1, 0)
+script = ExtResource("1_pukia")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1444934430]
+texture = ExtResource("2_a1drh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1977504180]
+visible = false
+shape = SubResource("RectangleShape2D_edis5")

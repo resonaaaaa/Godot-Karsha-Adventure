@@ -45,4 +45,15 @@ func _on_body_entered(body: Node2D) -> void:
 			$Sprite2D.position += Vector2(0, 12)
 			set_deferred("monitoring", false)
 			body.set_has_blue_flower(true)
+	var mgr = get_tree().current_scene.get_node_or_null("CheckpointManager")
+	if mgr:
+		mgr.record_collected(self)
+
+func apply_collected_state() -> void:
+	if collected:
+		return
+	collected = true
+	$Sprite2D.texture = flower_texture_empty
+	$Sprite2D.position += Vector2(0, 12)
+	set_deferred("monitoring", false)
 		

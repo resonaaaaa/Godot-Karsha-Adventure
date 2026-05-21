@@ -13,16 +13,18 @@ var is_dead := false
 var start_position := Vector2.ZERO
 
 func _ready() -> void:
+	# 保证加入 checkpoint 状态组，便于管理器收集状态
+	add_to_group("checkpoint_stateful")
 	start_position = position
 	$AnimatedSprite2D.play(mob_type)
-	
+    
 	$ColliShapeFly.disabled = true
 	$ColliShapeWalk.disabled = true
 	$ColliShapeSwim.disabled = true
 	$Dead_fly.hide()
 	$Dead_walk.hide()
 	$Dead_swim.hide()
-	
+    
 	if mob_type == "fly":
 		speed = fly_speed
 		$ColliShapeFly.disabled = false
@@ -32,6 +34,10 @@ func _ready() -> void:
 	elif mob_type == "swim":
 		speed = swim_speed
 		$ColliShapeSwim.disabled = false
+
+	set_physics_process(true)
+
+
 
 func _process(delta: float) -> void:
 	if is_dead:
@@ -73,14 +79,56 @@ func die() -> void:
 	$ColliShapeFly.set_deferred("disabled", true)
 	$ColliShapeWalk.set_deferred("disabled", true)
 	$ColliShapeSwim.set_deferred("disabled", true)
-	
+    
 	if mob_type == "fly":
 		$Dead_fly.show()
 	elif mob_type == "walk":
 		$Dead_walk.show()
 	elif mob_type == "swim":
 		$Dead_swim.show()
-		
-	await get_tree().create_timer(1.0).timeout
-	if is_inside_tree():
-		queue_free()
+    
+	# 不直接释放节点，保持在树中以便检查点可以恢复它的状态
+	set_physics_process(false)
+	set_process(false)
+	set_monitoring(false)
+
+func checkpoint_get_state() -> Dictionary:
+	return {
+		"is_dead": is_dead,
+		"position": position,
+		"direction": direction
+	}
+
+func checkpoint_set_state(state: Dictionary) -> void:
+	if state == null:
+		return
+	var dead = state.get("is_dead", false)
+	if dead:
+		is_dead = true
+		$AnimatedSprite2D.hide()
+		$ColliShapeFly.set_deferred("disabled", true)
+		$ColliShapeWalk.set_deferred("disabled", true)
+		$ColliShapeSwim.set_deferred("disabled", true)
+		if mob_type == "fly":
+			$Dead_fly.show()
+		elif mob_type == "walk":
+			$Dead_walk.show()
+		elif mob_type == "swim":
+			$Dead_swim.show()
+		set_physics_process(false)
+		set_process(false)
+		set_monitoring(false)
+	else:
+		is_dead = false
+		position = state.get("position", start_position)
+		direction = state.get("direction", 1)
+		$AnimatedSprite2D.show()
+		$Dead_fly.hide()
+		$Dead_walk.hide()
+		$Dead_swim.hide()
+		$ColliShapeFly.set_deferred("disabled", mob_type != "fly")
+		$ColliShapeWalk.set_deferred("disabled", mob_type != "walk")
+		$ColliShapeSwim.set_deferred("disabled", mob_type != "swim")
+		set_physics_process(true)
+		set_process(true)
+		set_monitoring(true)

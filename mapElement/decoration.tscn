@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ljkd4atwwo5p"]
 
 [ext_resource type="Texture2D" uid="uid://bm3lxb245bdls" path="res://asset/From Kennys/Tilesheet/tilesheet_complete.png" id="2_0ex7e"]
-[ext_resource type="PackedScene" uid="uid://crq65rj846wbv" path="res://mapElement/mechanism/spire.tscn" id="2_xccv4"]
+[ext_resource type="PackedScene" uid="uid://crq65rj846wbv" path="res://mapElement/mechanism/spike.tscn" id="2_xccv4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3c62u"]
 resource_name = "decoration"

@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://dv0tdiovm7ttj"]
+
+[ext_resource type="Texture2D" uid="uid://bjp1eb15vkfie" path="res://asset/animation/elf/walk/walk_04.png" id="1_1dfkm"]
+[ext_resource type="Texture2D" uid="uid://d4bbeco0cyvdd" path="res://asset/animation/elf/walk/walk_05.png" id="2_40774"]
+[ext_resource type="Texture2D" uid="uid://dsap71igs80cd" path="res://asset/animation/elf/walk/walk_06.png" id="3_2rbd7"]
+[ext_resource type="Texture2D" uid="uid://ba5pb24pwbnnu" path="res://asset/animation/elf/walk/walk_07.png" id="4_4y71x"]
+[ext_resource type="Texture2D" uid="uid://bl2sko82evf8b" path="res://asset/animation/elf/walk/walk_08.png" id="5_7gkry"]
+[ext_resource type="Texture2D" uid="uid://gn6vxcihkwx1" path="res://asset/animation/elf/walk/walk_09.png" id="6_b58vb"]
+[ext_resource type="Texture2D" uid="uid://5ol2ww4mdqq1" path="res://asset/animation/elf/walk/walk_02.png" id="7_ep1um"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lrwf4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1dfkm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_40774")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_2rbd7")
+}],
+"loop": true,
+"name": &"left",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_4y71x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7gkry")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_b58vb")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_ep1um")
+}],
+"loop": true,
+"name": &"stay",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ndg5"]
+radius = 18.0
+height = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i888r"]
+radius = 100.0
+
+[node name="elf" type="CharacterBody2D" unique_id=695319744]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1093041823]
+sprite_frames = SubResource("SpriteFrames_lrwf4")
+animation = &"stay"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=128164740]
+shape = SubResource("CapsuleShape2D_8ndg5")
+
+[node name="sensor" type="Area2D" parent="." unique_id=819241534]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sensor" unique_id=590956618]
+shape = SubResource("CircleShape2D_i888r")
+debug_color = Color(0.76611567, 0.3447343, 0.7337809, 0.41960785)

@@ -49,8 +49,9 @@ func _physics_process(delta: float) -> void:
 					{"speaker": keeper_name, "text": "你好，冒险者，我叫薇拉。我不慎受伤了，我需要红蓝两种水晶花来治疗自己。你能帮我采集一下吗？", "portrait": keeper_portrait},
 					{"speaker": player_name, "text": "叫我卡莎吧。我该怎么找到这些水晶花呢？", "portrait": player_portrait},
 					{"speaker": keeper_name, "text": "它们都生长在这些高大植物的顶端，你需要爬上去才能采集到它们。", "portrait": keeper_portrait},
-					{"speaker": player_name, "text": "噢，为什么这些植物长得这么高大啊？这里是什么地方？", "portrait": player_portrait},
-					{"speaker": keeper_name, "text": "这是密林，这就是这里的特色了。对了，小心植物上的尖刺，它们会伤害你的。", "portrait": keeper_portrait}
+					{"speaker": player_name, "text": "噢，这些植物长得真的好高大！", "portrait": player_portrait},
+					{"speaker": keeper_name, "text": "这是毒沼密林，这就是这里的特色了。对了，小心植物上的尖刺，它们会伤害你的……嘶————", "portrait": keeper_portrait},
+					{"speaker": player_name, "text": "啊！我会尽快拿到两种花的！", "portrait": player_portrait}
 				]
 				if player_node and player_node.has_method("set_physics_process"):
 					player_node.set_physics_process(false)
@@ -71,7 +72,7 @@ func _physics_process(delta: float) -> void:
 					elif has_red and not has_blue:
 						dialog_data = [
 							{"speaker": player_name, "text": "我采集到了红水晶花了。", "portrait": player_portrait},
-							{"speaker": keeper_name, "text": "太好了！我还需要蓝水晶花来完全恢复。你能继续帮我采集吗？", "portrait": keeper_portrait}
+							{"speaker": keeper_name, "text": "太好了！但我还需要蓝水晶花来完全恢复。你能继续帮我采集吗？", "portrait": keeper_portrait}
 						]
 					elif not has_red and has_blue:
 						dialog_data = [
@@ -83,7 +84,8 @@ func _physics_process(delta: float) -> void:
 							{"speaker": player_name, "text": "两种花我都采集到了！", "portrait": player_portrait},
 							{"speaker": keeper_name, "text": "太好了！谢谢你，卡莎！", "portrait": keeper_portrait},
 							{"speaker": keeper_name, "text": "(使用治愈魔法)", "portrait": keeper_portrait, "action": "cure"},
-							{"speaker": keeper_name, "text": "呼，我好多了，谢谢你，卡莎。我这里有颗绿宝石，你拿着吧。", "portrait": keeper_portrait}
+							{"speaker": keeper_name, "text": "呼，我好多了，谢谢你，卡莎。我这里有颗绿宝石，你拿着吧。", "portrait": keeper_portrait},
+							{"speaker": player_name, "text": "谢谢你，薇拉！我正需要宝石的力量来继续我的冒险！", "portrait": player_portrait}
 						]
 						dialog_state = 2
 					
@@ -94,6 +96,7 @@ func _physics_process(delta: float) -> void:
 					var dialog_data = [
 						{"speaker": player_name, "text": "你好，薇拉。你感觉怎么样了？", "portrait": player_portrait},
 						{"speaker": keeper_name, "text": "谢谢你，卡莎！我现在感觉好多了，你看！", "portrait": keeper_portrait, "action": "cheer"},
+						{"speaker": player_name, "text": "太好了！我很高兴能帮到你。", "portrait": player_portrait},
 						{"speaker": keeper_name, "text": "你真是个好冒险者！使用绿宝石的力量，继续你的冒险吧！祝你好运！", "portrait": keeper_portrait}
 					]
 					if player_node and player_node.has_method("set_physics_process"):

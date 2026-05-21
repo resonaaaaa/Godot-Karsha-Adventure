@@ -19,6 +19,8 @@ var texture_open_down = preload("res://asset/TileSet/Other/doorOpen.png")
 var is_open = false
 @export_enum("red", "green") var color = "red"
 
+@export var is_lever_controlled = false
+@export var correct_solution = {}    #使用字典存储每个开关对应的正确状态
 
 func _ready() -> void:
 	is_open = false
@@ -30,7 +32,18 @@ func _ready() -> void:
 		$Sprite/TextureDoorUp.texture = texture_green[0]
 		$Sprite/TextureDoorMid.texture = texture_green[1]
 		$Sprite/TextureDoorDown.texture = texture_green[2]
-	
+
+func lever_toggled(lever_id: int, switch_state: int) -> void:
+	if not is_lever_controlled:
+		return
+	#检查当前所有开关状态是否满足条件
+	for id in correct_solution.keys():
+		var required_state = correct_solution[id]
+		var current_state = DialogManager.get_lever_state(id)
+		if current_state != required_state:
+			door_switch_toggled(false)
+			return
+	door_switch_toggled(true)	
 
 func door_switch_toggled(is_on: bool) -> void:
 	is_open = is_on

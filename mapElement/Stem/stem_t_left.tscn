@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://blwlntd6dnkbd"]
+
+[ext_resource type="Script" uid="uid://c5yns43dlskps" path="res://mapElement/Stem/stemTleft.gd" id="1_u2e78"]
+[ext_resource type="Texture2D" uid="uid://dti0dgb6cj516" path="res://asset/TileSet/Other/plantStem_Tleft.png" id="2_qxmww"]
+
+[node name="StemTLeft" type="Area2D" unique_id=678678637]
+position = Vector2(-13, 0)
+script = ExtResource("1_u2e78")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1472599155]
+texture = ExtResource("2_qxmww")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1974676595]
+visible = false
+polygon = PackedVector2Array(9, -32, 9, -11, 3, -5, -19, -5, -19, 5, 3, 5, 9, 11, 9, 32, 19, 32, 19, -32)

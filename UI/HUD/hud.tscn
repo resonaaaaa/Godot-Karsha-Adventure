@@ -501,6 +501,33 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_tab_bg")
 theme_override_styles/focus = SubResource("StyleBoxFlat_tab_bg")
 text = "返回"
 
+[node name="RetryButton" type="Button" parent="." unique_id=1305072745]
+visible = false
+offset_left = 416.0
+offset_top = 408.0
+offset_right = 668.0
+offset_bottom = 474.0
+theme_override_fonts/font = ExtResource("2_8sq4i")
+theme_override_font_sizes/font_size = 48
+text = "Try Again"
+
+[node name="SavedMessage" type="Label" parent="." unique_id=655104644]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 48.0
+offset_right = 132.0
+offset_bottom = 106.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.9098039, 0.5882353, 0.7019608, 1)
+theme_override_fonts/font = ExtResource("2_8sq4i")
+theme_override_font_sizes/font_size = 48
+text = "Saving…"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="mouse_entered" from="PauseButton" to="." method="_on_pause_button_mouse_entered"]
 [connection signal="mouse_exited" from="PauseButton" to="." method="_on_pause_button_mouse_exited"]
@@ -511,3 +538,4 @@ text = "返回"
 [connection signal="pressed" from="PauseMenu/VBoxContainer/SettingButton" to="." method="_on_setting_button_pressed"]
 [connection signal="pressed" from="SettingPanel/VBoxContainer/HBoxContainer/DefaultButton" to="." method="_on_setting_default_button_pressed"]
 [connection signal="pressed" from="SettingPanel/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_setting_close_button_pressed"]
+[connection signal="pressed" from="RetryButton" to="." method="_on_retry_button_pressed"]

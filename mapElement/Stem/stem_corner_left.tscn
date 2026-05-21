@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bgd7hwnwxadf"]
+
+[ext_resource type="Script" uid="uid://viiwtewpyny2" path="res://mapElement/Stem/stemCornerLeft.gd" id="1_32e1i"]
+[ext_resource type="Texture2D" uid="uid://ba307clydoet7" path="res://asset/TileSet/Other/plantStem_cornerLeft.png" id="2_g8q2d"]
+
+[node name="StemCornerLeft" type="Area2D" unique_id=1979221811]
+position = Vector2(11, -7)
+script = ExtResource("1_32e1i")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2107747450]
+position = Vector2(3, -6)
+texture = ExtResource("2_g8q2d")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1698128214]
+visible = false
+position = Vector2(3, -6)
+polygon = PackedVector2Array(-18, -19, -18, 3, -16, 7, -14, 11, -11, 14, -7, 16, -3, 18, -2, 19, 18, 19, 18, 8, 0, 8, -3, 7, -5, 6, -7, 4, -8, 1, -8, -18, -9, -19)

@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cukpfdsvk3g16"]
+
+[ext_resource type="Script" uid="uid://dydhqdo18hy4a" path="res://mapElement/Stem/vine_bottom.gd" id="1_bjsj7"]
+[ext_resource type="Texture2D" uid="uid://dy443up48nwsr" path="res://asset/TileSet/Other/vine_bottomAlt.png" id="1_mj2vx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bjsj7"]
+size = Vector2(13, 45)
+
+[node name="VineBottom" type="Area2D" unique_id=528981761]
+position = Vector2(-1, -10)
+script = ExtResource("1_bjsj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=292298907]
+texture = ExtResource("1_mj2vx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=376477047]
+visible = false
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_bjsj7")

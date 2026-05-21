@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cftuom28axh1s"]
+
+[ext_resource type="Script" uid="uid://chxfq37hqv4mr" path="res://mapElement/Stem/vine.gd" id="1_47arp"]
+[ext_resource type="Texture2D" uid="uid://bc2epdtvvb4e1" path="res://asset/TileSet/Other/vine.png" id="2_ijcvo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_42lun"]
+size = Vector2(10, 66)
+
+[node name="Vine" type="Area2D" unique_id=1380334890]
+script = ExtResource("1_47arp")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=346079970]
+texture = ExtResource("2_ijcvo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1842482373]
+visible = false
+shape = SubResource("RectangleShape2D_42lun")
