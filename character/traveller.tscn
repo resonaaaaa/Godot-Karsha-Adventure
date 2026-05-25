@@ -76,7 +76,6 @@ player_portrait = ExtResource("3_y64qo")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1768118556]
 sprite_frames = SubResource("SpriteFrames_oc3h5")
 animation = &"right"
-frame_progress = 0.89042443
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1828215116]
 shape = SubResource("CapsuleShape2D_qubdc")

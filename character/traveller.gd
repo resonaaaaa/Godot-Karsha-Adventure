@@ -14,6 +14,7 @@ var pause_timer: float = 0.0
 var player_node: Node2D = null
 var interact_cooldown: float = 0.0
 var start_position: Vector2 = Vector2.ZERO
+var pending_event_checkpoint_source: String = ""
 
 func _ready() -> void:
 	DialogManager.connect("dialog_finished", Callable(self, "_on_dialog_finished"))
@@ -23,6 +24,19 @@ func _ready() -> void:
 		sensor.body_entered.connect(Callable(self, "_on_sensor_body_entered"))
 		sensor.body_exited.connect(Callable(self, "_on_sensor_body_exited"))
 	start_position = position
+	add_to_group("checkpoint_stateful")
+
+func checkpoint_get_state() -> Dictionary:
+	return {"met_player": met_player, "position": position, "direction": direction}
+
+func checkpoint_set_state(state: Dictionary) -> void:
+	if state == null:
+		return
+	met_player = state.get("met_player", false)
+	var pos = state.get("position", null)
+	if pos != null:
+		set_deferred("position", pos)
+	direction = state.get("direction", direction)
 
 func _physics_process(delta: float) -> void:
 	if interact_cooldown > 0:
@@ -81,6 +95,7 @@ func _physics_process(delta: float) -> void:
 				if player_node and player_node.has_method("set_physics_process"):
 					player_node.set_physics_process(false)
 				DialogManager.show_dialogue(dialog_data, traveller_portrait, "年长旅者")
+				_save_event_checkpoint("traveller_first_dialog")
 			else:
 				var dialog_data = [
 					{"speaker": "年长旅者", "text": "哦，你又来了！怎么，被那些怪物吓到了吗？哈哈哈！", "portrait": traveller_portrait},
@@ -89,6 +104,7 @@ func _physics_process(delta: float) -> void:
 				if player_node and player_node.has_method("set_physics_process"):
 					player_node.set_physics_process(false)
 				DialogManager.show_dialogue(dialog_data, traveller_portrait, "年长旅者")
+				_save_event_checkpoint("traveller_repeat_dialog")
 
 func _on_sensor_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
@@ -113,3 +129,19 @@ func _on_dialog_finished() -> void:
 	if player_node and player_node.has_method("set_physics_process"):
 		player_node.set_physics_process(true)
 	anim.play("stay")
+	_commit_event_checkpoint()
+
+func _save_event_checkpoint(source_name: String) -> void:
+	pending_event_checkpoint_source = source_name
+
+func _commit_event_checkpoint() -> void:
+	if pending_event_checkpoint_source == "":
+		return
+	var scene = get_tree().current_scene
+	if scene == null:
+		return
+	var mgr = scene.get_node_or_null("CheckpointManager")
+	if mgr and mgr.has_method("save_event_checkpoint"):
+		# 旅者对话结束后再落盘，确保玩家复活点和剧情状态同步
+		mgr.save_event_checkpoint(player_node, scene.get_node_or_null("HUD"), scene, pending_event_checkpoint_source)
+	pending_event_checkpoint_source = ""

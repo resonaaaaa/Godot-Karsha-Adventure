@@ -5,31 +5,38 @@ signal level_completed
 @export var end_flag:bool = false  #是否是终点，终点的旗帜显示为特殊颜色
 @export var end_flag_texture:Texture2D  #终点旗帜的特殊颜色纹理
 @export var tp_destination:NodePath  #传送目的地，仅在is_to为false时有效
-var one_shot:bool = false  #是否已经触发过一次传送，防止重复触发
+var teleporting: bool = false  # 防止同一轮传送被重复触发
 
 
 func _ready() -> void:
+	# 到达点本身不负责传送，只负责在玩家抵达时记录事件快照
 	if end_flag:
 		$Flag.texture = end_flag_texture
 	$AnimatedSprite2D.hide()
 	if is_to:
 		$Flag.hide()
-	one_shot = false
+		teleporting = false
 
 func _on_body_entered(body: Node2D) -> void:
-	if one_shot:
+	if teleporting:
 		return
 
 	if is_to:
 		# 到达点触发到达动画
 		if body.is_in_group("player"):
+			var scene = get_tree().current_scene
+			if scene != null:
+				var mgr = scene.get_node_or_null("CheckpointManager")
+				if mgr and mgr.has_method("save_event_checkpoint"):
+					# 只有在到达点保存快照，这样从传送起点离开不会污染检查点
+					mgr.save_event_checkpoint(body, scene.get_node_or_null("HUD"), scene, "teleport_arrival")
 			$AnimatedSprite2D.show()
 			$AnimatedSprite2D.animation = "tp"
 			$AnimatedSprite2D.play()
-			one_shot = true
 		return
 
 	if body.is_in_group("player"):
+		teleporting = true
 		$AnimatedSprite2D.show()
 		$AnimatedSprite2D.animation = "tp"
 		$AnimatedSprite2D.play()
@@ -42,6 +49,7 @@ func _on_body_entered(body: Node2D) -> void:
 				body.global_position = dest_node.global_position
 			body.show()
 			body.set_physics_process(true)
+		teleporting = false
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:

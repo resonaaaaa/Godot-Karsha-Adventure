@@ -24,6 +24,7 @@ var is_open = false
 
 func _ready() -> void:
 	is_open = false
+	add_to_group("checkpoint_stateful")
 	if color == "red":
 		$Sprite/TextureDoorUp.texture = texture_red[0]
 		$Sprite/TextureDoorMid.texture = texture_red[1]
@@ -32,6 +33,15 @@ func _ready() -> void:
 		$Sprite/TextureDoorUp.texture = texture_green[0]
 		$Sprite/TextureDoorMid.texture = texture_green[1]
 		$Sprite/TextureDoorDown.texture = texture_green[2]
+
+func checkpoint_get_state() -> Dictionary:
+	return {"is_open": is_open}
+
+func checkpoint_set_state(state: Dictionary) -> void:
+	if state == null:
+		return
+	var open = state.get("is_open", false)
+	door_switch_toggled(open)
 
 func lever_toggled(lever_id: int, switch_state: int) -> void:
 	if not is_lever_controlled:

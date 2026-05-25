@@ -22,5 +22,25 @@ func _ready() -> void:
 	angular_damp = push_angular_damp
 	lock_rotation = lock_box_rotation
 
+	# 用于 checkpoint 快照/恢复
+	add_to_group("checkpoint_stateful")
+
+func checkpoint_get_state() -> Dictionary:
+	return {
+		"position": position,
+		"linear_velocity": linear_velocity if has_method("linear_velocity") else Vector2.ZERO,
+		"angular_velocity": angular_velocity if has_method("angular_velocity") else 0.0
+	}
+
+func checkpoint_set_state(state: Dictionary) -> void:
+	if state == null:
+		return
+	var pos = state.get("position", position)
+	var lv = state.get("linear_velocity", Vector2.ZERO)
+	var av = state.get("angular_velocity", 0.0)
+	set_deferred("position", pos)
+	linear_velocity = lv
+	angular_velocity = av
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

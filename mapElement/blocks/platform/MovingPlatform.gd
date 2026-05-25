@@ -13,6 +13,19 @@ func _ready() -> void:
 	for i in range(platform_target_position.size()):
 		platform_target_position[i] += position
 
+	add_to_group("checkpoint_stateful")
+
+func checkpoint_get_state() -> Dictionary:
+	return {"position": position, "direction": direction}
+
+func checkpoint_set_state(state: Dictionary) -> void:
+	if state == null:
+		return
+	var pos = state.get("position", position)
+	var dir = state.get("direction", direction)
+	set_deferred("position", pos)
+	direction = dir
+
 func _physics_process(delta: float) -> void:
 	var target = platform_target_position[direction]
 	var to_target = target - position

@@ -268,10 +268,9 @@ theme_override_styles/tabbar_background = SubResource("StyleBoxFlat_61f8s")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_tab_default")
 theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_tab_hover")
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_tab_selected")
-current_tab = 2
+current_tab = 0
 
 [node name="音频" type="VBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer" unique_id=918456166]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 15
 metadata/_tab_index = 0
@@ -384,6 +383,7 @@ theme_override_font_sizes/font_size = 16
 text = "全屏"
 
 [node name="控制" type="VBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer" unique_id=933904974]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 metadata/_tab_index = 2
