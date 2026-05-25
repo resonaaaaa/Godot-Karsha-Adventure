@@ -13,18 +13,18 @@ var is_dead := false
 var start_position := Vector2.ZERO
 
 func _ready() -> void:
-	# 保证加入 checkpoint 状态组，便于管理器收集状态
+	
 	add_to_group("checkpoint_stateful")
 	start_position = position
 	$AnimatedSprite2D.play(mob_type)
-    
+	
 	$ColliShapeFly.disabled = true
 	$ColliShapeWalk.disabled = true
 	$ColliShapeSwim.disabled = true
 	$Dead_fly.hide()
 	$Dead_walk.hide()
 	$Dead_swim.hide()
-    
+	
 	if mob_type == "fly":
 		speed = fly_speed
 		$ColliShapeFly.disabled = false
@@ -79,18 +79,27 @@ func die() -> void:
 	$ColliShapeFly.set_deferred("disabled", true)
 	$ColliShapeWalk.set_deferred("disabled", true)
 	$ColliShapeSwim.set_deferred("disabled", true)
-    
+
+	var death_node: Node = null
 	if mob_type == "fly":
-		$Dead_fly.show()
+		death_node = $Dead_fly
 	elif mob_type == "walk":
-		$Dead_walk.show()
+		death_node = $Dead_walk
 	elif mob_type == "swim":
-		$Dead_swim.show()
-    
-	# 不直接释放节点，保持在树中以便检查点可以恢复它的状态
-	set_physics_process(false)
-	set_process(false)
-	set_monitoring(false)
+		death_node = $Dead_swim
+
+	if death_node:
+		death_node.show()
+		# 禁用并停止行为
+		set_physics_process(false)
+		set_process(false)
+		set_monitoring(false)
+		# 展示死亡动画1秒后隐藏
+		await get_tree().create_timer(1.0).timeout
+		if death_node:
+			death_node.hide()
+	
+
 
 func checkpoint_get_state() -> Dictionary:
 	return {
@@ -105,16 +114,23 @@ func checkpoint_set_state(state: Dictionary) -> void:
 	var dead = state.get("is_dead", false)
 	if dead:
 		is_dead = true
+		is_dead = true
 		$AnimatedSprite2D.hide()
 		$ColliShapeFly.set_deferred("disabled", true)
 		$ColliShapeWalk.set_deferred("disabled", true)
 		$ColliShapeSwim.set_deferred("disabled", true)
+		var death_node: Node = null
 		if mob_type == "fly":
-			$Dead_fly.show()
+			death_node = $Dead_fly
 		elif mob_type == "walk":
-			$Dead_walk.show()
+			death_node = $Dead_walk
 		elif mob_type == "swim":
-			$Dead_swim.show()
+			death_node = $Dead_swim
+		if death_node:
+			death_node.show()
+			# 在恢复时也展示 1 秒的死亡动画后隐藏
+			await get_tree().create_timer(1.0).timeout
+			death_node.hide()
 		set_physics_process(false)
 		set_process(false)
 		set_monitoring(false)

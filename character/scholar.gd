@@ -12,6 +12,7 @@ var pause_timer: float = 0.0
 var player_node: Node2D = null
 var interact_cooldown: float = 0.0
 var start_position: Vector2 = Vector2.ZERO
+var pending_event_checkpoint_source: String = ""
 
 var scholar_name: String = "拉贝尔"
 var player_name: String = "卡莎"
@@ -22,6 +23,19 @@ func _onready():
 	DialogManager.connect("dialog_action", Callable(self, "_on_dialog_action"))
 	DialogManager.connect("dialog_finished", Callable(self, "_on_dialog_finished"))
 	start_position = position
+	add_to_group("checkpoint_stateful")
+
+func checkpoint_get_state() -> Dictionary:
+	return {"met_player": met_player, "position": position, "direction": direction}
+
+func checkpoint_set_state(state: Dictionary) -> void:
+	if state == null:
+		return
+	met_player = state.get("met_player", false)
+	var pos = state.get("position", null)
+	if pos != null:
+		set_deferred("position", pos)
+	direction = state.get("direction", direction)
 
 
 func _physics_process(delta: float) -> void:
@@ -86,6 +100,7 @@ func _physics_process(delta: float) -> void:
 				if player_node and player_node.has_method("set_physics_process"):
 					player_node.set_physics_process(false)
 				DialogManager.show_dialogue(dialog_data, scholar_portrait, scholar_name)
+				_save_event_checkpoint("scholar_first_dialog")
 			else:
 				var dialog_data = [
 					{"speaker": scholar_name, "text": "怎么了卡莎，你有什么有趣的故事要和我分享吗？" + player_name + "。", "portrait": scholar_portrait},
@@ -94,6 +109,7 @@ func _physics_process(delta: float) -> void:
 				if player_node and player_node.has_method("set_physics_process"):
 					player_node.set_physics_process(false)
 				DialogManager.show_dialogue(dialog_data, scholar_portrait, scholar_name)
+				_save_event_checkpoint("scholar_repeat_dialog")
 
 
 func _on_sensor_body_entered(body: Node2D) -> void:
@@ -118,3 +134,19 @@ func _on_dialog_finished() -> void:
 	if player_node and player_node.has_method("set_physics_process"):
 		player_node.set_physics_process(true)
 	anim.play("stay")
+	_commit_event_checkpoint()
+
+func _save_event_checkpoint(source_name: String) -> void:
+	pending_event_checkpoint_source = source_name
+
+func _commit_event_checkpoint() -> void:
+	if pending_event_checkpoint_source == "":
+		return
+	var scene = get_tree().current_scene
+	if scene == null:
+		return
+	var mgr = scene.get_node_or_null("CheckpointManager")
+	if mgr and mgr.has_method("save_event_checkpoint"):
+		# 学者对话结束后再写入，这样 met_player 状态会和玩家复活点一起保存
+		mgr.save_event_checkpoint(player_node, scene.get_node_or_null("HUD"), scene, pending_event_checkpoint_source)
+	pending_event_checkpoint_source = ""

@@ -1,0 +1,111 @@
+[gd_scene format=4 uid="uid://ca3751lei6dh6"]
+
+[ext_resource type="FontFile" uid="uid://scmbdd7yljqj" path="res://asset/fonts/Xolonium-Regular.ttf" id="1_y7k74"]
+[ext_resource type="PackedScene" uid="uid://davjc5hn0ac31" path="res://mapElement/floor.tscn" id="2_oyqm6"]
+[ext_resource type="Theme" uid="uid://fjpf47le1w68" path="res://asset/UI/ControlTheme.tres" id="3_kpexm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_y7k74"]
+font = ExtResource("1_y7k74")
+font_size = 72
+stacked_outline_count = 1
+stacked_shadow_count = 1
+stacked_outline_0/size = 4
+stacked_shadow_0/offset = Vector2(6, 5)
+
+[sub_resource type="Gradient" id="Gradient_title_mask"]
+offsets = PackedFloat32Array(0, 0.496337, 0.99084246)
+colors = PackedColorArray(1, 0, 0, 1, 0.96, 0.7944, 0.528, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_title_mask"]
+gradient = SubResource("Gradient_title_mask")
+
+[node name="Title" type="Node2D" unique_id=40671214]
+
+[node name="Background" type="ColorRect" parent="." unique_id=500429354]
+offset_right = 1080.0
+offset_bottom = 720.0
+color = Color(0.706985, 0.8623745, 0.8024569, 1)
+metadata/_edit_lock_ = true
+
+[node name="TitleMessage" type="Node2D" parent="." unique_id=416056227]
+position = Vector2(540, 200)
+metadata/_edit_lock_ = true
+
+[node name="TitleText" type="Label" parent="TitleMessage" unique_id=510678468]
+clip_children = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -331.5
+offset_top = -79.5
+offset_right = 331.5
+offset_bottom = 79.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Karsha's 
+Adventure"
+label_settings = SubResource("LabelSettings_y7k74")
+horizontal_alignment = 1
+
+[node name="GradientMask" type="TextureRect" parent="TitleMessage/TitleText" unique_id=641244786]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_title_mask")
+expand_mode = 1
+
+[node name="Tileset" parent="." unique_id=1650392354 instance=ExtResource("2_oyqm6")]
+tile_map_data = PackedByteArray("AAADAAgAAgAEAAYAAAADAAkAAgAGAAcAAAADAAoAAgAAAAYAAAADAAsAAgAAAAYAAAAEAAoAAgAAAAYAAAAEAAsAAgAAAAYAAAAEAAkAAgACAAYAAAAAAAkAAgABAAQAAAAAAAoAAgABAAUAAAABAAkAAgADAAMAAAABAAoAAgAAAAMAAAABAAsAAgAAAAMAAAAAAAsAAgAAAAMAAAACAAoAAgANAAoAAAACAAsAAgANAAsAAAAHAAkAAgABAAkAAAAHAAoAAgAAAAoAAAAHAAsAAgAAAAkAAAAIAAoAAgACAAsAAAAIAAsAAgAAAAkAAAAJAAoAAgACAAkAAAAJAAsAAgAAAAkAAAAKAAsAAgAAAAkAAAALAAsAAgAPAAoAAAAIAAkAAgACAAoAAAAKAAoAAgADAAkAAAAMAAsAAgAPAAoAAAAGAAkAAgAMAAoAAAAGAAoAAgAMAAsAAAAGAAsAAgAMAAsAAAAFAAkAAgADAAYAAAAFAAoAAgAAAAcAAAAFAAsAAgAAAAYAAAAMAAkAAgAHAAIAAAANAAoAAgAAAAAAAAANAAsAAgAAAAAAAAAOAAoAAgAAAAAAAAAOAAsAAgAAAAAAAAANAAkAAgACAAAAAAAOAAkAAgACAAAAAAAQAAgAAgABAAEAAAAQAAkAAgABAAIAAAAPAAkAAgACAAAAAAAPAAoAAgAAAAEAAAAPAAsAAgAAAAAAAAAQAAsAAgAAAAAAAAAQAAoAAgAAAAAAAAABAAgAAgAJAAMAAAAFAAgAAgALAAUAAAAJAAkAAgAKAAcAAAAOAAgAAgAJAAEAAAAPAAgAAgAJAAEAAAA=")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=574734096]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 504.0
+offset_top = 360.0
+offset_right = 576.0
+offset_bottom = 496.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="ContinueGame" type="Button" parent="VBoxContainer" unique_id=1582334527]
+layout_mode = 2
+theme = ExtResource("3_kpexm")
+disabled = true
+text = "继续游戏"
+
+[node name="StartGame" type="Button" parent="VBoxContainer" unique_id=167262599]
+layout_mode = 2
+theme = ExtResource("3_kpexm")
+text = "新的开始"
+
+[node name="GameSetting" type="Button" parent="VBoxContainer" unique_id=147477279]
+layout_mode = 2
+theme = ExtResource("3_kpexm")
+text = "游戏设置"
+
+[node name="ExitGame" type="Button" parent="VBoxContainer" unique_id=1273743482]
+layout_mode = 2
+theme = ExtResource("3_kpexm")
+text = "退出游戏"
+
+[node name="VersionInfo" type="Label" parent="." unique_id=2011259075]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 944.0
+offset_top = 8.0
+offset_right = 1069.0
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0.08235294, 0, 0.8392157)
+theme_override_font_sizes/font_size = 18
+text = "version 1.0.7w"

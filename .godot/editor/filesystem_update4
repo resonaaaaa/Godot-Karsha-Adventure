@@ -1,0 +1,5 @@
+res://title.tscn
+res://asset/TileSet/floor.tres
+res://asset/UI/ControlTheme.tres
+res://UI/HUD/hud.tscn
+res://audio_manager.tscn

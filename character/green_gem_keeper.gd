@@ -20,12 +20,15 @@ var gem_spawned: bool = false
 
 var player_node: Node2D = null
 var interact_cooldown: float = 0.1
+var pending_event_checkpoint_source: String = ""
 
 func _ready() -> void:
 	DialogManager.connect("dialog_action", Callable(self, "_on_dialog_action"))
 	DialogManager.connect("dialog_finished", Callable(self, "_on_dialog_finished"))
 	anim.animation_finished.connect(Callable(self, "_on_animation_finished"))
 	anim.frame_changed.connect(Callable(self, "_on_frame_changed"))
+
+	add_to_group("checkpoint_stateful")
 
 func _physics_process(delta: float) -> void:
 	if interact_cooldown > 0:
@@ -55,8 +58,14 @@ func _physics_process(delta: float) -> void:
 				]
 				if player_node and player_node.has_method("set_physics_process"):
 					player_node.set_physics_process(false)
+					# 保证玩家在对话期间动画为 stay，避免播放 walk 导致原地踏步感
+					if player_node.has_node("AnimatedSprite2D"):
+						var pspr = player_node.get_node_or_null("AnimatedSprite2D")
+						if pspr:
+							pspr.play("stay")
 				DialogManager.show_dialogue(dialog_data, keeper_portrait, keeper_name)
 				dialog_state = 1
+				_save_event_checkpoint("green_gem_keeper_dialog_start")
 				emit_signal("flower_ui_show")
 			elif Input.is_action_just_pressed("interact"):
 				if dialog_state == 1:
@@ -88,6 +97,7 @@ func _physics_process(delta: float) -> void:
 							{"speaker": player_name, "text": "谢谢你，薇拉！我正需要宝石的力量来继续我的冒险！", "portrait": player_portrait}
 						]
 						dialog_state = 2
+						_save_event_checkpoint("green_gem_keeper_task_complete")
 					
 					if player_node and player_node.has_method("set_physics_process"):
 						player_node.set_physics_process(false)
@@ -102,6 +112,21 @@ func _physics_process(delta: float) -> void:
 					if player_node and player_node.has_method("set_physics_process"):
 						player_node.set_physics_process(false)
 					DialogManager.show_dialogue(dialog_data, keeper_portrait, keeper_name)
+
+func _save_event_checkpoint(source_name: String) -> void:
+	pending_event_checkpoint_source = source_name
+
+func _commit_event_checkpoint() -> void:
+	if pending_event_checkpoint_source == "":
+		return
+	var scene = get_tree().current_scene
+	if scene == null:
+		return
+	var mgr = scene.get_node_or_null("CheckpointManager")
+	if mgr and mgr.has_method("save_event_checkpoint"):
+		# 等对话完全结束后再保存，这样绿宝石/对话状态会和玩家复活点一起落盘
+		mgr.save_event_checkpoint(player_node, scene.get_node_or_null("HUD"), scene, pending_event_checkpoint_source)
+	pending_event_checkpoint_source = ""
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
@@ -141,6 +166,33 @@ func _on_dialog_finished() -> void:
 	if dialog_state == 2 and not gem_spawned:
 		gem_spawned = true
 		if gem_scene:
+			var gem = gem_scene.instantiate()
+			gem.gem_type = "green"
+			gem.global_position = global_position + Vector2(45, 0)
+			get_parent().add_child(gem)
+	_commit_event_checkpoint()
+
+func checkpoint_get_state() -> Dictionary:
+	return {"met_player": met_player, "dialog_state": dialog_state, "gem_spawned": gem_spawned, "position": position}
+
+func checkpoint_set_state(state: Dictionary) -> void:
+	if state == null:
+		return
+	met_player = state.get("met_player", false)
+	dialog_state = state.get("dialog_state", dialog_state)
+	var spawned = state.get("gem_spawned", false)
+	gem_spawned = spawned
+	var pos = state.get("position", null)
+	if pos != null:
+		set_deferred("position", pos)
+	# 恢复时如果已经应该生成 gem，但场景中不存在，则生成它
+	if gem_spawned:
+		var existing = null
+		for c in get_parent().get_children():
+			if c.name.begins_with("Gem"):
+				existing = c
+				break
+		if existing == null and gem_scene:
 			var gem = gem_scene.instantiate()
 			gem.gem_type = "green"
 			gem.global_position = global_position + Vector2(45, 0)

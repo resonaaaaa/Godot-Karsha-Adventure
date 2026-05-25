@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://b6rj0ydob0wvq"]
+
+[node name="AudioManager" type="Node2D" unique_id=570794339]
+
+[node name="BGM" type="Node2D" parent="." unique_id=1032500476]
+
+[node name="Title" type="AudioStreamPlayer" parent="BGM" unique_id=571054311]
+
+[node name="Level1" type="AudioStreamPlayer" parent="BGM" unique_id=778279039]
+
+[node name="Level2" type="AudioStreamPlayer" parent="BGM" unique_id=1434212866]
+
+[node name="Level3" type="AudioStreamPlayer" parent="BGM" unique_id=984320609]
+
+[node name="Level4" type="AudioStreamPlayer" parent="BGM" unique_id=710231389]
+
+[node name="GameOver" type="AudioStreamPlayer" parent="BGM" unique_id=1383636840]
+
+[node name="LevelCompleted" type="AudioStreamPlayer" parent="BGM" unique_id=597612943]
+
+[node name="SE" type="Node2D" parent="." unique_id=876187834]
+
+[node name="Jump" type="AudioStreamPlayer" parent="SE" unique_id=24972377]
+
+[node name="Twinkle" type="AudioStreamPlayer" parent="SE" unique_id=473577666]
+
+[node name="FireMagic" type="AudioStreamPlayer" parent="SE" unique_id=339374963]
+
+[node name="Pickup" type="AudioStreamPlayer" parent="SE" unique_id=1771715877]
+
+[node name="DoorOpen" type="AudioStreamPlayer" parent="SE" unique_id=998015069]
+
+[node name="LockUnlock" type="AudioStreamPlayer" parent="SE" unique_id=434769040]
+
+[node name="UI" type="Node2D" parent="." unique_id=1054353408]
+
+[node name="UI_Click" type="AudioStreamPlayer" parent="UI" unique_id=2058643186]
+
+[node name="UI_Close" type="AudioStreamPlayer" parent="UI" unique_id=1787165501]
+
+[node name="UI_Accept" type="AudioStreamPlayer" parent="UI" unique_id=169923499]

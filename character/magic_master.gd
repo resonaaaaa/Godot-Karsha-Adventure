@@ -15,10 +15,12 @@ var player_node: Node2D = null
 var is_shooting: bool = false
 var interact_cooldown: float = 0.0
 var start_position: Vector2 = Vector2.ZERO
+var pending_event_checkpoint_source: String = ""
 
 func _ready() -> void:
 	DialogManager.connect("dialog_action", Callable(self, "_on_dialog_action"))
 	DialogManager.connect("dialog_finished", Callable(self, "_on_dialog_finished"))
+	add_to_group("checkpoint_stateful")
 	anim.animation_finished.connect(Callable(self, "_on_animation_finished"))
 	$MagicShieldParticles.emitting = false
 
@@ -95,6 +97,7 @@ func _physics_process(delta: float) -> void:
 				#玩家解锁魔法
 				if player_node:
 					player_node.set("yellow_gem_magic_unlocked", true)
+					_save_event_checkpoint("magic_master_first_dialog")
 			else:
 				#再次对话
 				var dialog_data = [
@@ -147,6 +150,34 @@ func _on_dialog_finished() -> void:
 			player_node.set_physics_process(true)
 	if not is_shooting:
 		anim.play("stay")
+	_commit_event_checkpoint()
+
+func _save_event_checkpoint(source_name: String) -> void:
+	pending_event_checkpoint_source = source_name
+
+func _commit_event_checkpoint() -> void:
+	if pending_event_checkpoint_source == "":
+		return
+	var scene = get_tree().current_scene
+	if scene == null:
+		return
+	var mgr = scene.get_node_or_null("CheckpointManager")
+	if mgr and mgr.has_method("save_event_checkpoint"):
+		# 对话结束后再写入事件快照，确保 NPC 状态和玩家位置都是完成时刻的版本
+		mgr.save_event_checkpoint(player_node, scene.get_node_or_null("HUD"), scene, pending_event_checkpoint_source)
+	pending_event_checkpoint_source = ""
+
+func checkpoint_get_state() -> Dictionary:
+	return {"met_player": met_player, "position": position, "direction": direction}
+
+func checkpoint_set_state(state: Dictionary) -> void:
+	if state == null:
+		return
+	met_player = state.get("met_player", false)
+	var pos = state.get("position", null)
+	if pos != null:
+		set_deferred("position", pos)
+	direction = state.get("direction", direction)
 
 func shooting_fireball() -> void:
 	var Fireball = preload("res://items/fireball.tscn")

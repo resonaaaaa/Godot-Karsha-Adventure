@@ -47,10 +47,22 @@ func show_message(text):
 	$MessageTimer.start()
 	
 func show_saving_massage():
-	$SavedMessage.show()
-	$MessageTimer.start()
-	await $MessageTimer.timeout
-	$SavedMessage.hide()
+	var saved_message := $SavedMessage
+	if saved_message == null:
+		return
+	if saved_message.has_meta("fade_tween"):
+		var old_tween = saved_message.get_meta("fade_tween")
+		if old_tween and old_tween.is_valid():
+			old_tween.kill()
+	var tween = create_tween()
+	saved_message.show()
+	saved_message.modulate.a = 0.0
+	tween.tween_property(saved_message, "modulate:a", 1.0, 0.18)
+	tween.tween_interval(0.5)
+	tween.tween_property(saved_message, "modulate:a", 0.0, 0.25)
+	saved_message.set_meta("fade_tween", tween)
+	await tween.finished
+	saved_message.hide()
 	
 func _on_start_button_pressed() -> void:
 	# 隐藏按钮和消息

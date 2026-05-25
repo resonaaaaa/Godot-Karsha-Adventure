@@ -16,13 +16,29 @@ func _ready() -> void:
 			$Sprite2D.texture = gem_texture_green
 		"yellow":
 			$Sprite2D.texture = gem_texture_yellow
+	add_to_group("checkpoint_stateful")
+
+func _set_collected(collected: bool) -> void:
+	set_deferred("monitoring", not collected)
+	visible = not collected
+
+func apply_collected_state() -> void:
+	_set_collected(true)
+
+func checkpoint_get_state() -> Dictionary:
+	return {"collected": not visible, "position": position, "type": gem_type}
+
+func checkpoint_set_state(state: Dictionary) -> void:
+	if state == null:
+		return
+	var collected = state.get("collected", false)
+	_set_collected(collected)
 
 func _on_body_entered(body: Node2D) -> void:
 	if not body.is_in_group("player"):
 		return
 	var mgr = get_tree().current_scene.get_node_or_null("CheckpointManager")
-	if mgr:
-		mgr.record_collected(self)
+	# 不再在拾取时立即记录至 CheckpointManager，checkpoint 由快照时刻从节点自身状态导出
 	match gem_type:
 		"red":
 			body.get_gem("red")
@@ -32,5 +48,5 @@ func _on_body_entered(body: Node2D) -> void:
 			body.get_gem("green")
 		"yellow":	
 			body.get_gem("yellow")
-	queue_free()
+	_set_collected(true)
 	
