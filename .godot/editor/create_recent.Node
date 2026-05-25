@@ -1,7 +1,9 @@
-Label
-Node2D
 Button
+HBoxContainer
+Label
 VBoxContainer
+PopupPanel
+Node2D
 ColorRect
 AudioStreamPlayer
 CollisionShape2D
@@ -10,5 +12,3 @@ Sprite2D
 AnimatedSprite2D
 CharacterBody2D
 CollisionPolygon2D
-StaticBody2D
-Marker2D
