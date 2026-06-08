@@ -6,15 +6,98 @@ extends Node
 	"res://Level3/Level3.tscn",
 	"res://Level4/Level4.tscn"
 ]
-@export var loading_scene_path := "res://loading.tscn"
+@export var loading_scene_path := "res://ShortAct/loading.tscn"
+
+const SAVE_PATH := "user://savedata.save"
+
+var save_data := {
+	"settings": {
+		"master_volume": 50.0,
+		"bgm_volume": 50.0,
+		"sfx_volume": 50.0,
+		"ui_volume": 50.0,
+		"mute": false,
+		"resolution_type": 0,
+		"fullscreen": false
+	},
+	"unlocked_levels": 0 # 最大解锁关卡的索引
+}
 
 var current_index := 0
 
 func _ready() -> void:
+	_load_game()
 	# 等待主场景加载完毕后，接管当前关卡
 	call_deferred("_init_current_scene")
 	# 监控所有后续加入的场景节点，防止被HUD reload后失去连接
 	get_tree().node_added.connect(_on_node_added)
+
+func _load_game() -> void:
+	if FileAccess.file_exists(SAVE_PATH):
+		var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+		var json_string = file.get_as_text()
+		var json = JSON.new()
+		var error = json.parse(json_string)
+		if error == OK:
+			var data = json.get_data()
+			if typeof(data) == TYPE_DICTIONARY:
+				_merge_save_data(save_data, data)
+	_apply_settings()
+
+func _apply_settings() -> void:
+	var settings = save_data.get("settings", {})
+	
+	if settings.has("master_volume"):
+		var bus_idx = AudioServer.get_bus_index("Master")
+		if bus_idx >= 0:
+			AudioServer.set_bus_volume_db(bus_idx, linear_to_db(settings["master_volume"] / 100.0))
+			
+	if settings.has("bgm_volume"):
+		var bus_idx = AudioServer.get_bus_index("BGM")
+		if bus_idx >= 0:
+			AudioServer.set_bus_volume_db(bus_idx, linear_to_db(settings["bgm_volume"] / 100.0))
+			
+	if settings.has("sfx_volume"):
+		var bus_idx = AudioServer.get_bus_index("SE")
+		if bus_idx >= 0:
+			AudioServer.set_bus_volume_db(bus_idx, linear_to_db(settings["sfx_volume"] / 100.0))
+			
+	if settings.has("ui_volume"):
+		var bus_idx = AudioServer.get_bus_index("UI")
+		if bus_idx >= 0:
+			AudioServer.set_bus_volume_db(bus_idx, linear_to_db(settings["ui_volume"] / 100.0))
+			
+	if settings.has("mute"):
+		var bus_idx = AudioServer.get_bus_index("Master")
+		if bus_idx >= 0:
+			AudioServer.set_bus_mute(bus_idx, settings["mute"])
+			
+	if settings.has("fullscreen"):
+		get_window().mode = Window.MODE_FULLSCREEN if settings["fullscreen"] else Window.MODE_WINDOWED
+		
+	if settings.has("resolution_type"):
+		var index = settings["resolution_type"]
+		if index == 0:
+			get_window().size = Vector2i(1620, 1080)
+		elif index == 1:
+			get_window().size = Vector2i(1080, 720)
+
+func _save_game() -> void:
+	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	file.store_string(JSON.stringify(save_data))
+
+func _merge_save_data(base: Dictionary, new_data: Dictionary) -> void:
+	for key in new_data:
+		if base.has(key) and typeof(base[key]) == TYPE_DICTIONARY and typeof(new_data[key]) == TYPE_DICTIONARY:
+			_merge_save_data(base[key], new_data[key])
+		else:
+			base[key] = new_data[key]
+
+func complete_level_and_save(index: int) -> void:
+	if index >= save_data["unlocked_levels"]:
+		save_data["unlocked_levels"] = index + 1
+	_save_game()
+
 
 func _on_node_added(node: Node) -> void:
 	if node == get_tree().current_scene:
@@ -34,6 +117,7 @@ func _init_current_scene() -> void:
 
 # 接收关卡完成信号
 func _on_level_completed() -> void:
+	complete_level_and_save(current_index)
 	var next_index := (current_index + 1) % level_paths.size()
 	_load_level(next_index)
 
@@ -76,6 +160,8 @@ func _reset_player_properties(level: Node) -> void:
 	if player.has_method("set_has_key_red"):
 		player.set_has_key_red(false)
 		player.set_has_key_green(false)
+	if player.has_method("set_has_gem"):
+		player.set_has_gem(false)
 
 func _show_loading() -> Node:
 	if loading_scene_path.is_empty():

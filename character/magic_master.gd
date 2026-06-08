@@ -131,6 +131,7 @@ func _on_dialog_action(action_name: String) -> void:
 	if action_name == "shield":
 		is_shooting = true
 		anim.play("shield")
+		AudioManager.play_se("res://asset/audio/SE/yellow_magic.mp3")
 		$MagicShieldParticles.emitting = true
 		await get_tree().create_timer(3.0).timeout
 		$MagicShieldParticles.emitting = false
@@ -161,7 +162,7 @@ func _commit_event_checkpoint() -> void:
 	var scene = get_tree().current_scene
 	if scene == null:
 		return
-	var mgr = scene.get_node_or_null("CheckpointManager")
+	var mgr = scene.get_node_or_null("CheckPointManager")
 	if mgr and mgr.has_method("save_event_checkpoint"):
 		# 对话结束后再写入事件快照，确保 NPC 状态和玩家位置都是完成时刻的版本
 		mgr.save_event_checkpoint(player_node, scene.get_node_or_null("HUD"), scene, pending_event_checkpoint_source)

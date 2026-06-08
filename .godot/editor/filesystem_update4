@@ -1,0 +1,8 @@
+res://Level3/level3.gd
+res://Level3/Level3.tscn
+res://asset/TileSet/floor.tres
+res://mapElement/blocks/locked_block_green.gd
+res://mapElement/blocks/locked_block_red.gd
+res://Level2/Level2.tscn
+res://character/player.gd
+res://Level1/Level1.tscn

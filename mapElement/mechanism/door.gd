@@ -56,7 +56,10 @@ func lever_toggled(lever_id: int, switch_state: int) -> void:
 	door_switch_toggled(true)	
 
 func door_switch_toggled(is_on: bool) -> void:
+	if is_open == is_on:
+		return
 	is_open = is_on
+	AudioManager.play_se("res://asset/audio/SE/door.wav")
 	if is_open:
 		#禁用碰撞
 		$CollisionShape2D.disabled = true

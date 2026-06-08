@@ -54,6 +54,7 @@ func _explode() -> void:
 	if _exploding:
 		return
 	_exploding = true
+	AudioManager.play_se("res://asset/audio/SE/fireball_exploded.mp3")
 	if collision != null:
 		collision.set_deferred("disabled", true)
 	if sprite != null:

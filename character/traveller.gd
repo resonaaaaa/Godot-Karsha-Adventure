@@ -140,7 +140,7 @@ func _commit_event_checkpoint() -> void:
 	var scene = get_tree().current_scene
 	if scene == null:
 		return
-	var mgr = scene.get_node_or_null("CheckpointManager")
+	var mgr = scene.get_node_or_null("CheckPointManager")
 	if mgr and mgr.has_method("save_event_checkpoint"):
 		# 旅者对话结束后再落盘，确保玩家复活点和剧情状态同步
 		mgr.save_event_checkpoint(player_node, scene.get_node_or_null("HUD"), scene, pending_event_checkpoint_source)

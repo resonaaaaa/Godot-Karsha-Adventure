@@ -120,6 +120,9 @@ animations = [{
 "texture": ExtResource("4_2hs0m")
 }, {
 "duration": 1.0,
+"texture": ExtResource("2_hqtel")
+}, {
+"duration": 1.0,
 "texture": ExtResource("3_sweqy")
 }, {
 "duration": 1.0,
@@ -243,6 +246,7 @@ speed = 300
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1684169231]
 sprite_frames = SubResource("SpriteFrames_hqtel")
 animation = &"stay"
+frame_progress = 0.4404313
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=507906603]
 z_index = 1

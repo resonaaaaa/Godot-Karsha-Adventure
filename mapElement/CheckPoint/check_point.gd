@@ -15,7 +15,7 @@ func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
 		if not scene:
 			return
-		var mgr = scene.get_node_or_null("CheckpointManager")
+		var mgr = scene.get_node_or_null("CheckPointManager")
 		if not mgr:
 			return
 		var hud = scene.get_node_or_null("HUD")

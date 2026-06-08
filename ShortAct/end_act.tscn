@@ -1,0 +1,208 @@
+[gd_scene format=4 uid="uid://dei3x0qqhpm5g"]
+
+[ext_resource type="Script" uid="uid://c1m0qgmuh1gyp" path="res://ShortAct/end_act.gd" id="1_47733"]
+[ext_resource type="PackedScene" uid="uid://davjc5hn0ac31" path="res://mapElement/floor.tscn" id="1_j6lcp"]
+[ext_resource type="Texture2D" uid="uid://bwyrwal7vgri0" path="res://asset/background/desert/desert.png" id="2_l7u3b"]
+[ext_resource type="Texture2D" uid="uid://dvjn08042krfa" path="res://asset/animation/player/walk/play_right_0.png" id="3_riq33"]
+[ext_resource type="Texture2D" uid="uid://nmbe72lxdo3f" path="res://asset/animation/player/walk/play_right_1.png" id="4_47733"]
+[ext_resource type="Texture2D" uid="uid://b2ugtfuj22j7w" path="res://asset/animation/player/walk/play_right_2.png" id="5_dv868"]
+[ext_resource type="FontFile" uid="uid://dkwbmjyfk3xse" path="res://asset/fonts/字魂无外润黑体(商用需授权).ttf" id="7_dv868"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7niuq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_riq33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_47733")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_riq33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dv868")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
+
+[sub_resource type="Curve2D" id="Curve2D_c6lnm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -608, 56, 0, 0, 0, 0, -584, 56, 0, 0, 0, 0, -264, 56, 0, 0, 0, 0, -208, -8, 0, 0, 0, 0, -72, -8, 0, 0, 0, 0, -8, -72, 0, 0, 0, 0, 312, -72, 0, 0, 0, 0, 376, -136, 0, 0, 0, 0, 544, -136)
+}
+point_count = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7niuq"]
+bg_color = Color(0.28627452, 0.47843137, 0.65882355, 0.83137256)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6lnm"]
+bg_color = Color(0.21568628, 0.13725491, 0.7058824, 0.83137256)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="InputEventAction" id="InputEventAction_64ctp"]
+action = &"start"
+
+[sub_resource type="Shortcut" id="Shortcut_k7m5c"]
+events = [SubResource("InputEventAction_64ctp")]
+
+[node name="EndAct" type="Node2D" unique_id=1593141765]
+script = ExtResource("1_47733")
+end_dialogue_text = "卡莎的冒险还会继续……
+感谢你陪伴卡莎度过了这段旅程！"
+
+[node name="BackgroundCanvasLayer" type="CanvasLayer" parent="." unique_id=241312764]
+layer = -100
+
+[node name="BackgroundTextureRect" type="TextureRect" parent="BackgroundCanvasLayer" unique_id=1304787019]
+z_index = -100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_l7u3b")
+expand_mode = 1
+stretch_mode = 6
+metadata/_edit_lock_ = true
+
+[node name="Tileset" parent="." unique_id=1650392354 instance=ExtResource("1_j6lcp")]
+z_index = -2
+position = Vector2(0, 176)
+tile_map_data = PackedByteArray("AAD//wYAAgABAAAAAAAAAAYAAgACAAAAAAABAAYAAgACAAAAAAACAAYAAgACAAAAAAADAAYAAgACAAAAAAAEAAYAAgACAAAAAAAFAAUAAgABAAEAAAAFAAYAAgABAAIAAAAGAAUAAgACAAAAAAAHAAUAAgACAAAAAAAIAAQAAgABAAEAAAAIAAUAAgABAAIAAAAJAAQAAgACAAAAAAAKAAQAAgACAAAAAAALAAQAAgACAAAAAAAMAAQAAgACAAAAAAANAAQAAgACAAAAAAAOAAMAAgABAAEAAAAOAAQAAgABAAIAAAAPAAMAAgACAAAAAAAQAAMAAgACAAAAAAARAAMAAgACAAAAAAABAAUAAgAJAAEAAAAGAAQAAgALAAAAAAALAAMAAgALAAEAAAAPAAIAAgAKAAEAAAAJAAsAAgAAAAAAAAAJAAoAAgAAAAAAAAAJAAkAAgAAAAAAAAAJAAgAAgAAAAAAAAAJAAcAAgAAAAAAAAAIAAsAAgAAAAAAAAAIAAoAAgAAAAAAAAAIAAkAAgAAAAAAAAAIAAgAAgAAAAAAAAAIAAcAAgAAAAAAAAAHAAsAAgAAAAAAAAAHAAoAAgAAAAAAAAAHAAkAAgAAAAAAAAAHAAgAAgAAAAAAAAAHAAcAAgAAAAAAAAAGAAsAAgAAAAAAAAAGAAoAAgAAAAAAAAAGAAkAAgAAAAAAAAAGAAgAAgAAAAAAAAAGAAcAAgAAAAAAAAAFAAsAAgAAAAEAAAAFAAoAAgAAAAAAAAAFAAkAAgAAAAEAAAAFAAgAAgAAAAAAAAAFAAcAAgAAAAAAAAAEAAsAAgAAAAAAAAAEAAoAAgAAAAAAAAAEAAkAAgAAAAAAAAAEAAgAAgAAAAAAAAAEAAcAAgAAAAAAAAADAAsAAgAAAAAAAAADAAoAAgAAAAAAAAADAAkAAgAAAAAAAAADAAgAAgAAAAAAAAADAAcAAgAAAAAAAAACAAsAAgAAAAAAAAACAAoAAgAAAAAAAAACAAkAAgAAAAAAAAACAAgAAgAAAAAAAAACAAcAAgAAAAEAAAABAAsAAgAAAAAAAAABAAoAAgAAAAAAAAABAAkAAgAAAAAAAAABAAgAAgAAAAEAAAABAAcAAgAAAAAAAAAAAAsAAgAAAAAAAAAAAAoAAgAAAAAAAAAAAAkAAgAAAAIAAAAAAAgAAgAAAAAAAAAAAAcAAgAAAAAAAAD//wsAAgAAAAAAAAD//woAAgAAAAAAAAD//wkAAgAAAAIAAAD//wgAAgAAAAAAAAD//wcAAgAAAAAAAAAMAAgAAgAAAAAAAAAMAAcAAgAAAAAAAAAMAAYAAgAAAAAAAAALAAgAAgAAAAAAAAALAAcAAgAAAAAAAAALAAYAAgAAAAEAAAAKAAgAAgAAAAAAAAAKAAcAAgAAAAAAAAAKAAYAAgAAAAEAAAAJAAYAAgAAAAAAAAAIAAYAAgAAAAAAAAAHAAYAAgAAAAAAAAAGAAYAAgAAAAAAAAAOAAsAAgAAAAAAAAAOAAoAAgAAAAAAAAAOAAkAAgAAAAAAAAAOAAgAAgAAAAAAAAAOAAcAAgAAAAIAAAAOAAYAAgAAAAAAAAAOAAUAAgAAAAAAAAANAAsAAgAAAAAAAAANAAoAAgAAAAEAAAANAAkAAgAAAAAAAAANAAgAAgAAAAAAAAANAAcAAgAAAAAAAAANAAYAAgAAAAAAAAANAAUAAgAAAAAAAAAMAAsAAgAAAAAAAAAMAAoAAgAAAAEAAAAMAAkAAgAAAAAAAAAMAAUAAgAAAAAAAAALAAsAAgAAAAAAAAALAAoAAgAAAAAAAAALAAkAAgAAAAAAAAALAAUAAgAAAAAAAAAKAAsAAgAAAAAAAAAKAAoAAgAAAAAAAAAKAAkAAgAAAAAAAAAKAAUAAgAAAAAAAAAJAAUAAgAAAAAAAAARAAoAAgAAAAAAAAARAAkAAgAAAAAAAAARAAgAAgAAAAAAAAARAAcAAgAAAAEAAAARAAYAAgAAAAEAAAARAAUAAgAAAAAAAAARAAQAAgAAAAAAAAAQAAoAAgAAAAAAAAAQAAkAAgAAAAAAAAAQAAgAAgAAAAAAAAAQAAcAAgAAAAAAAAAQAAYAAgAAAAAAAAAQAAUAAgAAAAAAAAAQAAQAAgAAAAAAAAAPAAoAAgAAAAAAAAAPAAkAAgAAAAAAAAAPAAgAAgAAAAAAAAAPAAcAAgAAAAAAAAAPAAYAAgAAAAAAAAAPAAUAAgAAAAIAAAAPAAQAAgAAAAAAAAAQAAsAAgAAAAAAAAAPAAsAAgAAAAAAAAARAAsAAgAAAAAAAAA=")
+
+[node name="Player" type="AnimatedSprite2D" parent="." unique_id=433053306]
+position = Vector2(-32, 536)
+sprite_frames = SubResource("SpriteFrames_7niuq")
+animation = &"walk"
+
+[node name="Path2D" type="Path2D" parent="." unique_id=1156076858]
+position = Vector2(592, 480)
+curve = SubResource("Curve2D_c6lnm")
+
+[node name="CreditsLayer" type="CanvasLayer" parent="." unique_id=1480207363]
+layer = 200
+
+[node name="CreditsRoot" type="Control" parent="CreditsLayer" unique_id=1628830141]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_lock_ = true
+
+[node name="Dimmer" type="ColorRect" parent="CreditsLayer/CreditsRoot" unique_id=1889932582]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.01960784, 0.047058824, 0.05882353, 0.9019608)
+
+[node name="TitleLabel" type="Label" parent="CreditsLayer/CreditsRoot" unique_id=1267754037]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -220.0
+offset_top = 40.0
+offset_right = 220.0
+offset_bottom = 96.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.9607843, 0.8235294, 1)
+theme_override_fonts/font = ExtResource("7_dv868")
+theme_override_font_sizes/font_size = 40
+text = "感谢游玩！"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CreditsScroll" type="ScrollContainer" parent="CreditsLayer/CreditsRoot" unique_id=213447224]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -10.0
+offset_right = 360.0
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+horizontal_scroll_mode = 0
+
+[node name="CreditsText" type="RichTextLabel" parent="CreditsLayer/CreditsRoot/CreditsScroll" unique_id=551244318]
+custom_minimum_size = Vector2(680, 1180)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.972549, 0.9607843, 0.9019608, 1)
+theme_override_fonts/normal_font = ExtResource("7_dv868")
+theme_override_font_sizes/normal_font_size = 22
+bbcode_enabled = true
+text = "
+[font_size=28]项目制作[/font_size]
+Karsha's Adventure 项目组
+
+[font_size=24]程序与实现[/font_size]
+Ximeng Gan
+[font_size=24]关卡流程设计[/font_size]
+Wangjie Chi		Ximeng Gan
+[font_size=24]美术与资源[/font_size]
+项目素材整理与整合
+
+[font_size=24]音频与演出[/font_size]
+
+
+[font_size=24]特别鸣谢[/font_size]
+ChatGPT		Google Gemini
+
+[font_size=24]感谢你的陪伴！[/font_size]
+
+[font_size=36]The End[/font_size]
+[/center]"
+fit_content = true
+scroll_active = false
+scroll_following = true
+
+[node name="ReturnButton" type="Button" parent="CreditsLayer/CreditsRoot" unique_id=1782215837]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -164.0
+offset_top = -512.0
+offset_right = 156.0
+offset_bottom = -442.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("7_dv868")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_7niuq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7niuq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_c6lnm")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_7niuq")
+shortcut = SubResource("Shortcut_k7m5c")
+text = "返回标题"
+icon_alignment = 1
+expand_icon = true

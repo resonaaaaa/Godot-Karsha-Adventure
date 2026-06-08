@@ -4,7 +4,6 @@ extends Area2D
 @export var fly_speed := 150.0
 @export var walk_speed := 100.0
 @export var swim_speed := 50.0
-@export var move_distance := 150.0
 @export var target_position = [Vector2.ZERO,Vector2(200,0)]
 
 var speed := 0.0
@@ -74,6 +73,7 @@ func _on_body_entered(body: Node2D) -> void:
 				body.player_dead()
 
 func die() -> void:
+	AudioManager.play_se("res://asset/audio/SE/mob_die.mp3")
 	is_dead = true
 	$AnimatedSprite2D.hide()
 	$ColliShapeFly.set_deferred("disabled", true)

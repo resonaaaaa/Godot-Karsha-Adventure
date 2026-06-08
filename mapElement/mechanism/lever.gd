@@ -41,6 +41,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			switch_state = switch_state + 1 if switch_state < SwitchState.RIGHT else SwitchState.RIGHT
 
+		AudioManager.play_se("res://asset/audio/SE/lever.wav")
 		lever_toggled.emit(lever_id, switch_state)
 
 		match color:

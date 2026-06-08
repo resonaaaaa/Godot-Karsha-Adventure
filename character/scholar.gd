@@ -19,7 +19,7 @@ var player_name: String = "卡莎"
 
 @onready var anim = $AnimatedSprite2D
 
-func _onready():
+func _ready():
 	DialogManager.connect("dialog_action", Callable(self, "_on_dialog_action"))
 	DialogManager.connect("dialog_finished", Callable(self, "_on_dialog_finished"))
 	start_position = position
@@ -41,6 +41,7 @@ func checkpoint_set_state(state: Dictionary) -> void:
 func _physics_process(delta: float) -> void:
 	if interact_cooldown > 0:
 		interact_cooldown -= delta
+
 	if player_in_range or DialogManager.is_dialog_active():
 		anim.play("stay")
 	else:
@@ -63,7 +64,7 @@ func _physics_process(delta: float) -> void:
 		if to_vec.length() == 0:
 			# 已在目标点，切换到下一个并暂停
 			direction = (direction + 1) % target_position.size()
-			pause_timer = 0.6
+			pause_timer = 0.3
 			anim.play("stay")
 			return
 		var movement = to_vec.normalized() * speed * delta
@@ -80,7 +81,6 @@ func _physics_process(delta: float) -> void:
 		else:
 			position += movement
 
-	move_and_slide()
 
 	if player_in_range and Input.is_action_just_pressed("interact") and interact_cooldown <= 0.0:
 		if not DialogManager.is_dialog_active():
@@ -128,6 +128,8 @@ func _on_sensor_body_exited(body: Node2D) -> void:
 
 
 func _on_dialog_finished() -> void:
+	if not player_in_range:
+		return
 	interact_cooldown = 0.2
 	if not met_player:
 		met_player = true
@@ -145,7 +147,7 @@ func _commit_event_checkpoint() -> void:
 	var scene = get_tree().current_scene
 	if scene == null:
 		return
-	var mgr = scene.get_node_or_null("CheckpointManager")
+	var mgr = scene.get_node_or_null("CheckPointManager")
 	if mgr and mgr.has_method("save_event_checkpoint"):
 		# 学者对话结束后再写入，这样 met_player 状态会和玩家复活点一起保存
 		mgr.save_event_checkpoint(player_node, scene.get_node_or_null("HUD"), scene, pending_event_checkpoint_source)

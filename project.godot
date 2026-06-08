@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Adventure"
-run/main_scene="uid://da8lec44pba3w"
+run/main_scene="uid://ca3751lei6dh6"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -23,6 +23,7 @@ buses/default_bus_layout="uid://bl8pos71c813j"
 
 Game="*res://game.gd"
 DialogManager="*res://UI/DialogManager/dialog_manager.tscn"
+AudioManager="*res://audio/audio_manager.tscn"
 
 [display]
 

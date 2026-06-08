@@ -1,0 +1,56 @@
+[gd_scene format=4 uid="uid://qpyi7vu4qdyc"]
+
+[ext_resource type="Script" uid="uid://biudi82yli8s8" path="res://ShortAct/start_act.gd" id="1_25uug"]
+[ext_resource type="PackedScene" uid="uid://davjc5hn0ac31" path="res://mapElement/floor.tscn" id="1_rc4x3"]
+[ext_resource type="Texture2D" uid="uid://dvjn08042krfa" path="res://asset/animation/player/walk/play_right_0.png" id="2_khtrj"]
+[ext_resource type="Texture2D" uid="uid://nmbe72lxdo3f" path="res://asset/animation/player/walk/play_right_1.png" id="3_25uug"]
+[ext_resource type="Texture2D" uid="uid://b2ugtfuj22j7w" path="res://asset/animation/player/walk/play_right_2.png" id="4_w53mn"]
+[ext_resource type="Texture2D" uid="uid://dgl5bphifv8cw" path="res://asset/background/Samples/uncolored_hills.png" id="6_w53mn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pxsfg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_khtrj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_25uug")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_khtrj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_w53mn")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
+
+[node name="StartAct" type="Node2D" unique_id=837961669]
+script = ExtResource("1_25uug")
+
+[node name="Tileset" parent="." unique_id=1650392354 instance=ExtResource("1_rc4x3")]
+tile_map_data = PackedByteArray("AAD//wUAAgABAAMAAAAAAAUAAgACAAMAAAABAAUAAgADAAMAAAAAAAYAAgAGAAQAAAABAAYAAgACAAMAAAACAAYAAgACAAMAAAADAAYAAgACAAMAAAAEAAYAAgACAAQAAAAEAAcAAgACAAUAAAAFAAcAAgACAAQAAAAFAAgAAgACAAUAAAAGAAgAAgACAAMAAAAHAAgAAgACAAMAAAAIAAgAAgACAAMAAAAJAAgAAgACAAMAAAAKAAgAAgACAAMAAAALAAgAAgACAAMAAAAMAAgAAgACAAMAAAANAAgAAgACAAMAAAAOAAgAAgACAAMAAAAPAAgAAgACAAMAAAAQAAgAAgACAAMAAAARAAgAAgACAAMAAAASAAgAAgACAAMAAAATAAgAAgACAAMAAAD//wkAAgAAAAMAAAD//wgAAgAAAAMAAAD//wcAAgAAAAMAAAD//wYAAgAAAAMAAAADAAsAAgAAAAMAAAADAAoAAgAAAAQAAAADAAkAAgAAAAMAAAADAAgAAgAAAAMAAAADAAcAAgAAAAMAAAACAAsAAgAAAAMAAAACAAoAAgAAAAMAAAACAAkAAgAAAAMAAAACAAgAAgAAAAMAAAACAAcAAgAAAAQAAAABAAsAAgAAAAMAAAABAAoAAgAAAAMAAAABAAkAAgAAAAMAAAABAAgAAgAAAAMAAAABAAcAAgAAAAMAAAAAAAsAAgAAAAMAAAAAAAoAAgAAAAMAAAAAAAkAAgAAAAMAAAAAAAgAAgAAAAMAAAAAAAcAAgAAAAMAAAD//wsAAgAAAAMAAAD//woAAgAAAAMAAAAEAAsAAgAAAAMAAAAEAAoAAgAAAAMAAAAEAAkAAgAAAAMAAAAEAAgAAgAAAAMAAAAKAAwAAgAAAAMAAAAKAAsAAgAAAAMAAAAKAAoAAgAAAAMAAAAKAAkAAgAAAAMAAAAJAAwAAgAAAAMAAAAJAAsAAgAAAAMAAAAJAAoAAgAAAAMAAAAJAAkAAgAAAAMAAAAIAAwAAgAAAAMAAAAIAAsAAgAAAAMAAAAIAAoAAgAAAAMAAAAIAAkAAgAAAAMAAAAHAAwAAgAAAAMAAAAHAAsAAgAAAAMAAAAHAAoAAgAAAAUAAAAHAAkAAgAAAAMAAAAGAAwAAgAAAAMAAAAGAAsAAgAAAAMAAAAGAAoAAgAAAAMAAAAGAAkAAgAAAAMAAAAFAAwAAgAAAAMAAAAFAAsAAgAAAAMAAAAFAAoAAgAAAAMAAAAFAAkAAgAAAAMAAAASAAwAAgAAAAMAAAASAAsAAgAAAAMAAAASAAoAAgAAAAMAAAASAAkAAgAAAAMAAAARAAwAAgAAAAMAAAARAAsAAgAAAAMAAAARAAoAAgAAAAMAAAARAAkAAgAAAAMAAAAQAAwAAgAAAAMAAAAQAAsAAgAAAAMAAAAQAAoAAgAAAAMAAAAQAAkAAgAAAAMAAAAPAAwAAgAAAAQAAAAPAAsAAgAAAAMAAAAPAAoAAgAAAAMAAAAPAAkAAgAAAAMAAAAOAAwAAgAAAAMAAAAOAAsAAgAAAAMAAAAOAAoAAgAAAAMAAAAOAAkAAgAAAAMAAAANAAwAAgAAAAMAAAANAAsAAgAAAAMAAAANAAoAAgAAAAMAAAANAAkAAgAAAAMAAAAMAAwAAgAAAAMAAAAMAAsAAgAAAAMAAAAMAAoAAgAAAAMAAAAMAAkAAgAAAAQAAAALAAwAAgAAAAMAAAALAAsAAgAAAAMAAAALAAoAAgAAAAMAAAALAAkAAgAAAAMAAAADAAUAAgAJAAMAAAALAAcAAgAKAAMAAAAHAAcAAgAKAAIAAAAQAAcAAgALAAIAAAAAAAQAAgALAAMAAAA=")
+
+[node name="Player" type="AnimatedSprite2D" parent="." unique_id=1019640896]
+position = Vector2(608, 488)
+sprite_frames = SubResource("SpriteFrames_pxsfg")
+animation = &"walk"
+frame = 3
+frame_progress = 0.3766859
+
+[node name="BackgroundCanvasLayer" type="CanvasLayer" parent="." unique_id=1697409847]
+layer = -100
+
+[node name="BackgroundTextureRect" type="TextureRect" parent="BackgroundCanvasLayer" unique_id=360655675]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_w53mn")
+expand_mode = 1
+stretch_mode = 6
+metadata/_edit_lock_ = true

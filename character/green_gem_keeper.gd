@@ -5,12 +5,14 @@ signal flower_ui_show
 @export var keeper_portrait: Texture2D
 @export var player_portrait: Texture2D
 var gem_scene: PackedScene = preload("res://items/loot/Gem.tscn")
+var key_scene: PackedScene = preload("res://items/loot/key_green.tscn")
 
 var player_in_range: bool = false
 var met_player: bool = false
 var dialog_state: int = 0 # 0: 初次, 1: 收集任务进行中, 2: 任务完成
 var is_cheering: bool = false
 var gem_spawned: bool = false
+var key_spawned: bool = false
 
 @export var keeper_name: String = "薇拉"
 @export var player_name: String = "卡莎"
@@ -21,6 +23,7 @@ var gem_spawned: bool = false
 var player_node: Node2D = null
 var interact_cooldown: float = 0.1
 var pending_event_checkpoint_source: String = ""
+var playing_special_bgm: bool = false
 
 func _ready() -> void:
 	DialogManager.connect("dialog_action", Callable(self, "_on_dialog_action"))
@@ -49,22 +52,26 @@ func _physics_process(delta: float) -> void:
 				met_player = true
 				var dialog_data = [
 					{"speaker": player_name, "text": "你还好吗？你看起来受伤了。", "portrait": player_portrait},
-					{"speaker": keeper_name, "text": "你好，冒险者，我叫薇拉。我不慎受伤了，我需要红蓝两种水晶花来治疗自己。你能帮我采集一下吗？", "portrait": keeper_portrait},
+					{"speaker": keeper_name, "text": "你好，冒险者，我叫薇拉，是附近的祭司。我不慎受伤了，我需要红蓝两种水晶花来施展魔法治疗自己。你能帮我采集一下吗？", "portrait": keeper_portrait},
 					{"speaker": player_name, "text": "叫我卡莎吧。我该怎么找到这些水晶花呢？", "portrait": player_portrait},
 					{"speaker": keeper_name, "text": "它们都生长在这些高大植物的顶端，你需要爬上去才能采集到它们。", "portrait": keeper_portrait},
 					{"speaker": player_name, "text": "噢，这些植物长得真的好高大！", "portrait": player_portrait},
-					{"speaker": keeper_name, "text": "这是毒沼密林，这就是这里的特色了。对了，小心植物上的尖刺，它们会伤害你的……嘶————", "portrait": keeper_portrait},
-					{"speaker": player_name, "text": "啊！我会尽快拿到两种花的！", "portrait": player_portrait}
+					{"speaker": keeper_name, "text": "这是毒沼密林，这些植物就是这里的特色了。对了，小心植物上的尖刺，它们会伤害你的。", "portrait": keeper_portrait},
+					{"speaker": keeper_name, "text": "我这里有把钥匙，请拿着吧，你会用得上的……", "portrait": keeper_portrait},
+					{"speaker": keeper_name, "text": "嘶——我的伤口好像恶化了……", "portrait": keeper_portrait},
+					{"speaker": player_name, "text": "啊！我会尽快拿到两种花的！请你坚持一下！", "portrait": player_portrait}
 				]
 				if player_node and player_node.has_method("set_physics_process"):
 					player_node.set_physics_process(false)
-					# 保证玩家在对话期间动画为 stay，避免播放 walk 导致原地踏步感
+					# 保证玩家在对话期间动画为 stay，避免播放 walk 导致原地踏步
 					if player_node.has_node("AnimatedSprite2D"):
 						var pspr = player_node.get_node_or_null("AnimatedSprite2D")
 						if pspr:
 							pspr.play("stay")
 				DialogManager.show_dialogue(dialog_data, keeper_portrait, keeper_name)
 				dialog_state = 1
+				AudioManager.play_bgm("res://asset/audio/BGM/green_gem_keeper.mp3")
+				playing_special_bgm = true
 				_save_event_checkpoint("green_gem_keeper_dialog_start")
 				emit_signal("flower_ui_show")
 			elif Input.is_action_just_pressed("interact"):
@@ -76,7 +83,7 @@ func _physics_process(delta: float) -> void:
 					if not has_red and not has_blue:
 						dialog_data = [
 							{"speaker": keeper_name, "text": "噢……好疼……", "portrait": keeper_portrait},
-							{"speaker": player_name, "text": "我会尽快的！你坚持一下！", "portrait": player_portrait}
+							{"speaker": player_name, "text": "我会尽快的！请你坚持住啊！", "portrait": player_portrait}
 						]
 					elif has_red and not has_blue:
 						dialog_data = [
@@ -122,7 +129,7 @@ func _commit_event_checkpoint() -> void:
 	var scene = get_tree().current_scene
 	if scene == null:
 		return
-	var mgr = scene.get_node_or_null("CheckpointManager")
+	var mgr = scene.get_node_or_null("CheckPointManager")
 	if mgr and mgr.has_method("save_event_checkpoint"):
 		# 等对话完全结束后再保存，这样绿宝石/对话状态会和玩家复活点一起落盘
 		mgr.save_event_checkpoint(player_node, scene.get_node_or_null("HUD"), scene, pending_event_checkpoint_source)
@@ -143,6 +150,7 @@ func _on_body_exited(body: Node2D) -> void:
 func _on_dialog_action(action_name: String) -> void:
 	if action_name == "cure":
 		is_cheering = true
+		AudioManager.play_se("res://asset/audio/SE/cure_magic.mp3")
 		anim.play("cure")
 	elif action_name == "cheer":
 		is_cheering = true
@@ -159,10 +167,21 @@ func _on_animation_finished() -> void:
 		anim.play("stay")
 
 func _on_dialog_finished() -> void:
+	if playing_special_bgm:
+		playing_special_bgm = false
+		AudioManager.play_bgm("res://asset/audio/BGM/level3.mp3")
 	interact_cooldown = 0.2
 	if player_node and player_node.has_method("set_physics_process"):
 		player_node.set_physics_process(true)
 	
+	if dialog_state == 1 and met_player and not key_spawned:
+		key_spawned = true
+		if key_scene:
+			var key = key_scene.instantiate()
+			key.global_position = global_position + Vector2(45, 0)
+			get_parent().add_child(key)
+			_connect_green_key_to_hud(key)
+
 	if dialog_state == 2 and not gem_spawned:
 		gem_spawned = true
 		if gem_scene:
@@ -173,7 +192,7 @@ func _on_dialog_finished() -> void:
 	_commit_event_checkpoint()
 
 func checkpoint_get_state() -> Dictionary:
-	return {"met_player": met_player, "dialog_state": dialog_state, "gem_spawned": gem_spawned, "position": position}
+	return {"met_player": met_player, "dialog_state": dialog_state, "gem_spawned": gem_spawned, "key_spawned": key_spawned, "position": position}
 
 func checkpoint_set_state(state: Dictionary) -> void:
 	if state == null:
@@ -182,10 +201,23 @@ func checkpoint_set_state(state: Dictionary) -> void:
 	dialog_state = state.get("dialog_state", dialog_state)
 	var spawned = state.get("gem_spawned", false)
 	gem_spawned = spawned
+	key_spawned = state.get("key_spawned", false)
 	var pos = state.get("position", null)
 	if pos != null:
 		set_deferred("position", pos)
-	# 恢复时如果已经应该生成 gem，但场景中不存在，则生成它
+	# 根据 checkpoint 状态决定是否需要生成钥匙
+	if key_spawned:
+		var existing_key = null
+		for c in get_parent().get_children():
+			if c.name.begins_with("GreenKey"):
+				existing_key = c
+				break
+		if existing_key == null and key_scene:
+			var key = key_scene.instantiate()
+			key.global_position = global_position + Vector2(45, 0)
+			get_parent().add_child(key)
+			_connect_green_key_to_hud(key)
+	# 根据 checkpoint 状态决定是否需要生成宝石
 	if gem_spawned:
 		var existing = null
 		for c in get_parent().get_children():
@@ -197,3 +229,16 @@ func checkpoint_set_state(state: Dictionary) -> void:
 			gem.gem_type = "green"
 			gem.global_position = global_position + Vector2(45, 0)
 			get_parent().add_child(gem)
+			
+	if dialog_state == 1:
+		emit_signal("flower_ui_show")
+
+func _connect_green_key_to_hud(key: Node) -> void:
+	if key == null:
+		return
+	var scene = get_tree().current_scene
+	if scene == null:
+		return
+	var hud = scene.get_node_or_null("HUD")
+	if hud and key.has_signal("get_key_green"):
+		key.get_key_green.connect(Callable(hud, "show_green_key_ui"))

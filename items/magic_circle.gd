@@ -7,6 +7,8 @@ signal level_completed
 @export var tp_destination:NodePath  #传送目的地，仅在is_to为false时有效
 var teleporting: bool = false  # 防止同一轮传送被重复触发
 
+var player_portrait = preload("res://asset/animation/player/face_08.png")
+
 
 func _ready() -> void:
 	# 到达点本身不负责传送，只负责在玩家抵达时记录事件快照
@@ -20,13 +22,20 @@ func _ready() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if teleporting:
 		return
-
+	if end_flag and body.is_in_group("player"):
+		if not body.has_gem:
+			var dialogue_data = [
+				"这好像是一个魔法阵，但我的魔力不足以开启它。",
+				"也许我需要找到某些蕴含强大魔力的东西……"
+			]
+			DialogManager.show_dialogue(dialogue_data, player_portrait, "卡莎")
+			return
 	if is_to:
 		# 到达点触发到达动画
 		if body.is_in_group("player"):
 			var scene = get_tree().current_scene
 			if scene != null:
-				var mgr = scene.get_node_or_null("CheckpointManager")
+				var mgr = scene.get_node_or_null("CheckPointManager")
 				if mgr and mgr.has_method("save_event_checkpoint"):
 					# 只有在到达点保存快照，这样从传送起点离开不会污染检查点
 					mgr.save_event_checkpoint(body, scene.get_node_or_null("HUD"), scene, "teleport_arrival")
@@ -40,6 +49,8 @@ func _on_body_entered(body: Node2D) -> void:
 		$AnimatedSprite2D.show()
 		$AnimatedSprite2D.animation = "tp"
 		$AnimatedSprite2D.play()
+		if not end_flag:
+			AudioManager.play_se("res://asset/audio/SE/teleport.mp3")
 		body.hide()
 		body.set_physics_process(false)
 		await tp
