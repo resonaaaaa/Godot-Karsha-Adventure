@@ -1,12 +1,20 @@
 [gd_scene format=3 uid="uid://dv0tdiovm7ttj"]
 
 [ext_resource type="Texture2D" uid="uid://bjp1eb15vkfie" path="res://asset/animation/elf/walk/walk_04.png" id="1_1dfkm"]
+[ext_resource type="Script" uid="uid://dwcyyac07nnne" path="res://character/elf.gd" id="1_40774"]
+[ext_resource type="Texture2D" uid="uid://bet3l8pnjlf6n" path="res://asset/animation/elf/face.png" id="2_4y71x"]
 [ext_resource type="Texture2D" uid="uid://d4bbeco0cyvdd" path="res://asset/animation/elf/walk/walk_05.png" id="2_40774"]
 [ext_resource type="Texture2D" uid="uid://dsap71igs80cd" path="res://asset/animation/elf/walk/walk_06.png" id="3_2rbd7"]
+[ext_resource type="Texture2D" uid="uid://dh8uhhubu65fx" path="res://asset/animation/player/face_08.png" id="3_7gkry"]
 [ext_resource type="Texture2D" uid="uid://ba5pb24pwbnnu" path="res://asset/animation/elf/walk/walk_07.png" id="4_4y71x"]
 [ext_resource type="Texture2D" uid="uid://bl2sko82evf8b" path="res://asset/animation/elf/walk/walk_08.png" id="5_7gkry"]
 [ext_resource type="Texture2D" uid="uid://gn6vxcihkwx1" path="res://asset/animation/elf/walk/walk_09.png" id="6_b58vb"]
 [ext_resource type="Texture2D" uid="uid://5ol2ww4mdqq1" path="res://asset/animation/elf/walk/walk_02.png" id="7_ep1um"]
+[ext_resource type="FontFile" uid="uid://dkwbmjyfk3xse" path="res://asset/fonts/字魂无外润黑体(商用需授权).ttf" id="8_4g2ku"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ndg5"]
+content_margin_left = 9.0
+bg_color = Color(0, 0.003921569, 0.08627451, 0.3372549)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lrwf4"]
 animations = [{
@@ -55,6 +63,9 @@ height = 50.0
 radius = 100.0
 
 [node name="elf" type="CharacterBody2D" unique_id=695319744]
+script = ExtResource("1_40774")
+elf_portrait = ExtResource("2_4y71x")
+player_portrait = ExtResource("3_7gkry")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1093041823]
 sprite_frames = SubResource("SpriteFrames_lrwf4")
@@ -68,3 +79,15 @@ shape = SubResource("CapsuleShape2D_8ndg5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sensor" unique_id=590956618]
 shape = SubResource("CircleShape2D_i888r")
 debug_color = Color(0.76611567, 0.3447343, 0.7337809, 0.41960785)
+
+[node name="Tips" type="Label" parent="." unique_id=243895621]
+visible = false
+offset_left = -62.0
+offset_top = -89.0
+offset_right = 70.0
+offset_bottom = -55.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5647059)
+theme_override_fonts/font = ExtResource("8_4g2ku")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_8ndg5")
+text = "对话（ E ）"

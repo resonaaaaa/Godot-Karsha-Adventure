@@ -22,7 +22,7 @@ func checkpoint_set_state(state: Dictionary) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		# 不再在拾取时直接记录，检查点快照会在保存时读取节点状态
+		AudioManager.play_se("res://asset/audio/SE/pickup.wav")
 		body.set_has_key_green(true)
 		_set_collected(true)
 		get_key_green.emit()

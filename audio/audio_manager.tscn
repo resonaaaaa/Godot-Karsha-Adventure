@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b6rj0ydob0wvq"]
+
+[ext_resource type="Script" uid="uid://dhmtymr81b8pd" path="res://audio/audio_manager.gd" id="1_tmngx"]
+
+[node name="AudioManager" type="Node2D" unique_id=570794339]
+script = ExtResource("1_tmngx")
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="." unique_id=1816042579]
+bus = &"BGM"
+
+[node name="SEPlayer" type="AudioStreamPlayer" parent="." unique_id=1671766195]
+max_polyphony = 2
+bus = &"SE"
+
+[node name="UIPlayer" type="AudioStreamPlayer" parent="." unique_id=309852319]
+bus = &"UI"

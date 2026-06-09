@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://chxdp25m2fovn"]
+
+[ext_resource type="Texture2D" uid="uid://cli5ar1qx4jix" path="res://asset/TileSet/Other/blockRed_lock.png" id="1_4oqxm"]
+[ext_resource type="Script" uid="uid://sun7k35lewvf" path="res://mapElement/blocks/button_control_block.gd" id="1_y34f8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4oqxm"]
+size = Vector2(64, 64)
+
+[node name="ButtonControlBlock" type="StaticBody2D" unique_id=744893224]
+script = ExtResource("1_y34f8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=320066265]
+texture = ExtResource("1_4oqxm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1101934750]
+shape = SubResource("RectangleShape2D_4oqxm")

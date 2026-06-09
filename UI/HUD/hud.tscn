@@ -8,6 +8,28 @@
 [ext_resource type="Texture2D" uid="uid://c343ugva7x535" path="res://asset/UI/menu.png" id="7_rftc2"]
 [ext_resource type="StyleBox" uid="uid://dowv48iuvc6ml" path="res://asset/UI/MenuButtonTheme/ButtonHover.tres" id="8_61f8s"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1lrf"]
+bg_color = Color(0.85490197, 0.34117648, 0.6, 0.83137256)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0uwq"]
+bg_color = Color(0.85490197, 0.13725491, 0.39215687, 0.83137256)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="InputEventAction" id="InputEventAction_64ctp"]
 action = &"start"
 
@@ -17,6 +39,10 @@ events = [SubResource("InputEventAction_64ctp")]
 [sub_resource type="LabelSettings" id="LabelSettings_640wx"]
 font = ExtResource("2_8sq4i")
 font_size = 64
+outline_size = 3
+outline_color = Color(0.29411766, 0.49019608, 1, 1)
+stacked_shadow_count = 1
+stacked_shadow_0/offset = Vector2(3, 3)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gspdd"]
 load_path = "res://.godot/imported/outlineKey.png-c9417171e504c70fd9ca17d3de8779ec.ctex"
@@ -56,6 +82,66 @@ bg_color = Color(0.4117647, 0.4862745, 0.49019608, 0.9019608)
 border_width_top = 2
 border_color = Color(1, 1, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adata"]
+bg_color = Color(0.85490197, 0.13725491, 0.39215687, 0.83137256)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s83ig"]
+bg_color = Color(0.60244256, 0.8945915, 0.61962783, 0.827451)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s83ig"]
+content_margin_left = 3.0
+content_margin_right = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_db5ks"]
+bg_color = Color(0, 0.34509805, 0.043137256, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7sg86"]
+bg_color = Color(0.78431374, 0.1254902, 0.21568628, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gxdqe"]
+bg_color = Color(0.60244256, 0.8945915, 0.61962783, 0.827451)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h1lrf"]
+content_margin_left = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4h73s"]
+bg_color = Color(0, 0.34509805, 0.043137256, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bcirh"]
+bg_color = Color(0.78431374, 0.1254902, 0.21568628, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
 [node name="HUD" type="CanvasLayer" unique_id=1959219276]
 process_mode = 3
 script = ExtResource("1_64ctp")
@@ -74,6 +160,10 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_8sq4i")
 theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_h1lrf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h1lrf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h0uwq")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_h1lrf")
 shortcut = SubResource("Shortcut_8sq4i")
 text = "START"
 icon_alignment = 1
@@ -372,7 +462,7 @@ theme_override_font_sizes/font_size = 16
 item_count = 2
 popup/item_0/text = "1920x1080"
 popup/item_0/id = 0
-popup/item_1/text = "1280x720"
+popup/item_1/text = "1080x720"
 popup/item_1/id = 1
 
 [node name="Fullscreen" type="CheckBox" parent="SettingPanel/VBoxContainer/TabContainer/画面" unique_id=1937315898]
@@ -509,6 +599,10 @@ offset_right = 668.0
 offset_bottom = 474.0
 theme_override_fonts/font = ExtResource("2_8sq4i")
 theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_h1lrf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h1lrf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_adata")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_h1lrf")
 text = "Try Again"
 
 [node name="SavedMessage" type="Label" parent="." unique_id=655104644]
@@ -528,14 +622,120 @@ text = "Saving…"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ExitWarning" type="PopupPanel" parent="." unique_id=2097366814]
+oversampling_override = 1.0
+title = "新游戏警告"
+initial_position = 2
+size = Vector2i(280, 152)
+theme_override_styles/panel = SubResource("StyleBoxFlat_s83ig")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ExitWarning" unique_id=1884781535]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 280.0
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Label" type="Label" parent="ExitWarning/VBoxContainer" unique_id=1804885498]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0.14901961, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_s83ig")
+text = "返回标题会使得您本关的进度丢失，下次进入关卡将从头开始，确定返回标题吗？"
+autowrap_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ExitWarning/VBoxContainer" unique_id=163334496]
+layout_mode = 2
+theme_override_constants/separation = 120
+alignment = 1
+
+[node name="CancleButton" type="Button" parent="ExitWarning/VBoxContainer/HBoxContainer" unique_id=1119958657]
+custom_minimum_size = Vector2(60, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7607843, 0.8745098, 0.8745098, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_db5ks")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_db5ks")
+theme_override_styles/hover = SubResource("StyleBoxFlat_db5ks")
+text = "取消"
+
+[node name="SureButton" type="Button" parent="ExitWarning/VBoxContainer/HBoxContainer" unique_id=520354573]
+custom_minimum_size = Vector2(60, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7607843, 0.8745098, 0.8745098, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_7sg86")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7sg86")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7sg86")
+text = "确认"
+
+[node name="RestartWarning" type="PopupPanel" parent="." unique_id=2074847509]
+oversampling_override = 1.0
+title = "新游戏警告"
+initial_position = 2
+size = Vector2i(280, 152)
+theme_override_styles/panel = SubResource("StyleBoxFlat_gxdqe")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RestartWarning" unique_id=550753891]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 280.0
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="RestartWarning/VBoxContainer" unique_id=1666968620]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0.14901961, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_h1lrf")
+text = "确认从头开始本关卡吗？"
+horizontal_alignment = 1
+autowrap_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RestartWarning/VBoxContainer" unique_id=314933778]
+layout_mode = 2
+theme_override_constants/separation = 120
+alignment = 1
+
+[node name="CancleButton" type="Button" parent="RestartWarning/VBoxContainer/HBoxContainer" unique_id=1643160464]
+custom_minimum_size = Vector2(60, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7607843, 0.8745098, 0.8745098, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_4h73s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4h73s")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4h73s")
+text = "取消"
+
+[node name="SureButton" type="Button" parent="RestartWarning/VBoxContainer/HBoxContainer" unique_id=1635928775]
+custom_minimum_size = Vector2(60, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7607843, 0.8745098, 0.8745098, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_bcirh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bcirh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bcirh")
+text = "确认"
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="mouse_entered" from="PauseButton" to="." method="_on_pause_button_mouse_entered"]
 [connection signal="mouse_exited" from="PauseButton" to="." method="_on_pause_button_mouse_exited"]
 [connection signal="toggled" from="PauseButton" to="." method="_on_pause_button_toggled"]
-[connection signal="popup_hide" from="PauseMenu" to="." method="_on_pause_menu_popup_hide"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/SettingButton" to="." method="_on_setting_button_pressed"]
 [connection signal="pressed" from="SettingPanel/VBoxContainer/HBoxContainer/DefaultButton" to="." method="_on_setting_default_button_pressed"]
 [connection signal="pressed" from="SettingPanel/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_setting_close_button_pressed"]
 [connection signal="pressed" from="RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="RestartWarning/VBoxContainer/HBoxContainer/CancleButton" to="." method="_on_restart_cancel_button_pressed"]
+[connection signal="pressed" from="RestartWarning/VBoxContainer/HBoxContainer/SureButton" to="." method="_on_restart_sure_button_pressed"]

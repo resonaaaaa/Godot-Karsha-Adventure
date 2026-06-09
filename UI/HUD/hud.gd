@@ -7,10 +7,8 @@ var key_texture_red = preload("res://asset/TileSet/Items/keyRed.png")
 var key_texture_green = preload("res://asset/TileSet/Items/keyGreen.png")
 var flower_texture_red: Texture2D = preload("res://asset/TileSet/Items/redCrystal.png")
 var flower_texture_blue = preload("res://asset/TileSet/Items/blueCrystal.png")
-var flower_texture_empty = preload("res://asset/Tileset/Items/outlineCrystal.png")
+var flower_texture_empty = preload("res://asset/TileSet/Items/outlineCrystal.png")
 
-@onready var _red_flower_ui: Sprite2D = $RedFlowerUI
-@onready var _blue_flower_ui: Sprite2D = $BlueFlowerUI
 
 @onready var master_slider: HSlider = $SettingPanel/VBoxContainer/TabContainer/音频/MasterVolume/HSlider
 @onready var music_slider: HSlider = $SettingPanel/VBoxContainer/TabContainer/音频/MusicVolume/HSlider
@@ -20,6 +18,13 @@ var flower_texture_empty = preload("res://asset/Tileset/Items/outlineCrystal.png
 
 @onready var resolution_option: OptionButton = $SettingPanel/VBoxContainer/TabContainer/画面/Resolution/OptionButton
 @onready var fullscreen_checkbox: CheckBox = $SettingPanel/VBoxContainer/TabContainer/画面/Fullscreen
+
+@onready var title_button: Button = $PauseMenu/VBoxContainer/TitleButton
+@onready var exit_warning: PopupPanel = $ExitWarning
+@onready var exit_cancel_button: Button = $ExitWarning/VBoxContainer/HBoxContainer/CancleButton
+@onready var exit_sure_button: Button = $ExitWarning/VBoxContainer/HBoxContainer/SureButton
+
+var audio_settings_ready: bool = false
 
 func _ready() -> void:
 	$PauseMenu.hide()
@@ -35,8 +40,13 @@ func _ready() -> void:
 	resolution_option.item_selected.connect(_on_resolution_selected)
 	fullscreen_checkbox.toggled.connect(_on_fullscreen_toggled)
 	
+	title_button.pressed.connect(_on_title_button_pressed)
+	exit_cancel_button.pressed.connect(_on_exit_cancel_button_pressed)
+	exit_sure_button.pressed.connect(_on_exit_sure_button_pressed)
+	
 	_init_audio_settings()
 	_init_video_settings()
+	audio_settings_ready = true
 
 func _init_audio_settings() -> void:
 	master_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))) * 100
@@ -62,15 +72,16 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("menu"):
 		$PauseButton.button_pressed = not $PauseButton.button_pressed
 
+#死亡后显示重试界面
 func show_game_over():
 	show_message("GAME OVER")
 	await $MessageTimer.timeout
-	# 不直接重载场景，而是显示重试按钮，让关卡决定如何重置玩家位置
 	$RetryButton.show()
 	$Message.show()
 	$RetryButton.visible = true
 
-func show_game_win():
+func show_game_win():	
+	AudioManager.play_se("res://asset/audio/SE/level_completed.wav")	
 	show_message("You Win!")
 
 
@@ -105,9 +116,26 @@ func show_saving_massage():
 	saved_message.hide()
 	
 func _on_start_button_pressed() -> void:
+	AudioManager.play_ui("res://asset/audio/UI/start.wav")
+	# 禁用按钮防止动画期间受到多次点击
+	$StartButton.disabled = true
+	
+	# 创建渐变动画
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property($StartButton, "modulate:a", 0.0, 0.5)
+	tween.tween_property($Message, "modulate:a", 0.0, 0.5)
+	await tween.finished
+	
 	# 隐藏按钮和消息
 	$StartButton.hide()
 	$Message.hide()
+	
+	# 恢复透明度和启用状态，以便下次（如重新开始时）能正常显示和点击
+	$StartButton.modulate.a = 1.0
+	$Message.modulate.a = 1.0
+	$StartButton.disabled = false
+	
 	new_game.emit()
 
 func setup_level(level_num: int):
@@ -149,20 +177,29 @@ func apply_player_state(state: Dictionary) -> void:
 		show_red_key_ui()
 	if state.get("has_key_green", false):
 		show_green_key_ui()
+		
 	var has_red_flower = state.get("has_red_flower", false)
 	var has_blue_flower = state.get("has_blue_flower", false)
+	
+	$RedFlowerUI.texture = flower_texture_empty
+	$BlueFlowerUI.texture = flower_texture_empty
+	
 	if has_red_flower or has_blue_flower:
 		show_flower_ui()
 		if has_red_flower:
 			set_red_flower_ui()
 		if has_blue_flower:
 			set_blue_flower_ui()
+	else:
+		$RedFlowerUI.hide()
+		$BlueFlowerUI.hide()
 
 #================================
 #暂停菜单设置相关
 
 #检测暂停状态是否切换
 func _on_pause_button_toggled(toggled_on: bool) -> void:
+	AudioManager.play_ui("res://asset/audio/UI/click.wav")
 	var tree = get_tree()
 	tree.paused = toggled_on
 	if toggled_on:
@@ -172,12 +209,6 @@ func _on_pause_button_toggled(toggled_on: bool) -> void:
 		$PauseMessage.hide()
 		$PauseMenu.hide()
 
-#隐藏暂停菜单时同步恢复游戏状态
-func _on_pause_menu_popup_hide() -> void:
-	if $PauseButton.button_pressed:
-		$PauseButton.button_pressed = false
-	get_tree().paused = false
-	$PauseMessage.hide()
 
 func _on_pause_button_mouse_entered() -> void:
 	$PauseText.show()
@@ -187,12 +218,24 @@ func _on_pause_button_mouse_exited() -> void:
 
 #继续游戏
 func _on_continue_button_pressed() -> void:
+	AudioManager.play_ui("res://asset/audio/UI/start.wav")
 	get_tree().paused = false
 	$PauseMessage.hide()
 	$PauseMenu.hide()
-
+	$PauseButton.button_pressed = false
 
 func _on_restart_button_pressed() -> void:
+	AudioManager.play_ui("res://asset/audio/UI/click.wav")
+	$PauseMenu.hide()
+	$RestartWarning.popup_centered()
+
+func _on_restart_cancel_button_pressed() -> void:
+	AudioManager.play_ui("res://asset/audio/UI/click.wav")
+	$RestartWarning.hide()
+	$PauseMenu.popup_centered()
+
+func _on_restart_sure_button_pressed() -> void:
+	AudioManager.play_ui("res://asset/audio/UI/click.wav")
 	var tree = get_tree()
 	if tree.paused:
 		tree.paused = false
@@ -210,16 +253,45 @@ func _reload_scene() -> void:
 
 #打开设置菜单
 func _on_setting_button_pressed() -> void:
+	AudioManager.play_ui("res://asset/audio/UI/click.wav")
 	$PauseMenu.hide()
 	$SettingPanel.popup_centered()
 
 #关闭设置菜单，返回暂停菜单
 func _on_setting_close_button_pressed() -> void:
+	AudioManager.play_ui("res://asset/audio/UI/click.wav")
 	$SettingPanel.hide()
 	$PauseMenu.popup_centered()
 
+#返回标题相关
+func _on_title_button_pressed() -> void:
+	AudioManager.play_ui("res://asset/audio/UI/click.wav")
+	$PauseMenu.hide()
+	$ExitWarning.popup_centered()
+
+func _on_exit_cancel_button_pressed() -> void:
+	AudioManager.play_ui("res://asset/audio/UI/click.wav")
+	$ExitWarning.hide()
+	$PauseMenu.popup_centered()
+
+func _on_exit_sure_button_pressed() -> void:
+	AudioManager.play_ui("res://asset/audio/UI/click.wav")
+	var tree = get_tree()
+	if tree.paused:
+		tree.paused = false
+	$PauseButton.button_pressed = false
+	$PauseMessage.hide()
+	$PauseMenu.hide()
+	$PauseText.hide()
+	
+	$ExitWarning.hide()
+	
+	
+	get_tree().change_scene_to_file("res://title/title.tscn")
+
 #恢复默认设置
 func _on_setting_default_button_pressed() -> void:
+	AudioManager.play_ui("res://asset/audio/UI/click.wav")
 	master_slider.value = 50.0
 	music_slider.value = 50.0
 	sfx_slider.value = 50.0
@@ -231,44 +303,71 @@ func _on_setting_default_button_pressed() -> void:
 	
 	fullscreen_checkbox.button_pressed = false
 
+#================
+#音量设置相关
 func _on_master_volume_changed(value: float) -> void:
 	var bus_idx = AudioServer.get_bus_index("Master")
 	if bus_idx >= 0:
 		AudioServer.set_bus_volume_db(bus_idx, linear_to_db(value / 100.0))
+	if audio_settings_ready:
+		AudioManager.play_se("res://asset/audio/SE/jump.mp3")
 
 func _on_music_volume_changed(value: float) -> void:
 	var bus_idx = AudioServer.get_bus_index("BGM")
 	if bus_idx >= 0:
 		AudioServer.set_bus_volume_db(bus_idx, linear_to_db(value / 100.0))
+	if audio_settings_ready:
+		AudioManager.play_se("res://asset/audio/SE/jump.mp3")
 
 func _on_sfx_volume_changed(value: float) -> void:
 	var bus_idx = AudioServer.get_bus_index("SE")
 	if bus_idx >= 0:
 		AudioServer.set_bus_volume_db(bus_idx, linear_to_db(value / 100.0))
+	if audio_settings_ready:
+		AudioManager.play_se("res://asset/audio/SE/jump.mp3")
 
 func _on_ui_volume_changed(value: float) -> void:
 	var bus_idx = AudioServer.get_bus_index("UI")
 	if bus_idx >= 0:
 		AudioServer.set_bus_volume_db(bus_idx, linear_to_db(value / 100.0))
-
+	if audio_settings_ready:
+		AudioManager.play_se("res://asset/audio/SE/jump.mp3")
+#静音功能
 func _on_mute_toggled(button_pressed: bool) -> void:
+	AudioManager.play_ui("res://asset/audio/UI/click.wav")
 	var bus_idx = AudioServer.get_bus_index("Master")
 	if bus_idx >= 0:
 		AudioServer.set_bus_mute(bus_idx, button_pressed)
 
+#=================================
+#画面设置相关
 func _on_resolution_selected(index: int) -> void:
+	AudioManager.play_ui("res://asset/audio/UI/click.wav")
 	if index == 0:
 		get_window().size = Vector2i(1620, 1080)
 	elif index == 1:
 		get_window().size = Vector2i(1080, 720)
 
 func _on_fullscreen_toggled(button_pressed: bool) -> void:
+	AudioManager.play_ui("res://asset/audio/UI/click.wav")
 	if button_pressed:
 		get_window().mode = Window.MODE_FULLSCREEN
 	else:
 		get_window().mode = Window.MODE_WINDOWED
 
+#死亡后重试
 func _on_retry_button_pressed() -> void:
+	AudioManager.play_ui("res://asset/audio/UI/start.wav")
+	# 禁用按钮防止动画期间受到多次点击
+	$RetryButton.disabled = true
+	
+	# 创建渐变动画
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property($RetryButton, "modulate:a", 0.0, 0.5)
+	tween.tween_property($Message, "modulate:a", 0.0, 0.5)
+	await tween.finished
+	
 	var tree = get_tree()
 	if tree.paused:
 		tree.paused = false
@@ -278,4 +377,10 @@ func _on_retry_button_pressed() -> void:
 	$PauseText.hide()
 	$RetryButton.hide()
 	$Message.hide()
+	
+	# 恢复透明度和启用状态
+	$RetryButton.modulate.a = 1.0
+	$Message.modulate.a = 1.0
+	$RetryButton.disabled = false
+	
 	emit_signal("retry")

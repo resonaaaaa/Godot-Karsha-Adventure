@@ -17,6 +17,9 @@ var player_in_range = false
 var player_node = null
 
 var interact_cooldown = 0.2
+var left_offset = Vector2(-9, 5)
+var right_offset = Vector2(9, 5)
+
 
 enum SwitchState { LEFT, MID, RIGHT }
 var switch_state = SwitchState.MID
@@ -41,6 +44,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			switch_state = switch_state + 1 if switch_state < SwitchState.RIGHT else SwitchState.RIGHT
 
+		AudioManager.play_se("res://asset/audio/SE/lever.wav")
 		lever_toggled.emit(lever_id, switch_state)
 
 		match color:
@@ -48,18 +52,24 @@ func _physics_process(delta: float) -> void:
 				match switch_state:
 					SwitchState.LEFT:
 						$Sprite2D.texture = texture_red_left
+						$Sprite2D.position = left_offset
 					SwitchState.MID:
 						$Sprite2D.texture = texture_red_mid
+						$Sprite2D.position = Vector2.ZERO
 					SwitchState.RIGHT:
 						$Sprite2D.texture = texture_red_right
+						$Sprite2D.position = right_offset
 			"green":
 				match switch_state:
 					SwitchState.LEFT:
 						$Sprite2D.texture = texture_green_left
+						$Sprite2D.position = left_offset
 					SwitchState.MID:
 						$Sprite2D.texture = texture_green_mid
+						$Sprite2D.position = Vector2.ZERO
 					SwitchState.RIGHT:
 						$Sprite2D.texture = texture_green_right
+						$Sprite2D.position = right_offset
 		interact_cooldown = 0.2
 
 func _on_sensor_body_entered(body: Node2D) -> void:

@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://dkwbmjyfk3xse" path="res://asset/fonts/字魂无外润黑体(商用需授权).ttf" id="3_renpu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80cfe"]
-size = Vector2(169, 77)
+size = Vector2(95, 77)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wy828"]
 size = Vector2(29, 55)
@@ -20,7 +20,7 @@ script = ExtResource("1_wy828")
 [node name="Sensor" type="Area2D" parent="." unique_id=606588188]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor" unique_id=804693997]
-position = Vector2(0.5, -7.5)
+position = Vector2(-0.5, -7.5)
 shape = SubResource("RectangleShape2D_80cfe")
 debug_color = Color(0.2019884, 0.57571286, 0.7666616, 0.41960785)
 
@@ -43,3 +43,6 @@ theme_override_fonts/font = ExtResource("3_renpu")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_lsame")
 text = "拉动 (E)"
+
+[connection signal="body_entered" from="Sensor" to="." method="_on_sensor_body_entered"]
+[connection signal="body_exited" from="Sensor" to="." method="_on_sensor_body_exited"]

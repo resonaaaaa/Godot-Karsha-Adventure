@@ -1,3 +1,14 @@
+"""
+checkpoint_manager.gd
+检查点管理器，负责记录和恢复检查点相关的状态。
+功能：
+- 记录玩家在检查点的状态，包括位置、已收集物品、任务状态等。
+- 恢复玩家状态到最近的检查点。
+- 支持事件型检查点，可以在特定事件完成时保存状态。
+- 通过快照机制捕获和恢复世界状态，确保检查点恢复时的一致性。
+"""
+
+
 extends Node
 
 var last_checkpoint_position: Vector2 = Vector2.ZERO
@@ -11,29 +22,23 @@ var saved_task_state: Dictionary = {}
 var snapshots: Dictionary = {}
 var world_snapshot: Dictionary = {}
 
+#登记检查点，返回是否成功登记（必须按顺序登记，跳号则失败）
 func register_checkpoint(id: int, pos: Vector2, player: Node = null, hud: Node = null) -> bool:
-	# 首次触发任意 id 都允许；之后只允许按顺序触发（id == last_id + 1）
-	if id in triggered_ids:
+	# 检查点必须依次保存，跳号则直接忽略。id必须从0开始，且每次只能增加1
+	var expected_id : int = 0 if triggered_ids.is_empty() else triggered_ids[triggered_ids.size() - 1] + 1
+	if id != expected_id:
 		return false
-	if triggered_ids.is_empty():
-		last_checkpoint_id = id
-		last_checkpoint_position = pos
-		triggered_ids.append(id)
-		has_checkpoint_flag = true
-		_capture_checkpoint_state(player, hud)
-		snapshots[str(id)] = _build_snapshot(player, hud)
-		world_snapshot = snapshots[str(id)]
-		return true
-	if id == last_checkpoint_id + 1:
-		last_checkpoint_id = id
-		last_checkpoint_position = pos
-		triggered_ids.append(id)
-		has_checkpoint_flag = true
-		_capture_checkpoint_state(player, hud)
-		snapshots[str(id)] = _build_snapshot(player, hud)
-		world_snapshot = snapshots[str(id)]
-		return true
-	return false
+
+	last_checkpoint_id = id
+	last_checkpoint_position = pos
+	triggered_ids.append(id)
+	has_checkpoint_flag = true
+
+	_capture_checkpoint_state(player, hud)  #捕获快照
+	var snap = _build_snapshot(player, hud)
+	snapshots[str(id)] = snap
+	world_snapshot = snap
+	return true
 
 func get_last_checkpoint_position() -> Vector2:
 	return last_checkpoint_position
@@ -41,15 +46,6 @@ func get_last_checkpoint_position() -> Vector2:
 func has_checkpoint() -> bool:
 	return has_checkpoint_flag
 
-func record_collected(node: Node) -> void:
-	if node == null:
-		return
-	if not node.is_inside_tree():
-		return
-	var path := node.get_path()
-	# 采集状态现在从节点自身的 checkpoint_get_state() 中导出，
-	# 因此这个记录函数不再主动维护全局列表以避免拾取后立即污染检查点快照。
-	return
 
 func set_task_state(key: String, value) -> void:
 	saved_task_state[key] = value
@@ -73,13 +69,13 @@ func apply_checkpoint(player: Node, hud: Node, scene: Node) -> void:
 	if scene != null:
 		_apply_collected(scene)
 
+# 事件型检查点：在特定事件完成时调用，保存当前状态并刷新快照
 func _build_snapshot(player: Node, hud: Node) -> Dictionary:
 	var snap: Dictionary = {}
-	# 保存“当前世界此刻”的快照
-	# player state
+	# 保存玩家状态
 	if player != null:
 		snap.player_state = _extract_player_state(player)
-	# collected paths：从所有实现 checkpoint_get_state 的节点中派生
+	# 保存已收集物品的路径，供恢复时调用 apply_collected_state 或直接删除节点
 	var collected_paths:Array = []
 	for node in get_tree().get_nodes_in_group("checkpoint_stateful"):
 		if not node.is_inside_tree():
@@ -119,7 +115,7 @@ func save_event_checkpoint(player: Node = null, hud: Node = null, scene: Node = 
 	if local_player != null and local_player is Node2D:
 		last_checkpoint_position = local_player.global_position
 	has_checkpoint_flag = true
-	_capture_checkpoint_state(local_player, hud)
+	_capture_checkpoint_state(local_player, hud, false)
 	world_snapshot = _build_snapshot(local_player, hud)
 	if source_name != "":
 		world_snapshot.source_name = source_name
@@ -127,6 +123,7 @@ func save_event_checkpoint(player: Node = null, hud: Node = null, scene: Node = 
 	if scene != null:
 		world_snapshot.scene_path = scene.get_path()
 
+#获取当前活动的快照
 func _get_active_snapshot() -> Dictionary:
 	if not world_snapshot.is_empty():
 		return world_snapshot
@@ -134,6 +131,7 @@ func _get_active_snapshot() -> Dictionary:
 		return snapshots.get(str(last_checkpoint_id), null)
 	return {}
 
+# 恢复快照状态到玩家和世界
 func _apply_snapshot(snap: Dictionary, player: Node, hud: Node, scene: Node) -> void:
 	if snap == null:
 		return
@@ -170,6 +168,7 @@ func _apply_player_state_from_dict(player: Node, state: Dictionary) -> void:
 		return
 	player.has_key_red = state.get("has_key_red", false)
 	player.has_key_green = state.get("has_key_green", false)
+	player.has_gem = state.get("has_gem", false)
 	player.has_red_flower = state.get("has_red_flower", false)
 	player.has_blue_flower = state.get("has_blue_flower", false)
 	player.has_red_gem = state.get("has_red_gem", false)
@@ -192,17 +191,18 @@ func reset() -> void:
 	saved_player_state.clear()
 	saved_task_state.clear()
 
-func _capture_checkpoint_state(player: Node, hud: Node) -> void:
+func _capture_checkpoint_state(player: Node, hud: Node, update_hud: bool = true) -> void:
 	saved_collected_paths = current_collected_paths.duplicate()
 	if player != null:
 		saved_player_state = _extract_player_state(player)
-	if hud != null and hud.has_method("apply_player_state"):
+	if update_hud and hud != null and hud.has_method("apply_player_state"):
 		hud.apply_player_state(saved_player_state)
 
 func _extract_player_state(player: Node) -> Dictionary:
 	return {
 		"has_key_red": player.has_key_red,
 		"has_key_green": player.has_key_green,
+		"has_gem": player.has_gem,
 		"has_red_flower": player.has_red_flower,
 		"has_blue_flower": player.has_blue_flower,
 		"has_red_gem": player.has_red_gem,
@@ -221,6 +221,7 @@ func _apply_player_state(player: Node) -> void:
 		return
 	player.has_key_red = saved_player_state.get("has_key_red", false)
 	player.has_key_green = saved_player_state.get("has_key_green", false)
+	player.has_gem = saved_player_state.get("has_gem", false)
 	player.has_red_flower = saved_player_state.get("has_red_flower", false)
 	player.has_blue_flower = saved_player_state.get("has_blue_flower", false)
 	player.has_red_gem = saved_player_state.get("has_red_gem", false)

@@ -40,6 +40,8 @@ func _on_body_entered(body: Node2D) -> void:
 	if collected:
 		return
 
+	AudioManager.play_se("res://asset/audio/SE/pickup.wav")
+
 	match flower_type:
 		"red":
 			emit_signal("collected_red")

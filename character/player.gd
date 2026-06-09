@@ -11,6 +11,7 @@ var can_move = false
 @export var has_key_green = false
 @export var has_red_flower = false
 @export var has_blue_flower = false
+@export var has_gem = false
 #宝石相关
 var has_red_gem = false
 var has_green_gem = false
@@ -75,6 +76,8 @@ func _process(delta: float) -> void:
 	if green_gem_magic_unlocked and Input.is_action_just_pressed("slow_descent"):
 		if slow_descent_cooldown_timer > 0:
 			_show_cooldown_message()
+		else:
+			AudioManager.play_se("res://asset/audio/SE/wind_blow.mp3")
 			
 	if shield_cooldown_timer > 0:
 		shield_cooldown_timer -= delta
@@ -93,6 +96,7 @@ func _process(delta: float) -> void:
 			is_shield_active = true
 			shield_timer = max_shield_time
 			$MagicShieldParticles.emitting = true
+			AudioManager.play_se("res://asset/audio/SE/yellow_magic.mp3")
 
 var cooldown_tween: Tween
 
@@ -225,6 +229,7 @@ func process_normal(delta):
 			velocity.y = jump_velocity
 			double_jump_used = false
 			double_jump_timer.start()
+			AudioManager.play_se("res://asset/audio/SE/jump.mp3")
 	# 空中二段跳：第一段跳起后的窗口内可触发
 	if (
 		double_jump_enabled
@@ -238,6 +243,7 @@ func process_normal(delta):
 		double_jump_timer.stop()
 		#$doubleJumpParticles.global_position = global_position
 		$doubleJumpParticles.emitting = true
+		AudioManager.play_se("res://asset/audio/SE/jump.mp3")
 
 	# 根据velocity移动并处理碰撞
 	move_and_slide()
@@ -317,7 +323,11 @@ func set_has_red_flower(val:bool):
 func set_has_blue_flower(val:bool):
 	has_blue_flower = val
 
+func set_has_gem(val:bool):
+	has_gem = val
+
 func get_gem(gem_type: String) -> void:
+	has_gem = true
 	match gem_type:
 		"red":
 			has_red_gem = true
@@ -357,6 +367,7 @@ func on_thorns_hit() -> void:
 func player_dead():
 	if is_dead:
 		return
+	AudioManager.play_se("res://asset/audio/SE/game_over.mp3")
 	is_dead = true
 	can_move = false
 	set_physics_process(false)

@@ -1,0 +1,491 @@
+[gd_scene format=4 uid="uid://ca3751lei6dh6"]
+
+[ext_resource type="Script" uid="uid://cwe6xx2qut1ti" path="res://title/title.gd" id="1_3xoar"]
+[ext_resource type="FontFile" uid="uid://scmbdd7yljqj" path="res://asset/fonts/Xolonium-Regular.ttf" id="1_y7k74"]
+[ext_resource type="PackedScene" uid="uid://davjc5hn0ac31" path="res://mapElement/floor.tscn" id="2_oyqm6"]
+[ext_resource type="Theme" uid="uid://fjpf47le1w68" path="res://asset/UI/ControlTheme.tres" id="3_kpexm"]
+[ext_resource type="FontFile" uid="uid://dkwbmjyfk3xse" path="res://asset/fonts/字魂无外润黑体(商用需授权).ttf" id="5_mom7w"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_y7k74"]
+font = ExtResource("1_y7k74")
+font_size = 72
+stacked_outline_count = 1
+stacked_shadow_count = 1
+stacked_outline_0/size = 4
+stacked_shadow_0/offset = Vector2(6, 5)
+
+[sub_resource type="Gradient" id="Gradient_title_mask"]
+offsets = PackedFloat32Array(0, 0.496337, 0.99084246)
+colors = PackedColorArray(1, 0, 0, 1, 0.96, 0.7944, 0.528, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_title_mask"]
+gradient = SubResource("Gradient_title_mask")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xoar"]
+bg_color = Color(0.60244256, 0.8945915, 0.61962783, 0.827451)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mom7w"]
+content_margin_left = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mom7w"]
+bg_color = Color(0, 0.34509805, 0.043137256, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lgly"]
+bg_color = Color(0.78431374, 0.1254902, 0.21568628, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0824t"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.28235295, 0.5529412, 0.75686276, 0.9019608)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.7059)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nuqgq"]
+bg_color = Color(0.28235295, 0.5529412, 0.75686276, 0.78039217)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lx2ly"]
+bg_color = Color(0.15294118, 0.45882353, 0.77254903, 0.7490196)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jil77"]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color(0.4, 0.35, 0.4, 0.7)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16uvt"]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color(0.5, 0.45, 0.5, 0.8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_upcoo"]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color(0.4117647, 0.4862745, 0.49019608, 0.9019608)
+border_width_top = 2
+border_color = Color(1, 1, 1, 1)
+
+[node name="Title" type="Node2D" unique_id=40671214]
+script = ExtResource("1_3xoar")
+
+[node name="Background" type="ColorRect" parent="." unique_id=500429354]
+offset_right = 1080.0
+offset_bottom = 720.0
+color = Color(0.706985, 0.8623745, 0.8024569, 1)
+metadata/_edit_lock_ = true
+
+[node name="TitleMessage" type="Node2D" parent="." unique_id=416056227]
+position = Vector2(540, 200)
+metadata/_edit_lock_ = true
+
+[node name="TitleText" type="Label" parent="TitleMessage" unique_id=510678468]
+clip_children = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -331.5
+offset_top = -79.5
+offset_right = 331.5
+offset_bottom = 79.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Karsha's 
+Adventure"
+label_settings = SubResource("LabelSettings_y7k74")
+horizontal_alignment = 1
+
+[node name="GradientMask" type="TextureRect" parent="TitleMessage/TitleText" unique_id=641244786]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_title_mask")
+expand_mode = 1
+
+[node name="Tileset" parent="." unique_id=1650392354 instance=ExtResource("2_oyqm6")]
+tile_map_data = PackedByteArray("AAADAAgAAgAEAAYAAAADAAkAAgAGAAcAAAADAAoAAgAAAAYAAAADAAsAAgAAAAYAAAAEAAoAAgAAAAYAAAAEAAsAAgAAAAYAAAAEAAkAAgACAAYAAAAAAAkAAgABAAQAAAAAAAoAAgABAAUAAAABAAkAAgADAAMAAAABAAoAAgAAAAMAAAABAAsAAgAAAAMAAAAAAAsAAgAAAAMAAAACAAoAAgANAAoAAAACAAsAAgANAAsAAAAHAAkAAgABAAkAAAAHAAoAAgAAAAoAAAAHAAsAAgAAAAkAAAAIAAoAAgACAAsAAAAIAAsAAgAAAAkAAAAJAAoAAgACAAkAAAAJAAsAAgAAAAkAAAAKAAsAAgAAAAkAAAALAAsAAgAPAAoAAAAIAAkAAgACAAoAAAAKAAoAAgADAAkAAAAMAAsAAgAPAAoAAAAGAAkAAgAMAAoAAAAGAAoAAgAMAAsAAAAGAAsAAgAMAAsAAAAFAAkAAgADAAYAAAAFAAoAAgAAAAcAAAAFAAsAAgAAAAYAAAAMAAkAAgAHAAIAAAANAAoAAgAAAAAAAAANAAsAAgAAAAAAAAAOAAoAAgAAAAAAAAAOAAsAAgAAAAAAAAANAAkAAgACAAAAAAAOAAkAAgACAAAAAAAQAAgAAgABAAEAAAAQAAkAAgABAAIAAAAPAAkAAgACAAAAAAAPAAoAAgAAAAEAAAAPAAsAAgAAAAAAAAAQAAsAAgAAAAAAAAAQAAoAAgAAAAAAAAABAAgAAgAJAAMAAAAFAAgAAgALAAUAAAAJAAkAAgAKAAcAAAAOAAgAAgAJAAEAAAAPAAgAAgAJAAEAAAA=")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=574734096]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 504.0
+offset_top = 360.0
+offset_right = 576.0
+offset_bottom = 496.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="ContinueGame" type="Button" parent="VBoxContainer" unique_id=1582334527]
+layout_mode = 2
+theme = ExtResource("3_kpexm")
+disabled = true
+text = "继续游戏"
+
+[node name="NewGame" type="Button" parent="VBoxContainer" unique_id=167262599]
+layout_mode = 2
+theme = ExtResource("3_kpexm")
+text = "新的开始"
+
+[node name="GameSetting" type="Button" parent="VBoxContainer" unique_id=147477279]
+layout_mode = 2
+theme = ExtResource("3_kpexm")
+text = "游戏设置"
+
+[node name="ExitGame" type="Button" parent="VBoxContainer" unique_id=1273743482]
+layout_mode = 2
+theme = ExtResource("3_kpexm")
+text = "退出游戏"
+
+[node name="VersionInfo" type="Label" parent="." unique_id=2011259075]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 944.0
+offset_top = 8.0
+offset_right = 1069.0
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0.08235294, 0, 0.8392157)
+theme_override_font_sizes/font_size = 18
+text = "version 1.0.7w"
+
+[node name="NewGameWarning" type="PopupPanel" parent="." unique_id=1925566945]
+oversampling_override = 1.0
+title = "新游戏警告"
+initial_position = 2
+size = Vector2i(280, 152)
+theme_override_styles/panel = SubResource("StyleBoxFlat_3xoar")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewGameWarning" unique_id=228041517]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -76.0
+offset_right = 140.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Label" type="Label" parent="NewGameWarning/VBoxContainer" unique_id=527105284]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0.14901961, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mom7w")
+text = "您有正在进行的游戏，开始新的游戏会导致之前的进度丢失，确定开始新游戏吗？"
+autowrap_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NewGameWarning/VBoxContainer" unique_id=1277587190]
+layout_mode = 2
+theme_override_constants/separation = 120
+alignment = 1
+
+[node name="CancleButton" type="Button" parent="NewGameWarning/VBoxContainer/HBoxContainer" unique_id=1499423764]
+custom_minimum_size = Vector2(60, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7607843, 0.8745098, 0.8745098, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_mom7w")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mom7w")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mom7w")
+text = "取消"
+
+[node name="SureButton" type="Button" parent="NewGameWarning/VBoxContainer/HBoxContainer" unique_id=1068530321]
+custom_minimum_size = Vector2(60, 35)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7607843, 0.8745098, 0.8745098, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_7lgly")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7lgly")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7lgly")
+text = "确认"
+
+[node name="SettingPanel" type="PopupPanel" parent="." unique_id=625474666]
+oversampling_override = 1.0
+title = "游戏设置"
+initial_position = 2
+size = Vector2i(582, 345)
+theme_override_styles/panel = SubResource("StyleBoxFlat_0824t")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingPanel" unique_id=1716142331]
+custom_minimum_size = Vector2(0, 20)
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 581.0
+offset_bottom = 344.0
+theme_override_constants/separation = 3
+
+[node name="TabContainer" type="TabContainer" parent="SettingPanel/VBoxContainer" unique_id=228510712]
+custom_minimum_size = Vector2(572, 290)
+layout_mode = 2
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hovered_color = Color(1, 1, 1, 1)
+theme_override_colors/font_unselected_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_mom7w")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/panel = SubResource("StyleBoxFlat_nuqgq")
+theme_override_styles/tabbar_background = SubResource("StyleBoxFlat_lx2ly")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_jil77")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_16uvt")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_upcoo")
+current_tab = 0
+
+[node name="音频" type="VBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer" unique_id=63801411]
+layout_mode = 2
+theme_override_constants/separation = 15
+metadata/_tab_index = 0
+
+[node name="MuteCheckBox" type="CheckBox" parent="SettingPanel/VBoxContainer/TabContainer/音频" unique_id=260795903]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "静音"
+
+[node name="MasterVolume" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/音频" unique_id=1562410725]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/音频/MasterVolume" unique_id=1780586804]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "总音量"
+
+[node name="HSlider" type="HSlider" parent="SettingPanel/VBoxContainer/TabContainer/音频/MasterVolume" unique_id=1797930980]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 50.0
+
+[node name="MusicVolume" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/音频" unique_id=577471194]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/音频/MusicVolume" unique_id=273498391]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "音乐音量"
+
+[node name="HSlider" type="HSlider" parent="SettingPanel/VBoxContainer/TabContainer/音频/MusicVolume" unique_id=2052678132]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 50.0
+
+[node name="SFXVolume" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/音频" unique_id=723629026]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/音频/SFXVolume" unique_id=1588721801]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_y7k74")
+theme_override_font_sizes/font_size = 16
+text = "效果音量"
+
+[node name="HSlider" type="HSlider" parent="SettingPanel/VBoxContainer/TabContainer/音频/SFXVolume" unique_id=585834236]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 50.0
+
+[node name="UIVolume" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/音频" unique_id=39789426]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/音频/UIVolume" unique_id=1163864531]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_y7k74")
+theme_override_font_sizes/font_size = 16
+text = "UI音量"
+
+[node name="HSlider" type="HSlider" parent="SettingPanel/VBoxContainer/TabContainer/音频/UIVolume" unique_id=230514801]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 50.0
+
+[node name="画面" type="VBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer" unique_id=1224436191]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 15
+metadata/_tab_index = 1
+
+[node name="Resolution" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/画面" unique_id=1147700455]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/画面/Resolution" unique_id=957700475]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_y7k74")
+theme_override_font_sizes/font_size = 16
+text = "分辨率"
+
+[node name="OptionButton" type="OptionButton" parent="SettingPanel/VBoxContainer/TabContainer/画面/Resolution" unique_id=109741250]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_y7k74")
+theme_override_font_sizes/font_size = 16
+item_count = 2
+popup/item_0/text = "1620x1080"
+popup/item_0/id = 0
+popup/item_1/text = "1080×720"
+popup/item_1/id = 1
+
+[node name="Fullscreen" type="CheckBox" parent="SettingPanel/VBoxContainer/TabContainer/画面" unique_id=1265650140]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_y7k74")
+theme_override_font_sizes/font_size = 16
+text = "全屏"
+
+[node name="控制" type="VBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer" unique_id=545073689]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+metadata/_tab_index = 2
+
+[node name="Key" type="VBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/控制" unique_id=1802130432]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="W" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key" unique_id=1713736566]
+layout_mode = 2
+theme_override_constants/separation = 156
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/W" unique_id=1644130321]
+layout_mode = 2
+text = "向上、跳跃"
+
+[node name="Button" type="Button" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/W" unique_id=89119117]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "W"
+
+[node name="S" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key" unique_id=842300332]
+layout_mode = 2
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/S" unique_id=214755934]
+layout_mode = 2
+text = "向下"
+
+[node name="Button" type="Button" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/S" unique_id=490013809]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "S"
+
+[node name="A" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key" unique_id=1062085720]
+layout_mode = 2
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/A" unique_id=881445628]
+layout_mode = 2
+text = "向左"
+
+[node name="Button" type="Button" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/A" unique_id=1175880810]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "A"
+
+[node name="D" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key" unique_id=240857003]
+layout_mode = 2
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/D" unique_id=775064342]
+layout_mode = 2
+text = "向右"
+
+[node name="Button" type="Button" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/D" unique_id=464721528]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "D"
+
+[node name="F" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key" unique_id=216387865]
+layout_mode = 2
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/F" unique_id=1392091609]
+layout_mode = 2
+text = "攻击"
+
+[node name="Button" type="Button" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/F" unique_id=921596942]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "F"
+
+[node name="E" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key" unique_id=491932950]
+layout_mode = 2
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/E" unique_id=1960241513]
+layout_mode = 2
+text = "交互"
+
+[node name="Button" type="Button" parent="SettingPanel/VBoxContainer/TabContainer/控制/Key/E" unique_id=1593142204]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "E"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingPanel/VBoxContainer" unique_id=660717746]
+layout_mode = 2
+theme_override_constants/separation = 80
+alignment = 1
+
+[node name="DefaultButton" type="Button" parent="SettingPanel/VBoxContainer/HBoxContainer" unique_id=616179511]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_nuqgq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nuqgq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nuqgq")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_nuqgq")
+theme_override_styles/focus = SubResource("StyleBoxFlat_nuqgq")
+text = "恢复默认设置"
+
+[node name="CloseButton" type="Button" parent="SettingPanel/VBoxContainer/HBoxContainer" unique_id=446670194]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_nuqgq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nuqgq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nuqgq")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_nuqgq")
+theme_override_styles/focus = SubResource("StyleBoxFlat_nuqgq")
+text = "返回"
+
+[connection signal="pressed" from="VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/GameSetting" to="." method="_on_game_setting_pressed"]
