@@ -21,6 +21,7 @@ var is_open = false
 
 @export var is_lever_controlled = false
 @export var correct_solution = {}    #使用字典存储每个开关对应的正确状态
+var current_states = {} #存储当前每个开关的状态
 
 func _ready() -> void:
 	is_open = false
@@ -46,11 +47,13 @@ func checkpoint_set_state(state: Dictionary) -> void:
 func lever_toggled(lever_id: int, switch_state: int) -> void:
 	if not is_lever_controlled:
 		return
+	#更新对应开关的状态
+	current_states[lever_id] = switch_state
 	#检查当前所有开关状态是否满足条件
 	for id in correct_solution.keys():
 		var required_state = correct_solution[id]
-		var current_state = DialogManager.get_lever_state(id)
-		if current_state != required_state:
+		var cur_state = current_states.get(id, 0) #默认状态为0
+		if cur_state != required_state:
 			door_switch_toggled(false)
 			return
 	door_switch_toggled(true)	

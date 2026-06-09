@@ -11,13 +11,13 @@ emission_shape = 3
 emission_box_extents = Vector3(24, 1, 1)
 direction = Vector3(0, -1, 0)
 spread = 5.0
-initial_velocity_min = 50.0
-initial_velocity_max = 150.0
+initial_velocity_min = 98.25
+initial_velocity_max = 200.0
 gravity = Vector3(0, 98, 0)
 scale_min = 0.5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w4d33"]
-size = Vector2(64, 115)
+size = Vector2(64, 187.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_base"]
 size = Vector2(70, 60)
@@ -29,14 +29,14 @@ script = ExtResource("1_w4d33")
 modulate = Color(1, 0.59607846, 0.58431375, 1)
 position = Vector2(-1, -22)
 emitting = false
-amount = 16
+amount = 64
 texture = ExtResource("1_jmdgh")
 lifetime = 1.5
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_hicjh")
 
 [node name="DetectionArea" type="CollisionShape2D" parent="." unique_id=1332569076]
-position = Vector2(0, -69)
+position = Vector2(0, -105.25)
 shape = SubResource("RectangleShape2D_w4d33")
 
 [node name="IntervalTimer" type="Timer" parent="." unique_id=162047690]

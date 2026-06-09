@@ -25,3 +25,6 @@ func _set_block_state(active: bool) -> void:
 	is_active = active
 	$Sprite2D.visible = not is_active
 	$CollisionShape2D.set_deferred("disabled", is_active)
+	# 同时清除碰撞层，确保 RigidBody（如箱子）不会因缓存碰撞状态而被隐形方块阻挡
+	set_collision_layer_value(1, not is_active)
+	set_collision_mask_value(1, not is_active)

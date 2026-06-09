@@ -255,10 +255,11 @@ metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1421780966]
+offset = Vector2(0, -30)
 limit_left = -50
-limit_top = -5000
+limit_top = -10000
 limit_right = 30000
-limit_bottom = 9999995
+limit_bottom = 9999996
 
 [node name="doubleJumpTimer" type="Timer" parent="." unique_id=1142118245]
 wait_time = 0.5
