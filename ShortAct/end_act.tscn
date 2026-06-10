@@ -159,26 +159,33 @@ theme_override_fonts/normal_font = ExtResource("7_dv868")
 theme_override_font_sizes/normal_font_size = 22
 bbcode_enabled = true
 text = "
-[font_size=28]项目制作[/font_size]
-Karsha's Adventure 项目组
+[font_size=36]项目制作[/font_size]
+[font_size=28]Karsha's Adventure 项目组
+
+[font_size=24]项目与文档整理[/font_size]
+方润
 
 [font_size=24]程序与实现[/font_size]
-Ximeng Gan
+甘曦萌
+
 [font_size=24]关卡流程设计[/font_size]
-Wangjie Chi		Ximeng Gan
+迟汪杰	 李响 甘曦萌
+
 [font_size=24]美术与资源[/font_size]
-项目素材整理与整合
+李响 甘曦萌
 
 [font_size=24]音频与演出[/font_size]
+甘曦萌
 
+[font_size=24]代码测试[/font_size]
+樊雨轩 甘曦萌
 
 [font_size=24]特别鸣谢[/font_size]
-ChatGPT		Google Gemini
+ChatGPT		Google Gemini DeepSeek
 
 [font_size=24]感谢你的陪伴！[/font_size]
 
-[font_size=36]The End[/font_size]
-[/center]"
+[font_size=48]The End[/font_size]"
 fit_content = true
 scroll_active = false
 scroll_following = true

@@ -36,5 +36,12 @@ func _on_hud_retry() -> void:
 		$Player.start($StartPosition.position)
 
 
-	
-	
+
+func _on_tp_volcano_from_body_entered(body: Node2D) -> void:
+	if body.name == "Player":
+		AudioManager.play_bgm("res://asset/audio/BGM/volcano.mp3")
+
+
+func _on_tp_volcano_to_body_entered(body: Node2D) -> void:
+	if body.name == "Player":
+		AudioManager.play_bgm("res://asset/audio/BGM/level4.mp3")

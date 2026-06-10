@@ -1,3 +1,9 @@
+"""
+精灵 
+在关卡前期出现的NPC，提供关于贤者的线索。
+和其他NPC的逻辑类似，会进行巡逻，玩家接近时会停下来和玩家对话。对话内容根据是否第一次见面而不同。
+"""
+
 extends CharacterBody2D
 
 var speed: float = 80.0
@@ -41,6 +47,7 @@ func checkpoint_set_state(state: Dictionary) -> void:
 func _physics_process(delta: float) -> void:
 	if interact_cooldown > 0:
 		interact_cooldown -= delta
+
 	if player_in_range or DialogManager.is_dialog_active():
 		anim.play("stay")
 	else:
@@ -80,16 +87,16 @@ func _physics_process(delta: float) -> void:
 		else:
 			position += movement
 
-	move_and_slide()
 
 	if player_in_range and Input.is_action_just_pressed("interact") and interact_cooldown <= 0.0:
 		if not DialogManager.is_dialog_active():
 			if not met_player:
 				var dialog_data = [
-					{"speaker":"卡莎","text":"你好，美丽的精灵小姐！这附近有个奇怪的门，我无法打开，被困在这儿了。你知道怎么打开它吗？","portrait":player_portrait},
-					{"speaker":"精灵","text":"哦？你是说下面的门吗？呵呵，这是我们精灵的独特智慧，你看世间万物，非无即有，若以0表示“无”，以1表示“有”，可以表示任何事物。","portrait":elf_portrait},
-					{"speaker":"卡莎","text":"啊？那我该怎么办呢？","portrait":player_portrait},
-					{"speaker":"精灵","text":"言尽于此，我不能与外人说更多了，如果你无法参透，那就请回吧。","portrait":elf_portrait}
+					{"speaker":"卡莎","text":"你好，美丽的精灵小姐！这儿真热啊！","portrait":player_portrait},
+					{"speaker":"精灵","text":"此处非寻常之地，汝一凡人，何故至此？","portrait":elf_portrait},
+					{"speaker":"卡莎","text":"你们精灵讲话好难懂……我是卡莎，致力于探索这个世界！","portrait":player_portrait},
+					{"speaker":"精灵","text":"原来如是。汝颇有胆识。听闻近日一贤者入此火山深处修行，若得遇之，或可有所获。","portrait":elf_portrait},
+					{"speaker":"卡莎","text":"贤者？谢谢你告诉我这个消息，精灵小姐！","portrait":player_portrait}
 					
 				]
 				if player_node and player_node.has_method("set_physics_process"):
@@ -98,13 +105,14 @@ func _physics_process(delta: float) -> void:
 				_save_event_checkpoint("elf_first_dialog")
 			else:
 				var dialog_data = [
-					{"speaker": "精灵", "text": "怎么，你又来了？", "portrait": elf_portrait},
-					{"speaker": "卡莎", "text": "不是的！", "portrait": player_portrait}
+					{"speaker": "精灵", "text": "可曾寻到贤者？", "portrait": elf_portrait},
+					{"speaker": "卡莎", "text": "我还在寻找怎么进入火山内部的方法……", "portrait": player_portrait}
 				]
 				if player_node and player_node.has_method("set_physics_process"):
 					player_node.set_physics_process(false)
 				DialogManager.show_dialogue(dialog_data, elf_portrait, "精灵")
 				_save_event_checkpoint("elf_repeat_dialog")
+			return
 
 func _on_sensor_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):

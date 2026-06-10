@@ -6,6 +6,9 @@ extends Node
 	"res://Level3/Level3.tscn",
 	"res://Level4/Level4.tscn"
 ]
+@export var start_scene_path := "res://ShortAct/start_act.tscn"
+@export var end_scene_path := "res://ShortAct/end_act.tscn"
+@export var title_scene_path := "res://title/title.tscn"
 @export var loading_scene_path := "res://ShortAct/loading.tscn"
 
 const SAVE_PATH := "user://savedata.save"
@@ -118,33 +121,50 @@ func _init_current_scene() -> void:
 # 接收关卡完成信号
 func _on_level_completed() -> void:
 	complete_level_and_save(current_index)
+	if current_index >= level_paths.size() - 1:
+		_load_end_scene()
+		return
 	var next_index := (current_index + 1) % level_paths.size()
 	_load_level(next_index)
 
 #加载关卡
 func _load_level(index: int) -> void:
 	current_index = index
-	
+	_load_scene_with_loading(level_paths[index])
+
+func _load_start_scene() -> void:
+	_load_scene_with_loading(start_scene_path)
+
+func _load_end_scene() -> void:
+	_load_scene_with_loading(end_scene_path)
+
+func _load_title_scene() -> void:
+	_load_scene_with_loading(title_scene_path)
+
+func _load_scene_with_loading(scene_path: String) -> void:
+	if scene_path.is_empty():
+		return
+
 	# 显示Loading界面
 	var loading: Node = _show_loading()
-	
+
 	# 等待确保Loading渲染
 	await get_tree().create_timer(0.2).timeout
-	
+
 	# 由Godot自行切换场景
-	var err = get_tree().change_scene_to_file(level_paths[index])
+	var err = get_tree().change_scene_to_file(scene_path)
 	if err != OK:
 		_hide_loading(loading)
 		return
-	
+
 	#等待新场景进入树
 	await get_tree().create_timer(0.5).timeout
-	
+
 	var new_scene = get_tree().current_scene
 	if new_scene != null:
 		_wire_level(new_scene)
 		_reset_player_properties(new_scene)
-	
+
 	_hide_loading(loading)
 
 # 连接新场景的关卡完成信号
