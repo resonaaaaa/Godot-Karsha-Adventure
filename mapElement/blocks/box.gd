@@ -42,5 +42,3 @@ func checkpoint_set_state(state: Dictionary) -> void:
 	linear_velocity = lv
 	angular_velocity = av
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.

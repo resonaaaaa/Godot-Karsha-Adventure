@@ -43,13 +43,13 @@ var climb_speed = 200
 var slow_descent_timer := 0.0
 var slow_descent_cooldown_timer := 0.0
 var max_slow_descent_time := 3.0
-var max_slow_descent_cooldown := 8.0
+var max_slow_descent_cooldown := 15.0
 #护盾相关
 var is_shield_active: bool = false
 var shield_timer: float = 0.0
 var shield_cooldown_timer: float = 0.0
 var max_shield_time: float = 5.0
-var max_shield_cooldown: float = 3.0
+var max_shield_cooldown: float = 30.0
 
 @onready var double_jump_timer: Timer = $doubleJumpTimer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -336,7 +336,7 @@ func get_gem(gem_type: String) -> void:
 		"green":
 			has_green_gem = true
 			green_gem_magic_unlocked = true
-			DialogManager.show_dialogue(["你在绿宝石中感知到了温和的魔力，它的能量正在逐渐进入你的身体。", "现在你能够在跳跃时按下空格键来减缓下降速度！魔法持续时间为3秒，冷却时间为20秒。"], null, "获得绿宝石")
+			DialogManager.show_dialogue(["你在绿宝石中感知到了温和的魔力，它的能量正在逐渐进入你的身体。", "现在你能够在跳跃时按下空格键来减缓下降速度！魔法持续时间为3秒，冷却时间为15秒。"], null, "获得绿宝石")
 		"blue":
 			has_blue_gem = true
 			blue_gem_magic_unlocked = true

@@ -7,7 +7,6 @@ extends Node2D
 @onready var credits_label: RichTextLabel = $CreditsLayer/CreditsRoot/CreditsScroll/CreditsText
 @onready var return_button: Button = $CreditsLayer/CreditsRoot/ReturnButton
 
-const TITLE_SCENE_PATH := "res://title/title.tscn"
 enum EndState {
 	MOVE_ALONG_PATH,
 	WAIT_DIALOG,
@@ -146,7 +145,7 @@ func _go_to_title() -> void:
 	if state == EndState.RETURNING:
 		return
 	state = EndState.RETURNING
-	get_tree().change_scene_to_file(TITLE_SCENE_PATH)
+	Game._load_title_scene()
 
 func _get_end_dialogue_lines() -> Array[String]:
 	var lines: Array[String] = []

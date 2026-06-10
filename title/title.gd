@@ -85,7 +85,7 @@ func _on_cancel_button_pressed() -> void:
 func _start_new_game() -> void:
 	Game.save_data["unlocked_levels"] = 0
 	Game._save_game()
-	Game._load_level(0)
+	Game._load_start_scene()
 
 func _on_game_setting_pressed() -> void:
 	AudioManager.play_ui("res://asset/audio/UI/click.wav")
