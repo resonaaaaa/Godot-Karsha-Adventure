@@ -19,9 +19,7 @@ var save_data := {
 		"bgm_volume": 50.0,
 		"sfx_volume": 50.0,
 		"ui_volume": 50.0,
-		"mute": false,
-		"resolution_type": 0,
-		"fullscreen": false
+		"mute": false
 	},
 	"unlocked_levels": 0 # 最大解锁关卡的索引
 }
@@ -29,11 +27,25 @@ var save_data := {
 var current_index := 0
 
 func _ready() -> void:
+	# 全局锁定窗口：仅 PC 桌面平台（Windows/macOS/Linux）强制窗口化 1080x720
+	if _is_desktop_platform():
+		var window := get_window()
+		window.mode = Window.MODE_WINDOWED
+		window.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
+		window.size = Vector2i(1080, 720)
+		window.min_size = Vector2i(1080, 720)
+		window.max_size = Vector2i(1080, 720)
+	
 	_load_game()
 	# 等待主场景加载完毕后，接管当前关卡
 	call_deferred("_init_current_scene")
 	# 监控所有后续加入的场景节点，防止被HUD reload后失去连接
 	get_tree().node_added.connect(_on_node_added)
+
+# 判断当前是否为桌面平台（Windows / macOS / Linux）
+func _is_desktop_platform() -> bool:
+	var os_name := OS.get_name()
+	return os_name == "Windows" or os_name == "macOS" or os_name == "Linux" or os_name == "FreeBSD"
 
 func _load_game() -> void:
 	if FileAccess.file_exists(SAVE_PATH):
@@ -74,16 +86,6 @@ func _apply_settings() -> void:
 		var bus_idx = AudioServer.get_bus_index("Master")
 		if bus_idx >= 0:
 			AudioServer.set_bus_mute(bus_idx, settings["mute"])
-			
-	if settings.has("fullscreen"):
-		get_window().mode = Window.MODE_FULLSCREEN if settings["fullscreen"] else Window.MODE_WINDOWED
-		
-	if settings.has("resolution_type"):
-		var index = settings["resolution_type"]
-		if index == 0:
-			get_window().size = Vector2i(1620, 1080)
-		elif index == 1:
-			get_window().size = Vector2i(1080, 720)
 
 func _save_game() -> void:
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)

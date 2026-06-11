@@ -185,10 +185,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -140.0
-offset_top = -76.0
-offset_right = 140.0
-offset_bottom = 76.0
+offset_right = 280.0
+offset_bottom = 152.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 16
@@ -333,46 +331,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 50.0
 
-[node name="画面" type="VBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer" unique_id=1224436191]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 15
-metadata/_tab_index = 1
-
-[node name="Resolution" type="HBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/画面" unique_id=1147700455]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="SettingPanel/VBoxContainer/TabContainer/画面/Resolution" unique_id=957700475]
-custom_minimum_size = Vector2(80, 0)
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("1_y7k74")
-theme_override_font_sizes/font_size = 16
-text = "分辨率"
-
-[node name="OptionButton" type="OptionButton" parent="SettingPanel/VBoxContainer/TabContainer/画面/Resolution" unique_id=109741250]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("1_y7k74")
-theme_override_font_sizes/font_size = 16
-item_count = 2
-popup/item_0/text = "1620x1080"
-popup/item_0/id = 0
-popup/item_1/text = "1080×720"
-popup/item_1/id = 1
-
-[node name="Fullscreen" type="CheckBox" parent="SettingPanel/VBoxContainer/TabContainer/画面" unique_id=1265650140]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("1_y7k74")
-theme_override_font_sizes/font_size = 16
-text = "全屏"
-
 [node name="控制" type="VBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer" unique_id=545073689]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
-metadata/_tab_index = 2
+metadata/_tab_index = 1
 
 [node name="Key" type="VBoxContainer" parent="SettingPanel/VBoxContainer/TabContainer/控制" unique_id=1802130432]
 layout_mode = 2

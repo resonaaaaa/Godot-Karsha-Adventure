@@ -64,8 +64,10 @@ events = [SubResource("InputEventAction_64ctp")]
 
 [node name="EndAct" type="Node2D" unique_id=1593141765]
 script = ExtResource("1_47733")
-end_dialogue_text = "卡莎的冒险还会继续……
-感谢你陪伴卡莎度过了这段旅程！"
+end_dialogue_text = "感谢你陪伴卡莎度过了这段旅程！
+穿越了活火山，卡莎将会去到哪里？
+哪里会有怎么样的新朋友，又有什么样的新危险？
+卡莎的冒险还远远没有结束……"
 
 [node name="BackgroundCanvasLayer" type="CanvasLayer" parent="." unique_id=241312764]
 layer = -100
@@ -160,25 +162,8 @@ theme_override_font_sizes/normal_font_size = 22
 bbcode_enabled = true
 text = "
 [font_size=36]项目制作[/font_size]
-[font_size=28]Karsha's Adventure 项目组
-
-[font_size=24]项目与文档整理[/font_size]
-方润
-
-[font_size=24]程序与实现[/font_size]
-甘曦萌
-
-[font_size=24]关卡流程设计[/font_size]
-迟汪杰	 李响 甘曦萌
-
-[font_size=24]美术与资源[/font_size]
-李响 甘曦萌
-
-[font_size=24]音频与演出[/font_size]
-甘曦萌
-
-[font_size=24]代码测试[/font_size]
-樊雨轩 甘曦萌
+[font_size=28]@resonaaaa[/font_size]
+(https://github.com/resonaaaaa/)
 
 [font_size=24]特别鸣谢[/font_size]
 ChatGPT		Google Gemini DeepSeek

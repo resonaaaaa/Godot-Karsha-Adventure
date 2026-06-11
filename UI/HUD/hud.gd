@@ -16,13 +16,15 @@ var flower_texture_empty = preload("res://asset/TileSet/Items/outlineCrystal.png
 @onready var ui_slider: HSlider = $SettingPanel/VBoxContainer/TabContainer/音频/UIVolume/HSlider
 @onready var mute_checkbox: CheckBox = $SettingPanel/VBoxContainer/TabContainer/音频/MuteCheckBox
 
-@onready var resolution_option: OptionButton = $SettingPanel/VBoxContainer/TabContainer/画面/Resolution/OptionButton
-@onready var fullscreen_checkbox: CheckBox = $SettingPanel/VBoxContainer/TabContainer/画面/Fullscreen
+
 
 @onready var title_button: Button = $PauseMenu/VBoxContainer/TitleButton
 @onready var exit_warning: PopupPanel = $ExitWarning
 @onready var exit_cancel_button: Button = $ExitWarning/VBoxContainer/HBoxContainer/CancleButton
 @onready var exit_sure_button: Button = $ExitWarning/VBoxContainer/HBoxContainer/SureButton
+
+@onready var yellow_magic_ui: Label = $YellowGemMagicUI
+@onready var green_magic_ui: Label = $GreenGemMagicUI
 
 var audio_settings_ready: bool = false
 
@@ -31,21 +33,25 @@ func _ready() -> void:
 	$PauseMessage.hide()
 	$PauseButton.button_pressed = false
 	
+	# 强制窗口模式，固定 1080x720 分辨率
+	var window := get_window()
+	window.mode = Window.MODE_WINDOWED
+	window.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
+	window.size = Vector2i(1080, 720)
+	window.min_size = Vector2i(1080, 720)
+	window.max_size = Vector2i(1080, 720)
+	
 	master_slider.value_changed.connect(_on_master_volume_changed)
 	music_slider.value_changed.connect(_on_music_volume_changed)
 	sfx_slider.value_changed.connect(_on_sfx_volume_changed)
 	ui_slider.value_changed.connect(_on_ui_volume_changed)
 	mute_checkbox.toggled.connect(_on_mute_toggled)
 	
-	resolution_option.item_selected.connect(_on_resolution_selected)
-	fullscreen_checkbox.toggled.connect(_on_fullscreen_toggled)
-	
 	title_button.pressed.connect(_on_title_button_pressed)
 	exit_cancel_button.pressed.connect(_on_exit_cancel_button_pressed)
 	exit_sure_button.pressed.connect(_on_exit_sure_button_pressed)
 	
 	_init_audio_settings()
-	_init_video_settings()
 	audio_settings_ready = true
 
 func _init_audio_settings() -> void:
@@ -58,19 +64,36 @@ func _init_audio_settings() -> void:
 	ui_slider.value = db_to_linear(AudioServer.get_bus_volume_db(ui_idx)) * 100
 	mute_checkbox.button_pressed = AudioServer.is_bus_mute(AudioServer.get_bus_index("Master"))
 
-func _init_video_settings() -> void:
-	fullscreen_checkbox.button_pressed = (get_window().mode == Window.MODE_FULLSCREEN)
-	var win_size = get_window().size
-	if win_size == Vector2i(1620, 1080):
-		resolution_option.selected = 0
-	elif win_size == Vector2i(1080, 720):
-		resolution_option.selected = 1
-
-
-
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("menu"):
 		$PauseButton.button_pressed = not $PauseButton.button_pressed
+	_update_magic_cooldown_display()
+
+#更新魔法冷却时间显示（右上角）
+func _update_magic_cooldown_display() -> void:
+	var player: Node = get_tree().get_first_node_in_group("player")
+	if not player:
+		return
+	
+	# 黄宝石魔法（护盾）
+	if player.yellow_gem_magic_unlocked:
+		yellow_magic_ui.visible = true
+		if player.shield_cooldown_timer > 0:
+			yellow_magic_ui.text = "黄宝石魔法：%ds" % ceili(player.shield_cooldown_timer)
+		else:
+			yellow_magic_ui.text = "黄宝石魔法：魔法已就绪"
+	else:
+		yellow_magic_ui.visible = false
+	
+	# 绿宝石魔法（缓降）
+	if player.green_gem_magic_unlocked:
+		green_magic_ui.visible = true
+		if player.slow_descent_cooldown_timer > 0:
+			green_magic_ui.text = "绿宝石魔法：%ds" % ceili(player.slow_descent_cooldown_timer)
+		else:
+			green_magic_ui.text = "绿宝石魔法：魔法已就绪"
+	else:
+		green_magic_ui.visible = false
 
 #死亡后显示重试界面
 func show_game_over():
@@ -297,11 +320,6 @@ func _on_setting_default_button_pressed() -> void:
 	sfx_slider.value = 50.0
 	ui_slider.value = 50.0
 	mute_checkbox.button_pressed = false
-	
-	resolution_option.selected = 0
-	_on_resolution_selected(0)
-	
-	fullscreen_checkbox.button_pressed = false
 
 #================
 #音量设置相关
@@ -338,22 +356,6 @@ func _on_mute_toggled(button_pressed: bool) -> void:
 	var bus_idx = AudioServer.get_bus_index("Master")
 	if bus_idx >= 0:
 		AudioServer.set_bus_mute(bus_idx, button_pressed)
-
-#=================================
-#画面设置相关
-func _on_resolution_selected(index: int) -> void:
-	AudioManager.play_ui("res://asset/audio/UI/click.wav")
-	if index == 0:
-		get_window().size = Vector2i(1620, 1080)
-	elif index == 1:
-		get_window().size = Vector2i(1080, 720)
-
-func _on_fullscreen_toggled(button_pressed: bool) -> void:
-	AudioManager.play_ui("res://asset/audio/UI/click.wav")
-	if button_pressed:
-		get_window().mode = Window.MODE_FULLSCREEN
-	else:
-		get_window().mode = Window.MODE_WINDOWED
 
 #死亡后重试
 func _on_retry_button_pressed() -> void:
