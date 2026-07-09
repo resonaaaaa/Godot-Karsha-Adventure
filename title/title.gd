@@ -6,9 +6,6 @@ extends Node2D
 @onready var ui_slider: HSlider = $"SettingPanel/VBoxContainer/TabContainer/音频/UIVolume/HSlider"
 @onready var mute_checkbox: CheckBox = $"SettingPanel/VBoxContainer/TabContainer/音频/MuteCheckBox"
 
-@onready var resolution_option: OptionButton = $"SettingPanel/VBoxContainer/TabContainer/画面/Resolution/OptionButton"
-@onready var fullscreen_checkbox: CheckBox = $"SettingPanel/VBoxContainer/TabContainer/画面/Fullscreen"
-
 @onready var default_button: Button = $"SettingPanel/VBoxContainer/HBoxContainer/DefaultButton"
 @onready var close_button: Button = $"SettingPanel/VBoxContainer/HBoxContainer/CloseButton"
 
@@ -22,6 +19,15 @@ var audio_settings_ready: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	AudioManager.play_bgm("res://asset/audio/BGM/title.mp3")
+	
+	# 强制窗口模式，固定 1080x720 分辨率
+	var window := get_window()
+	window.mode = Window.MODE_WINDOWED
+	window.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
+	window.size = Vector2i(1080, 720)
+	window.min_size = Vector2i(1080, 720)
+	window.max_size = Vector2i(1080, 720)
+	
 	exit_button.pressed.connect(_on_exit_game_pressed)
 	continue_button.pressed.connect(_on_continue_game_pressed)
 	sure_button.pressed.connect(_on_sure_button_pressed)
@@ -35,12 +41,8 @@ func _ready() -> void:
 	sfx_slider.value_changed.connect(_on_sfx_volume_changed)
 	ui_slider.value_changed.connect(_on_ui_volume_changed)
 	mute_checkbox.toggled.connect(_on_mute_toggled)
-	
-	resolution_option.item_selected.connect(_on_resolution_selected)
-	fullscreen_checkbox.toggled.connect(_on_fullscreen_toggled)
 
 	_init_audio_settings()
-	_init_video_settings()
 	audio_settings_ready = true
 	
 	if Game.save_data.get("unlocked_levels", 0) > 0:
@@ -55,11 +57,6 @@ func _init_audio_settings() -> void:
 	sfx_slider.value = settings.get("sfx_volume", 50.0)
 	ui_slider.value = settings.get("ui_volume", 50.0)
 	mute_checkbox.button_pressed = settings.get("mute", false)
-
-func _init_video_settings() -> void:
-	var settings = Game.save_data.get("settings", {})
-	fullscreen_checkbox.button_pressed = settings.get("fullscreen", false)
-	resolution_option.selected = settings.get("resolution_type", 0)
 
 func _on_new_game_pressed() -> void:
 	AudioManager.play_ui("res://asset/audio/UI/click.wav")
@@ -139,24 +136,6 @@ func _on_mute_toggled(button_pressed: bool) -> void:
 	Game.save_data["settings"]["mute"] = button_pressed
 	Game._save_game()
 
-func _on_resolution_selected(index: int) -> void:
-	AudioManager.play_ui("res://asset/audio/UI/click.wav")
-	if index == 0:
-		get_window().size = Vector2i(1620, 1080)
-	elif index == 1:
-		get_window().size = Vector2i(1080, 720)
-	Game.save_data["settings"]["resolution_type"] = index
-	Game._save_game()
-
-func _on_fullscreen_toggled(button_pressed: bool) -> void:
-	AudioManager.play_ui("res://asset/audio/UI/click.wav")
-	if button_pressed:
-		get_window().mode = Window.MODE_FULLSCREEN
-	else:
-		get_window().mode = Window.MODE_WINDOWED
-	Game.save_data["settings"]["fullscreen"] = button_pressed
-	Game._save_game()
-
 func _on_setting_default_button_pressed() -> void:
 	AudioManager.play_ui("res://asset/audio/UI/click.wav")
 	master_slider.value = 50.0
@@ -164,11 +143,6 @@ func _on_setting_default_button_pressed() -> void:
 	sfx_slider.value = 50.0
 	ui_slider.value = 50.0
 	mute_checkbox.button_pressed = false
-	
-	resolution_option.selected = 0
-	_on_resolution_selected(0)
-	
-	fullscreen_checkbox.button_pressed = false
 	
 	Game._save_game()
 

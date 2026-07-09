@@ -49,7 +49,7 @@ var is_shield_active: bool = false
 var shield_timer: float = 0.0
 var shield_cooldown_timer: float = 0.0
 var max_shield_time: float = 5.0
-var max_shield_cooldown: float = 30.0
+var max_shield_cooldown: float = 20.0
 
 @onready var double_jump_timer: Timer = $doubleJumpTimer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -370,6 +370,10 @@ func player_dead():
 	AudioManager.play_se("res://asset/audio/SE/game_over.mp3")
 	is_dead = true
 	can_move = false
+	#重置魔法冷却
+	slow_descent_cooldown_timer = 0
+	shield_cooldown_timer = 0
+
 	set_physics_process(false)
 	animated_sprite.play("hurt")
 	await get_tree().create_timer(1).timeout

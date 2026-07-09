@@ -88,12 +88,14 @@ func _physics_process(delta: float) -> void:
 					{"speaker": "卡莎", "text": "哇哦！感觉好厉害！", "portrait": player_portrait},
 					{"speaker": "希奥娜", "text": "呵呵呵，别急，待会你也可以试着生成一个魔法护盾。护盾能让你安全地穿行在危险的敌人与尖刺丛中！不过，请千万注意使用的时机。使用一次护盾后你需要等待一段时间才能再次使用。", "portrait": master_portrait},
 					{"speaker": "希奥娜", "text": "除了黄宝石，还有各色的宝石藏在世界各处，拿到它们，你就可以使用不同的魔法了。好了，去试试你的新魔法吧！", "portrait": master_portrait},
-					{"speaker": "", "text": "（提示：按T键生成魔法护盾。护盾将持续5秒，结束后进入30秒冷却。）", "portrait": null}
+					{"speaker": "", "text": "（提示：按T键生成魔法护盾。护盾将持续5秒，结束后进入20秒冷却。）", "portrait": null}
 				]
 				# 让玩家无法移动
 				if player_node and player_node.has_method("set_physics_process"):
 					player_node.set_physics_process(false)
 				DialogManager.show_dialogue(dialog_data, master_portrait, "希奥娜")
+
+				await DialogManager.dialog_finished
 				#玩家解锁魔法
 				if player_node:
 					player_node.set("yellow_gem_magic_unlocked", true)
@@ -122,12 +124,6 @@ func _on_body_exited(body: Node2D) -> void:
 		player_node = null
 
 func _on_dialog_action(action_name: String) -> void:
-#	if action_name == "shoot":
-#		is_shooting = true
-#		anim.frame = 0
-#		anim.play("shooting")
-#		await $AnimatedSprite2D.animation_finished
-#		shooting_fireball()
 	if action_name == "shield":
 		is_shooting = true
 		anim.play("shield")

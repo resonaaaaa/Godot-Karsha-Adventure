@@ -25,8 +25,6 @@ func _ready() -> void:
 	add_to_group("checkpoint_stateful")
 	anim.animation_finished.connect(Callable(self, "_on_animation_finished"))
 	$MagicShieldParticles.emitting = false
-
-
 	start_position = position
 
 func _physics_process(delta: float) -> void:
@@ -96,8 +94,6 @@ func _physics_process(delta: float) -> void:
 				_save_event_checkpoint("magic_master_first_dialog")
 			else:
 				#再次对话
-				if player_node and player_node.has_method("set_physics_process"):
-					player_node.set_physics_process(false)
 				if player_node.has_gem == true:
 					var dialog_data = [
 						{"speaker": master_name, "text": "卡莎，找到红宝石了吗？有没有学会魔法？", "portrait": master_portrait},
