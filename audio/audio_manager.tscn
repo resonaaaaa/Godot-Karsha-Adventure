@@ -9,7 +9,7 @@ script = ExtResource("1_tmngx")
 bus = &"BGM"
 
 [node name="SEPlayer" type="AudioStreamPlayer" parent="." unique_id=1671766195]
-max_polyphony = 2
+max_polyphony = 4
 bus = &"SE"
 
 [node name="UIPlayer" type="AudioStreamPlayer" parent="." unique_id=309852319]

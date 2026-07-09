@@ -1,9 +1,9 @@
 res://asset/TileSet/base_sheet.tres::494003e7944e16324d56e4d89ba1ff33::1777368664::res://.godot/exported/133200997/export-9f118b9222b2134be0d1aaf59ba0c016-base_sheet.res
-res://asset/TileSet/floor.tres::1b1b7f44a9ce706d6e1cba09a437c3fb::1781166142::res://.godot/exported/133200997/export-72b764d597f238003cd7d295bf19f03d-floor.res
+res://asset/TileSet/floor.tres::1b1b7f44a9ce706d6e1cba09a437c3fb::1781191529::res://.godot/exported/133200997/export-72b764d597f238003cd7d295bf19f03d-floor.res
 res://asset/UI/MenuButtonTheme/ButtonHover.tres::fa00e91450c16e5bb95c42406a0ea56c::1777311193::res://.godot/exported/133200997/export-cd96c3589efe5ed820ff57e24758acf2-ButtonHover.res
 res://asset/UI/MenuButtonTheme/ButtonTheme.tres::fd727891131e011aab4b7be60bdf5e62::1777311067::res://.godot/exported/133200997/export-a298c1c1f4d5c1fa19bf6f251c5fbf87-ButtonTheme.res
 res://asset/UI/ControlTheme.tres::863df0c6fd34179317284adf428a24aa::1779677314::res://.godot/exported/133200997/export-4f11710902de90672b256b4a15b46ece-ControlTheme.res
-res://audio/audio_manager.tscn::44c59b3a8a4bef3dfd8f49e8fce0b0d8::1779796799::res://.godot/exported/133200997/export-39029463a0be322bfe5bef576d7e24d5-audio_manager.scn
+res://audio/audio_manager.tscn::a9f49b618e78c3d999d353d3eaa1ee94::1781193127::res://.godot/exported/133200997/export-39029463a0be322bfe5bef576d7e24d5-audio_manager.scn
 res://audio/default_bus_layout.tres::59f0e47b683ff9aab7212de4bd0d08c0::1779694870::res://.godot/exported/133200997/export-0909decc0be8d8d6fa598ded375475c5-default_bus_layout.res
 res://character/elf.tscn::a2f3789630ad6b92e0d719f252d56237::1780992302::res://.godot/exported/133200997/export-1df95cc4b8d6cf1335a59d904ee41981-elf.scn
 res://character/green_gem_keeper.tscn::a44a61756d99ee4baaf99512784763ae::1779064990::res://.godot/exported/133200997/export-56081f938c14af34fb83754a9a54202a-green_gem_keeper.scn
@@ -22,9 +22,9 @@ res://items/fireball.tscn::e527db7172cb11e6395c587a513cd9c7::1778949255::res://.
 res://items/magic_circle.tscn::b7ac42a63ad85f5a0ef28b3a13b51767::1778855426::res://.godot/exported/133200997/export-99f2d8c372729ad90c7a0b2c74b0f0fc-magic_circle.scn
 res://items/rolling_stone.tscn::f841bf06611721660ef18cc9fbd4ddce::1778952835::res://.godot/exported/133200997/export-4787ddd2e4265769d4ca2251c2e6720b-rolling_stone.scn
 res://Level1/Level1.tscn::32354322ebc30940971ddd76e3fb945e::1781108503::res://.godot/exported/133200997/export-f29f9c0d9a8fe70cb7cc8d3ff135bd03-Level1.scn
-res://Level2/Level2.tscn::e9fb853fba1656d203ea6405f2b65e04::1781171312::res://.godot/exported/133200997/export-3c3309fac6579a9e6373083b7f70f441-Level2.scn
+res://Level2/Level2.tscn::938674b6820201423d75b283325366e5::1781193787::res://.godot/exported/133200997/export-3c3309fac6579a9e6373083b7f70f441-Level2.scn
 res://Level3/Level3.tscn::1192893b168cc0b15fd2379efacd2cb3::1781172475::res://.godot/exported/133200997/export-5ee16c1e67d4f8a66e97142263f46c8f-Level3.scn
-res://Level4/Level4.tscn::023a81619ed3e989e960607db50a1027::1781103261::res://.godot/exported/133200997/export-0096826e079ba06932ba290553634ba5-Level4.scn
+res://Level4/Level4.tscn::a83afda6d2e615b79d0cafe7b0b7b36d::1781193813::res://.godot/exported/133200997/export-0096826e079ba06932ba290553634ba5-Level4.scn
 res://mapElement/blocks/platform/fake_platform_blue.tscn::96e9df2333d001d11a8ae0cf40deb76b::1778855426::res://.godot/exported/133200997/export-cc57adc42e57fd354c3e09cb1469a528-fake_platform_blue.scn
 res://mapElement/blocks/platform/fake_platform_green.tscn::676c3577049e33dc31c4bb0384c3720c::1778855426::res://.godot/exported/133200997/export-7654a42ed0aa5a0df4f49a6f9e0e740d-fake_platform_green.scn
 res://mapElement/blocks/platform/fake_platform_red.tscn::b0a193221eb7c2ecce946415f4b0b8ac::1778855426::res://.godot/exported/133200997/export-2c85e065a4212b695899fa564f68b7f3-fake_platform_red.scn

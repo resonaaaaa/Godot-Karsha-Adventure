@@ -1,8 +1,2 @@
-res://Level2/Level2.tscn
-res://asset/TileSet/floor.tres
-res://character/player.gd
-res://character/magic_master.gd
-res://Level3/Level3.tscn
-res://UI/HUD/hud.gd
-res://UI/HUD/hud.tscn
 res://ShortAct/end_act.tscn
+res://asset/TileSet/floor.tres

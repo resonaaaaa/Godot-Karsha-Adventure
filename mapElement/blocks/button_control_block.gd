@@ -17,9 +17,11 @@ func checkpoint_set_state(state: Dictionary) -> void:
 
 func set_block_active() -> void:
 	_set_block_state(true)
+	AudioManager.play_se("res://asset/audio/SE/button_block.mp3")
 
 func set_block_inactive() -> void:
 	_set_block_state(false)
+	AudioManager.play_se("res://asset/audio/SE/button_block.mp3")
 
 func _set_block_state(active: bool) -> void:
 	is_active = active
