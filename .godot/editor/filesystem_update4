@@ -1,2 +1,5 @@
-res://ShortAct/end_act.tscn
+res://game.gd
+res://character/magic_master.gd
+res://character/player.gd
+res://Level2/Level2.tscn
 res://asset/TileSet/floor.tres

@@ -344,7 +344,7 @@ func get_gem(gem_type: String) -> void:
 			DialogManager.show_dialogue(["你在蓝宝石中感知到了灵动的魔力，它的能量正在逐渐进入你的身体。", "现在你能在起跳后再次按下跳跃键来进行二段跳了！"], null, "获得蓝宝石")
 		"yellow":
 			has_yellow_gem = true
-			yellow_gem_magic_unlocked = true
+			yellow_gem_magic_unlocked = false
 			DialogManager.show_dialogue(["你在黄宝石中感知到了坚韧的魔力。", "但你不知道该如何使用它。"], null, "获得黄宝石")
 	
 #================================
